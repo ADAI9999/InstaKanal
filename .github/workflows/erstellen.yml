@@ -87,5 +87,6 @@ jobs:
             git commit -q -m "Neuer Beitrag: $ID"
             git push -q origin "$ZWEIG"
             node src/freigabetext.js "$ID" "$ZWEIG" > /tmp/pr.md
-            gh pr create --base main --head "$ZWEIG" --title "Freigabe: $(node -p "require('./posts/$ID/post.json').thema.trim()")" --body-file /tmp/pr.md
+            gh pr create --base main --head "$ZWEIG" --title "Freigabe: $(node -p "require('./posts/$ID/post.json').thema.trim()")" --body-file /tmp/pr.md \
+              --assignee "$GITHUB_REPOSITORY_OWNER" --reviewer "$GITHUB_REPOSITORY_OWNER"
           done
