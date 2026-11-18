@@ -68,6 +68,10 @@ async function main() {
   };
   delete post.fakten;
   post.bilder = await rendere(post, ordner, foto, seitenfotos);
+  // Rohbilder aufheben, damit Textkorrekturen ohne neue Bilder neu gerendert werden können.
+  fs.mkdirSync(path.join(ordner, "roh"), { recursive: true });
+  fs.writeFileSync(path.join(ordner, "roh", "titel.jpg"), Buffer.from(foto.daten, "base64"));
+  seitenfotos.forEach((f, i) => f && fs.writeFileSync(path.join(ordner, "roh", `seite-${i + 2}.jpg`), Buffer.from(f.daten, "base64")));
   speicherePost(ordner, post);
   console.log(`Fertig: posts/${id}/ (${post.bilder.length} Seiten, ${post.seitenbilder} Seitenbilder)`);
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `ids=${id}\n`);
