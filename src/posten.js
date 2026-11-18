@@ -41,7 +41,8 @@ async function main() {
     console.log(`Heute schon ${heute} Beiträge veröffentlicht (Höchstzahl ${konfig.maxProTag}). Nichts zu tun.`);
     return;
   }
-  const offen = ladePosts().filter((p) => !p.veroeffentlicht);
+  // Zurückgestellte Beiträge bleiben im Archiv, werden aber nicht automatisch gepostet.
+  const offen = ladePosts().filter((p) => !p.veroeffentlicht && (!p.zurueckgestellt || wunsch));
   const post = wunsch ? offen.find((p) => p.id === wunsch || p.id.includes(wunsch)) : offen[0];
   if (wunsch && !post) throw new Error(`Kein freigegebener, ungeposteter Beitrag passt zu „${wunsch}“.`);
   if (!post) {
