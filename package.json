@@ -8,7 +8,8 @@
     "erstellen": "node src/erstellen.js",
     "beispiel": "node src/erstellen.js --beispiel",
     "posten": "node src/posten.js",
-    "posten:probe": "node src/posten.js --probe"
+    "posten:probe": "node src/posten.js --probe",
+    "ansehen": "node src/ansicht.js"
   },
   "engines": {
     "node": ">=22"

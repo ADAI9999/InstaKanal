@@ -118,9 +118,8 @@ async function erstelleEinen(zaehler, bisherige) {
 
 async function main() {
   if (args.includes("--beispiel")) {
-    fs.rmSync(path.join(WURZEL, "vorschau"), { recursive: true, force: true });
     for (const [format, beispiel] of Object.entries(BEISPIELE)) {
-      const ordner = path.join(WURZEL, "vorschau", format);
+      const ordner = path.join(WURZEL, "vorschau", "beispiele", format);
       const bilder = await rendere({ typ: format, ...pruefe(format, structuredClone(beispiel)) }, ordner);
       console.log(`Beispiel ${format}: ${bilder.length} Bild(er) in ${path.relative(WURZEL, ordner)}/`);
     }

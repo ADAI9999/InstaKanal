@@ -47,11 +47,13 @@ body>*{position:relative}
 .serif{font-family:"Playfair Display",serif;line-height:1.2;letter-spacing:-.01em}
 .fett{font-weight:700;font-size:var(--gr);text-wrap:balance}
 .akzent{color:${f.akzent};font-style:italic;font-weight:700}
-.erzaehl{font-weight:400;font-size:var(--gr);line-height:1.38;letter-spacing:0;text-wrap:pretty}
+.erzaehl{font-weight:400;font-size:var(--gr);line-height:1.34;letter-spacing:0;text-wrap:pretty}
 .erzaehl p+p{margin-top:.85em}
 .erklaerung{margin-top:40px;font-size:40px;line-height:1.45;color:${f.text};opacity:.8;text-wrap:pretty}
-.kopfzeile{margin-bottom:.7em}
+.kopfzeile{margin-bottom:.6em;color:${f.akzent}}
+.kopfzeile.allein{color:${f.text}}
 .kopfzeile b{color:${f.akzent}}
+.kopfzeile:not(.allein) b{color:${f.text}}
 .erzaehl b{font-weight:700}
 .erzaehl i{font-style:italic}
 .aufhaenger{margin-top:36px;font-size:40px;line-height:1.35;color:${f.text};opacity:.85;text-wrap:balance}
@@ -100,10 +102,10 @@ function hervorheben(satz, phrase) {
 
 const TITEL_STUFEN = [[40, 104], [70, 90], [100, 78], [Infinity, 68]];
 const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
-const SATZ_STUFEN = [[60, 84], [90, 74], [120, 66], [Infinity, 58]];
-const ERZAEHL_STUFEN = [[110, 62], [180, 56], [250, 50], [Infinity, 45]];
-const KOPF_STUFEN = [[30, 64], [60, 54], [90, 48], [Infinity, 44]];
-const ERZAEHL_FOTO_STUFEN = [[80, 54], [130, 48], [180, 43], [Infinity, 38]];
+const SATZ_STUFEN = [[40, 108], [70, 94], [100, 82], [140, 72], [Infinity, 62]];
+const ERZAEHL_STUFEN = [[90, 78], [150, 68], [220, 60], [290, 54], [Infinity, 50]];
+const KOPF_STUFEN = [[30, 74], [60, 62], [90, 54], [Infinity, 50]];
+const ERZAEHL_FOTO_STUFEN = [[80, 58], [130, 52], [180, 46], [Infinity, 42]];
 
 /** Wandelt **fett** und *kursiv* in HTML um. */
 const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");
@@ -128,7 +130,7 @@ function seitenHtml(post, foto, seitenfotos = []) {
     const laenge = ohneSterne(absaetze.join(" ")).length + kopf.length;
     // Eine Seite, die nur aus einer Überschrift besteht, trägt sie groß (Sätze-Format).
     const kopfHtml = kopf
-      ? `<h2 class="serif fett kopfzeile" style="--gr:${groesse(kopf.length, absaetze.length ? KOPF_STUFEN : SATZ_STUFEN)}px">${fmt(kopf)}</h2>`
+      ? `<h2 class="serif fett kopfzeile ${absaetze.length ? "" : "allein"}" style="--gr:${groesse(kopf.length, absaetze.length ? KOPF_STUFEN : SATZ_STUFEN)}px">${fmt(kopf)}</h2>`
       : "";
     const textHtml = absaetze.length
       ? `<div class="serif erzaehl" style="--gr:${groesse(laenge, bild ? ERZAEHL_FOTO_STUFEN : ERZAEHL_STUFEN)}px">${absaetze.map((a) => `<p>${fmt(a)}</p>`).join("")}</div>`
