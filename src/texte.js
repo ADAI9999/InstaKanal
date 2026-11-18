@@ -89,7 +89,7 @@ Sätze: eine Sammlung eigener, pointierter Sätze zu einem gemeinsamen Thema, ei
 
 Die Bildunterschrift vertieft den Gedanken in zwei bis drei kurzen Absätzen und endet mit einem kleinen Anstoß für heute.
 
-Der Kanal heißt „${konfig.kanalname}“, und das ist seine Haltung: Der Wendepunkt einer Geschichte ist ein kleiner, unbequemer Schritt, den jemand doch tut (zuerst anrufen, sich entschuldigen, Nein sagen, hinfahren), obwohl Stolz, Angst oder Bequemlichkeit dagegen sprechen. Auch die Sätze kreisen um solche Schritte. Unter dem Schlusssatz steht auf der letzten Seite automatisch die Zeile „${konfig.schlusszeile}“; der Schlusssatz führt darauf hin, ohne sie zu wiederholen.
+Die Haltung des Kanals: Der Wendepunkt einer Geschichte ist ein kleiner, unbequemer Schritt, den jemand doch tut (zuerst anrufen, sich entschuldigen, Nein sagen, hinfahren), obwohl Stolz, Angst oder Bequemlichkeit dagegen sprechen. Auch die Sätze kreisen um solche Schritte. ${konfig.schlusszeile ? `Unter dem Schlusssatz steht auf der letzten Seite automatisch die Zeile „${konfig.schlusszeile}“; der Schlusssatz führt darauf hin, ohne sie zu wiederholen.` : ""}
 
 Grenzen, weil der Kanal mit seinem Namen dafür einsteht:
 - Alles ist frei erfunden und selbst formuliert. Keine realen Personen, keine Prominenten, keine Marken- oder Firmennamen, keine Sprüche, die bereits als bekannte Zitate im Umlauf sind.
