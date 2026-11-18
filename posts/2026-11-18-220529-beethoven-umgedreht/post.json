@@ -1,0 +1,137 @@
+{
+  "typ": "wahre_geschichte",
+  "design": "papier",
+  "bildstil": "illustration",
+  "thema": "Beethoven hört seinen Triumph nicht",
+  "titel": "Er stand bei der Uraufführung seiner größten Sinfonie auf der Bühne. Hören konnte er sie nicht.",
+  "aufhaenger": "Am Ende musste ihn eine junge Sängerin umdrehen.",
+  "bildidee": "Seen from the orchestra's side, facing the composer: an older man with wild grey hair in a dark tailcoat stands in the foreground looking towards the viewer, eyes half closed, arms still raised in conducting, completely unaware. Far behind him, in the background of a candle-lit 1820s theatre, the whole audience is on its feet waving hats and white handkerchiefs. A young woman singer in a pale dress steps towards him from the side.",
+  "bilder_auf_jeder_seite": true,
+  "seiten": [
+    {
+      "ueberschrift": "Wien, 7. Mai 1824",
+      "absaetze": [
+        "Das Theater am Kärntnertor ist voll. Vorne steht Ludwig van Beethoven, 53.",
+        "Seit Jahren ist er fast völlig taub. Gespräche führt er schriftlich, in kleinen Heften."
+      ],
+      "bildidee": "Close view of an old man's hands holding a small worn notebook and a pencil, an old brass ear trumpet lying beside it on a wooden table, warm candle light."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Offiziell leitet Kapellmeister Michael Umlauf. Er hat Sänger und Orchester angewiesen, nicht auf Beethoven zu achten.",
+        "Beethoven steht trotzdem daneben und schlägt den Takt. **Mit dem ganzen Körper.**"
+      ],
+      "bildidee": "An older composer with wild grey hair and a dark tailcoat conducting with both arms high and his whole body in motion, coat tails flying, a calm second conductor with a baton beside him, musicians seen from behind."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Dann hört die Musik auf.",
+        "**Beethoven nicht.**",
+        "Laut Zeitzeugen ist er ein paar Takte hinterher. Mit dem Rücken zum Saal."
+      ],
+      "bildidee": "An orchestra that has stopped playing, bows lowered, musicians looking up, and in front of them a grey-haired man still conducting alone with closed eyes, seen from behind."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Hinter ihm springen die Menschen auf. Er merkt nichts.",
+        "Da geht die Altistin Caroline Unger, 20 Jahre alt, zu ihm hinüber.",
+        "*Und dreht ihn behutsam um.*"
+      ],
+      "bildidee": "A young woman's hand in a white glove resting gently on the shoulder of an older man's dark tailcoat, turning him around, soft warm light, close detail."
+    },
+    {
+      "ueberschrift": "Erst jetzt sieht er es",
+      "absaetze": [
+        "Der Saal steht. Die Menschen schwenken Hüte und Taschentücher.",
+        "Damit er den Jubel sehen kann, den er nicht hört."
+      ],
+      "bildidee": "View from the stage into a packed 1820s theatre, rows of people on their feet waving top hats and white handkerchiefs, chandeliers glowing, painted in loose joyful watercolour."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Er hatte sein größtes Werk geschrieben, als er es nicht mehr hören konnte.",
+        "Die Melodie aus dem Schluss ist heute die Hymne Europas.",
+        "*Er hat sie nie so gehört wie wir.*"
+      ],
+      "bildidee": "An old handwritten music score lying on a wooden desk beside a quill and an inkwell, early morning light through a tall window, a few small golden stars painted in the pale sky outside."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Caroline Unger hätte sich einfach verbeugen können. Der Jubel galt auch ihr.",
+        "Sie ging stattdessen zu ihm hinüber.",
+        "**Manchmal ist die größte Geste, jemandem zu zeigen, was er erreicht hat.**"
+      ],
+      "bildidee": "Two people seen from behind on a modern city street at dusk, one gently placing a hand on the other's shoulder so they turn around, warm street lights."
+    }
+  ],
+  "caption": "Beethoven schrieb die Neunte, als er fast nichts mehr hörte. Den Jubel darüber sah er nur, weil eine 20-jährige Sängerin ihn umdrehte.\n\nWem könntest du heute zeigen, was er erreicht hat?",
+  "hashtags": [
+    "beethoven",
+    "geschichte",
+    "erfolg",
+    "musik",
+    "wertschätzung"
+  ],
+  "quellen": [
+    "https://en.wikipedia.org/wiki/Symphony_No._9_(Beethoven)",
+    "https://en.wikipedia.org/wiki/Caroline_Unger",
+    "https://weta.org/fm/classical-score/may-7-1824-200th-anniversary-premiere-beethovens-symphony-no-9"
+  ],
+  "erstellt": "2026-11-18T22:05:29.216Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "Geprüfte Fakten (aus den Quellen): Uraufführung der 9. Sinfonie am 7. Mai 1824 im Theater am Kärntnertor, Wien. Offiziell geleitet von Kapellmeister Michael Umlauf, der Sänger und Musiker anwies, den fast völlig tauben Beethoven zu ignorieren; Beethoven stand mit auf der Bühne, gab die Tempi und schlug den Takt. Beethoven war fast völlig taub und verständigte sich seit Jahren über Konversationshefte. Nach Zeitzeugen war er am Ende (des Scherzos oder der Sinfonie, die Berichte unterscheiden sich) einige Takte hinterher und dirigierte weiter; die Altistin Caroline Unger (geb. 28. Oktober 1803, also 20 Jahre alt) drehte ihn zum Publikum um. Das Publikum gab stehende Ovationen und schwenkte Hüte und Taschentücher, damit er den Beifall sehen konnte. Beethoven wurde im Dezember 1770 geboren, war also 53. Die Melodie der Ode an die Freude aus dem letzten Satz ist die Hymne des Europarats und der Europäischen Union.",
+  "lektorat": {
+    "entwurf": 1,
+    "titelseite": {
+      "note": 7,
+      "begruendung": "„Hören konnte er sie nicht“ und „Am Ende musste ihn eine junge Sängerin umdrehen“ werfen eine konkrete Frage auf: Warum musste man ihn umdrehen? Weil der Name fehlt, entsteht Neugier. Wer die Anekdote kennt, erkennt Beethoven aber sofort, und dann ist die Spannung weg."
+    },
+    "ueberraschung": {
+      "note": 5,
+      "begruendung": "Die Umdreh-Szene gehört zu den bekanntesten Musikanekdoten überhaupt. Wirklich neu ist für viele nur das Detail, dass Umlauf die Musiker anwies, Beethoven zu ignorieren (Seite 3), und genau das bleibt ungenutzt. Ab Seite 4 ahnt man den Rest."
+    },
+    "stimmigkeit": {
+      "note": 6,
+      "begruendung": "Mehrere Ausschmückungen stehen nicht in den Notizen: „Das Theater ist voll“, „Mit dem ganzen Körper“, „behutsam“, „sein größtes Werk“. Seite 4 („Dann hört die Musik auf“) legt sich auf das Ende der Sinfonie fest, obwohl die Quellen zwischen Scherzo und Schluss schwanken. Die Moral auf Seite 8 trägt ebenfalls nicht: Beethoven bemerkte den Erfolg nicht, weil er taub war, nicht weil er „zu tief in der eigenen Arbeit“ steckte."
+    },
+    "gehalt": {
+      "note": 5,
+      "begruendung": "Man nimmt die Szene und den Europahymnen-Bezug mit. Die Lehre „jemanden umdrehen, der seinen Erfolg nicht sieht“ ist eine weiche Binsenweisheit und wird nur behauptet, nicht aus der Geschichte abgeleitet."
+    },
+    "abwechslung": {
+      "note": 6,
+      "begruendung": "Ein historischer Moment mit Musikbezug hebt sich vom üblichen Erfolgs-Content ab. Der Aufbau folgt aber dem Standardmuster: Szene, Dramatisierung, Gänsehaut-Satz, Moral, Frage ans Publikum."
+    },
+    "sprache": {
+      "note": 7,
+      "begruendung": "Die Zeilen sind kurz und szenisch, „Beethoven nicht.“ sitzt. Seite 8 kippt dann in Ratgeberton mit Appellfrage, die Bildunterschrift stellt eine zweite, andere Frage. Außerdem fehlt auf Seite 6 ein Satzzeichen („Erst jetzt sieht er es“)."
+    },
+    "schwaechste_stelle": "Seite 8: Die Übertragung „Manchmal steckt man so tief in der eigenen Arbeit, dass man den Erfolg nicht bemerkt“ passt nicht zur Geschichte. Beethoven war taub, nicht vertieft. Wer beim zweiten Lesen nachdenkt, schüttelt den Kopf, und die abschließende Appellfrage wirkt wie eine Predigt.",
+    "hinweise": "Streiche alles, was nicht in den Notizen steht: „voll“, „mit dem ganzen Körper“, „behutsam“, „größtes Werk“. Formuliere Seite 4 so, dass die Unsicherheit der Quellen ehrlich bleibt, etwa „Als ein Satz endet – die Berichte sagen nicht einheitlich, welcher –“. Mach das wenig bekannte Umlauf-Detail zum Kern: Die Musiker sollten den Komponisten ignorieren, und genau er bekam den Jubel. Ersetze die Moral durch eine Pointe, die wirklich aus der Geschichte folgt, oder lass die Szene ohne Belehrung enden. Behalte nur eine Frage, entweder auf Seite 8 oder in der Bildunterschrift.",
+    "schnitt": 6,
+    "bestanden": false,
+    "hinweis": "Text nach dem Lektorat von Hand überarbeitet"
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "Das Bild zeigt das bestellte Motiv als Tusche-Aquarell-Illustration: den grauhaarigen Dirigenten mit geschlossenen Augen und erhobenen Armen groß im Vordergrund, dahinter das jubelnde Publikum im Kerzenlicht und seitlich die Sängerin, ohne erkennbare Verformungen oder Schrift."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 7,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ]
+}
