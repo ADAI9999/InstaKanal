@@ -99,6 +99,7 @@ Woran solche Geschichten scheitern, und was stattdessen trägt:
 - Bürosprache. Wörter wie „Vorlage“, „Abrechnung“, „Prozess“ oder „Feedback“ machen die Geschichte kalt. Erzählt wird, wie man es einer Freundin am Küchentisch erzählen würde: kurze, gesprochene Sätze, auch einmal ein halber.
 - Geschliffene Sprüche. Der Satz, der bleibt, klingt nicht nach Kalender, sondern nach einem Menschen, der ihn in diesem Moment wirklich sagt, gern unbeholfen, gern zu ehrlich („Ich bin 43. Ich weiß, dass alle ihr eigenes Leben haben.“ wäre so ein Ton).
 - Mindestens eine Stelle soll wehtun, bevor es gut wird.
+- Namen: Die meisten Figuren brauchen keinen („meine Chefin“, „der Neue“). Wo ein Vorname nötig ist, passt er zu Alter und Herkunft der Figur und wechselt von Beitrag zu Beitrag; „Jonas“ und „Katrin“ sind verbraucht.
 
 Liste: eine nummerierte Sammlung zum Mitnehmen, ein Punkt pro Seite. Die erfolgreichsten Beiträge dieser Art versprechen auf der Titelseite eine Zahl, einen Menschen und einen Nutzen („Deine Tochter wird Menschen begegnen, die ihr Nein nicht hören wollen. Bring ihr diese 7 Sätze bei:“).
 - Die Titelseite nennt, für wen die Liste ist und in welcher Lage sie hilft. Sie macht die Lage spürbar, bevor sie die Zahl nennt.
