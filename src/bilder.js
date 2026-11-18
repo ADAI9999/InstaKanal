@@ -32,8 +32,8 @@ const SCHRIFTEN = [
  */
 export const DESIGNS = {
   nacht: { hintergrund: "#0E1014", text: "#F4F1EA", gedaempft: "#9A9FAB", akzent: "#E9B44C", titel: '"Playfair Display",serif', lauf: '"Playfair Display",serif', glanz: true },
-  papier: { hintergrund: "#F2EBDD", text: "#24201B", gedaempft: "#7C7264", akzent: "#A3352A", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false },
-  archiv: { hintergrund: "#E6E1D5", text: "#1B1B1A", gedaempft: "#6E6A61", akzent: "#B3261E", titel: '"Special Elite",monospace', lauf: '"Courier Prime",monospace', glanz: false, rahmen: true },
+  papier: { hintergrund: "#F2EBDD", text: "#24201B", gedaempft: "#7C7264", akzent: "#A3352A", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false, block: "rand" },
+  archiv: { hintergrund: "#E6E1D5", text: "#1B1B1A", gedaempft: "#6E6A61", akzent: "#B3261E", titel: '"Special Elite",monospace', lauf: '"Courier Prime",monospace', glanz: false, rahmen: true, block: "foto", skala: 0.8 },
   vollbild: { hintergrund: "#0B0B0C", text: "#FFFFFF", gedaempft: "#D0D0D0", akzent: "#F2C14E", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false, vollbild: true },
 };
 
@@ -48,6 +48,27 @@ const esc = (s) =>
   String(s).replace(/[&<>"]/g, (z) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[z]);
 
 let SCHRIFT_CSS = null;
+
+/**
+ * Helle Gestaltungen legen das Bild als eigenen Block über den Text, statt den Text auf das Bild zu setzen:
+ *   rand  Bild über die ganze Breite oben, harte Kante zum Papier
+ *   foto  eingeklebtes Foto mit hellem Rand, leicht schräg
+ */
+function blockCss(f) {
+  const titelH = f.block === "foto" ? 590 : 680;
+  const seiteH = f.block === "foto" ? 560 : 610;
+  const oben = f.block === "foto" ? 70 : 0;
+  const lage =
+    f.block === "foto"
+      ? `top:${oben}px;left:70px;right:70px;border:14px solid #F7F4EC;box-shadow:0 10px 30px #0004;transform:rotate(-1.2deg)`
+      : "top:0;left:0;right:0";
+  return `.foto{${lage};height:${titelH}px}
+.foto::after{${f.block === "foto" ? "display:none" : `background:linear-gradient(to bottom, ${f.hintergrund}00 88%, ${f.hintergrund} 100%)`}}
+body.seitenfoto .foto{height:${seiteH}px}
+body.mitfoto .mitte{justify-content:center;margin-top:${oben + titelH - 60}px;padding-bottom:0}
+body.seitenfoto .mitte{margin-top:${oben + seiteH - 60}px}
+body.mitfoto .stempel{margin-bottom:28px}`;
+}
 
 function css(design = "nacht") {
   const f = DESIGNS[design] ?? DESIGNS.nacht;
@@ -67,9 +88,9 @@ body>*{position:relative}
 .fuss .marke{font-family:"Playfair Display",serif;font-style:italic;font-size:26px;letter-spacing:.02em;opacity:.85}
 .strich{width:96px;height:6px;background:${f.akzent};border-radius:3px;margin-bottom:56px}
 .serif{font-family:${f.lauf};line-height:1.25;letter-spacing:-.005em}
-.fett{font-family:${f.titel};font-weight:700;font-size:var(--gr);text-wrap:balance;line-height:1.2}
+.fett{font-family:${f.titel};font-weight:700;font-size:calc(var(--gr) * ${f.skala ?? 1});text-wrap:balance;line-height:1.2}
 .akzent{color:${f.akzent};font-style:italic;font-weight:700}
-.erzaehl{font-weight:400;font-size:var(--gr);line-height:1.38;letter-spacing:0;text-wrap:pretty}
+.erzaehl{font-weight:400;font-size:calc(var(--gr) * ${f.skala ?? 1});line-height:1.38;letter-spacing:0;text-wrap:pretty}
 .erzaehl p+p{margin-top:.8em}
 .kopfzeile{margin-bottom:.6em;color:${f.akzent}}
 .kopfzeile.allein{color:${f.text}}
@@ -77,7 +98,7 @@ body>*{position:relative}
 .kopfzeile:not(.allein) b{color:${f.text}}
 .erzaehl b{font-weight:700}
 .erzaehl i{font-style:italic}
-.aufhaenger{margin-top:36px;font-family:${f.lauf};font-style:italic;font-size:42px;line-height:1.35;color:${f.text};opacity:.9;text-wrap:balance}
+.aufhaenger{margin-top:30px;font-family:${f.lauf};font-style:italic;font-size:${Math.round(42 * (f.skala ?? 1))}px;line-height:1.35;color:${f.text};opacity:.9;text-wrap:balance}
 .abspann{margin-top:0;font-size:46px;line-height:1.4;text-wrap:balance}
 .stempel{display:inline-block;align-self:center;margin-bottom:40px;padding:10px 26px;border:4px solid ${f.akzent};color:${f.akzent};
   font-family:"Special Elite",monospace;font-size:34px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-4deg)}
@@ -97,6 +118,7 @@ body.mitfoto .mitte{padding-bottom:20px}
 body.mitfoto{text-shadow:0 2px 18px #000a}` : ""}
 .folgen{margin-top:56px;display:inline-block;align-self:flex-start;padding:26px 44px;border-radius:999px;
   background:${f.akzent};color:${f.hintergrund};font-size:36px;font-weight:700;text-shadow:none}
+${f.block ? blockCss(f) : ""}
 `;
 }
 
