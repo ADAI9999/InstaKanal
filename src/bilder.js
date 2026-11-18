@@ -15,7 +15,7 @@ const SCHRIFTEN = [
   ["Playfair Display", 700, "italic", "@fontsource/playfair-display/files/playfair-display-latin-700-italic.woff2"],
 ];
 
-function schriftCss() {
+export function schriftCss() {
   return SCHRIFTEN.map(([familie, gewicht, stil, datei]) => {
     const daten = fs.readFileSync(path.join(WURZEL, "node_modules", datei)).toString("base64");
     return `@font-face{font-family:"${familie}";font-weight:${gewicht};font-style:${stil};src:url(data:font/woff2;base64,${daten}) format("woff2");}`;
