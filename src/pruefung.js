@@ -2,7 +2,7 @@
 // und der Beitrag vorgelegt wird. Ebenso wird das Titelbild gegen die Titelseite geprüft.
 import Anthropic from "@anthropic-ai/sdk";
 import { konfig } from "./konfig.js";
-import { FORMATE, BILDSTILE } from "./texte.js";
+import { FORMATE, BILDSTILE, vorbilder } from "./texte.js";
 
 const MODELL = "claude-opus-5-5";
 export const MINDESTNOTE = 7;
@@ -74,6 +74,10 @@ Der Maßstab sind die meistgeteilten Beiträge von Kanälen mit mehreren hundert
 Lies den Entwurf zweimal: einmal wie ein Fremder, der durch den Feed wischt, und einmal wie jemand, der Fehler sucht. Prüfe beim zweiten Mal jede Seite: Würde ein Mensch das wirklich so tun oder sagen? Passen die Zahlen und Zeiten zusammen? Folgt die Schlussfolgerung aus dem, was erzählt wurde, oder wird sie nur behauptet? Versteht man jede Seite, ohne zu rätseln?
 
 Bewerte streng und nutze die ganze Skala: 7 heißt „kann so erscheinen“, 9 heißt „einer der besten des Monats“.
+
+Maßstab für „Überraschung“ ist ein durchschnittlicher Mensch, der durch Instagram wischt, nicht eine Expertin. Eine bekannte Person mit einer wenig bekannten Wendung ist überraschend; eine Geschichte, die man aus jedem Ratgeber kennt, ist es nicht.
+
+${vorbilder().length ? `Zur Eichung: Diese Beiträge hat der Inhaber freigegeben, sie liegen bei 7 bis 8 in jedem Kriterium.\n\n${vorbilder().map((v, i) => `EICHBEISPIEL ${i + 1}\n${v}`).join("\n\n")}\n\n` : ""}
 
 ${bisherige.length ? `Zuletzt erschienen (für die Note „Abwechslung“):\n${bisherige.map((t) => `- ${t}`).join("\n")}\n\n` : ""}${notizen ? `Recherche-Notizen (nur was hier steht, darf als Tatsache behauptet werden):\n${notizen}\n\n` : ""}Der Entwurf:
 

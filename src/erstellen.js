@@ -30,17 +30,23 @@ function neueId(format) {
 function plane(zaehler) {
   const formate = konfig.formate ?? TYPEN;
   const felder = konfig.themenfelder;
-  const stile = Object.keys(BILDSTILE);
-  const format = TYPEN.includes(typWunsch) ? typWunsch : formate[zaehler % formate.length];
   if (typWunsch !== "auto" && !TYPEN.includes(typWunsch)) throw new Error(`Unbekanntes Format: ${typWunsch}`);
+  const format = TYPEN.includes(typWunsch) ? typWunsch : formate[zaehler % formate.length];
   const themenfeld = felder[(zaehler * 5 + 2) % felder.length];
-  let bildstil = stile[(zaehler * 3 + 1) % stile.length];
-  // Reale Personen werden nicht abgebildet; Gleichnisse wirken gezeichnet oder schwarz-weiß am stärksten.
-  if (format === "wahre_geschichte" && bildstil === "nahaufnahme") bildstil = "ort";
-  if (format === "gleichnis" && !["illustration", "schwarzweiss", "tier", "sinnbild"].includes(bildstil)) {
-    bildstil = zaehler % 2 ? "illustration" : "schwarzweiss";
-  }
-  return { format, themenfeld, bildstil };
+  const wahl = (liste) => liste[(zaehler * 3 + 1) % liste.length];
+
+  // Gestaltung und Bildstil passen zueinander und zum Format; innerhalb davon wird gewechselt.
+  const KOMBINATIONEN = {
+    wahre_geschichte: [["archiv", "schwarzweiss"], ["papier", "illustration"], ["archiv", "ort"], ["vollbild", "gegenstand"]],
+    gleichnis: [["papier", "illustration"], ["vollbild", "tier"], ["nacht", "sinnbild"], ["papier", "illustration"]],
+    wissen: [["vollbild", "sinnbild"], ["nacht", "gegenstand"], ["archiv", "schwarzweiss"], ["papier", "illustration"]],
+    geschichte: [["vollbild", "nahaufnahme"], ["papier", "illustration"], ["nacht", "gegenstand"], ["vollbild", "haende"]],
+    liste: [["nacht", "gegenstand"], ["papier", "haende"], ["vollbild", "ort"], ["nacht", "sinnbild"]],
+    anleitung: [["papier", "haende"], ["nacht", "gegenstand"], ["papier", "illustration"]],
+    saetze: [["nacht", "ort"], ["papier", "illustration"], ["vollbild", "schwarzweiss"]],
+  };
+  const [design, bildstil] = wahl(KOMBINATIONEN[format] ?? [["nacht", "nahaufnahme"]]);
+  return { format, themenfeld, bildstil, design };
 }
 
 /** Schreibt Entwürfe, bis das Lektorat einen durchlässt (höchstens drei), und nimmt sonst den besten. */
@@ -86,8 +92,8 @@ async function seitenbilder(inhalt, bildstil) {
 }
 
 async function erstelleEinen(zaehler, bisherige) {
-  const { format, themenfeld, bildstil } = plane(zaehler);
-  console.log(`Erzeuge „${FORMATE[format].name}“ | Themenfeld: ${themenfeld} | Bildstil: ${bildstil}`);
+  const { format, themenfeld, bildstil, design } = plane(zaehler);
+  console.log(`Erzeuge „${FORMATE[format].name}“ | Themenfeld: ${themenfeld} | Gestaltung: ${design} | Bildstil: ${bildstil}`);
 
   const notizen = FORMATE[format].recherche ? await recherchiere({ format, themenfeld, bisherige }) : "";
   if (notizen) console.log(`Recherche: ${notizen.split("\n")[0].slice(0, 160)}`);
@@ -107,6 +113,8 @@ async function erstelleEinen(zaehler, bisherige) {
     erstellt: new Date().toISOString(),
     themenfeld,
     bildstil,
+    design,
+    stempel: design === "archiv" && !FORMATE[format].erfunden ? (format === "wissen" ? "Belegt" : "Wahre Geschichte") : undefined,
     ...inhalt,
     recherche: notizen || undefined,
     lektorat: { entwurf: runde, ...urteil },

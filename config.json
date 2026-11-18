@@ -16,13 +16,15 @@
   "abspann": "Diese Seite siehst du vielleicht nie wieder. Folge uns, wenn du mehr davon willst.",
   "wasserzeichen": "Erfolgsguru",
   "formate": [
+    "wahre_geschichte",
+    "gleichnis",
     "wissen",
     "geschichte",
-    "gleichnis",
-    "liste",
     "wahre_geschichte",
-    "anleitung",
-    "saetze"
+    "saetze",
+    "liste",
+    "gleichnis",
+    "anleitung"
   ],
   "themenfelder": [
     "Psychologie des Alltags: Denkfehler, Selbsttäuschung, warum wir tun, was wir tun",

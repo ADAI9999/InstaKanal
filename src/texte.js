@@ -1,5 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { konfig } from "./konfig.js";
+import fs from "node:fs";
+import path from "node:path";
+import { konfig, WURZEL } from "./konfig.js";
 
 const MODELL = "claude-opus-5-5";
 
@@ -26,7 +28,8 @@ export const FORMATE = {
 - Die Titelseite schildert einen seltsamen, bildstarken Vorgang, bei dem man wissen will, wie er ausgeht.
 - Die Handlung ist einfach und läuft auf eine unbequeme Einsicht zu, die man erst auf den letzten Seiten versteht.
 - Dann wird das Prinzip beim Namen genannt und in zwei, drei Sätzen auf das Leben der Leserin oder des Lesers übertragen (Arbeit, Geld, Familie, Freundschaft).
-- Dieses Format lebt von Bildern: bilder_auf_jeder_seite ist wahr, jede Seite hat eine eigene Bildidee. Seiten sind kurz, höchstens 170 Zeichen.`,
+- Dieses Format lebt von Bildern: bilder_auf_jeder_seite ist wahr, jede Erzählseite hat eine eigene Bildidee, die beiden Seiten mit dem Prinzip bleiben ohne Bild. Seiten sind kurz, höchstens 170 Zeichen.
+- Eine gute Weisheit ist unbequem und genau. Sie sagt etwas, das man nicht schon tausendmal gelesen hat.`,
   },
   wissen: {
     name: "Überraschendes Wissen",
@@ -39,7 +42,7 @@ export const FORMATE = {
 - Zwischenüberschriften in Großbuchstaben (zwei bis vier Wörter) gliedern die Seiten.`,
   },
   wahre_geschichte: {
-    name: "Wahre Begebenheit",
+    name: "Wahre Geschichte über eine Berühmtheit",
     recherche: true,
     erfunden: false,
     bau: `Eine wahre, gut belegte Begebenheit aus Geschichte, Wissenschaft, Sport oder Wirtschaft, erzählt in der dritten Person, 7 bis 12 Seiten. Am liebsten eine, die kaum jemand kennt, oder ein unbekanntes Kapitel aus einem bekannten Leben.
@@ -47,7 +50,8 @@ export const FORMATE = {
 - Erzählt wird in Szenen, nicht als Lebenslauf. Alles, was behauptet wird, steht in den Recherche-Notizen. Nichts hinzuerfinden, auch keine Zitate.
 - Über lebende Personen nur, was unstrittig belegt und nicht ehrenrührig ist.
 - Der Schluss zieht eine Folgerung, die über die Person hinaus gilt.
-- Das Titelbild zeigt nicht das Gesicht der realen Person, sondern einen Ort, einen Gegenstand oder eine Szene aus der Geschichte.`,
+- Bilder: Lebende Personen werden nie abgebildet, nur Orte, Gegenstände, Hände oder Szenen. Lange verstorbene Persönlichkeiten dürfen als Zeichnung erscheinen. Bilder dort, wo sie etwas zeigen; reine Gedankenseiten bleiben ohne Bild (bildidee leer).
+- Die Titelseite verrät die Pointe nicht.`,
   },
   liste: {
     name: "Liste",
@@ -126,6 +130,22 @@ const SCHEMA = {
   },
 };
 
+/** Die von Hand geschriebenen und vom Inhaber freigegebenen Beiträge dienen als Maßstab für das Niveau. */
+export function vorbilder() {
+  const ordner = path.join(WURZEL, "entwuerfe");
+  if (!fs.existsSync(ordner)) return [];
+  return fs
+    .readdirSync(ordner)
+    .filter((d) => d.endsWith(".json"))
+    .map((d) => JSON.parse(fs.readFileSync(path.join(ordner, d), "utf8")))
+    .map((e) =>
+      [
+        `TITELSEITE: ${e.titel}${e.aufhaenger ? ` | ${e.aufhaenger}` : ""}`,
+        ...e.seiten.map((s, i) => `SEITE ${i + 2}: ${[s.ueberschrift, ...(s.absaetze ?? [])].filter(Boolean).join(" / ")}`),
+      ].join("\n"),
+    );
+}
+
 function systemPrompt() {
   return `Du schreibst Karussell-Beiträge für einen deutschsprachigen Instagram-Kanal. Die Leserin oder der Leser wischt Seite für Seite weiter.
 
@@ -148,7 +168,7 @@ Handwerk:
 - Die Bildunterschrift wiederholt den Beitrag nicht, sondern setzt einen eigenen Gedanken dazu und endet mit einem kleinen Anstoß oder einer Frage.
 - Die letzte Seite jedes Beitrags ist ein fester Abspann mit dem Kanalnamen; sie wird nicht mitgeschrieben.
 
-Verbrauchte Muster, die in diesem Kanal nicht mehr vorkommen:
+${vorbilder().length ? `So sieht das gewünschte Niveau aus. Diese Beiträge hat der Inhaber freigegeben. Übernimm nicht ihre Stoffe, sondern ihre Sorgfalt: ein überraschender, belegter Kern, eine Titelseite, die die Pointe nicht verrät, kurze Seiten, eine Schlussfolgerung, die genau aus dem Erzählten folgt, Vorsicht bei allem, was nicht sicher belegt ist („laut Zeitzeugen“).\n\n${vorbilder().map((v, i) => `BEISPIEL ${i + 1}\n${v}`).join("\n\n")}\n\n` : ""}Verbrauchte Muster, die in diesem Kanal nicht mehr vorkommen:
 - Einstiege wie „Ich bin 41, Pflegerin …“ oder „Ich war 36 und …“ (Alter plus Beruf als erster Satz).
 - Die weise Chefin, der weise Vater oder das weise Kind, die mit einer Regel oder einem Zettel alles lösen.
 - Zettel im Glas, das Klopfen an eine Tür, das späte Geständnis am Küchentisch, „Dann sagte sie etwas, das ich bis heute nicht vergessen habe“.
@@ -214,7 +234,7 @@ export async function recherchiere({ format, themenfeld, bisherige }) {
   const gesucht =
     format === "wissen"
       ? "einen überraschenden, gut belegten Befund aus Psychologie, Verhaltensforschung, Hirnforschung, Schlafforschung, Ökonomie oder einem Nachbarfach, der für den Alltag etwas bedeutet und den die meisten Menschen nicht kennen"
-      : "eine wahre, gut belegte Begebenheit mit einer unerwarteten Wendung aus Geschichte, Wissenschaft, Sport oder Wirtschaft, die kaum jemand kennt (oder ein unbekanntes Kapitel aus einem bekannten Leben), möglichst über eine verstorbene Person oder ein lange zurückliegendes Ereignis";
+      : "eine wahre, gut belegte und wirklich überraschende Begebenheit aus dem Leben einer berühmten Person (Musik, Wissenschaft, Erfindung, Sport, Film, Wirtschaft, Literatur, Politik der Vergangenheit): ein Moment, den kaum jemand kennt und der etwas über Erfolg, Scheitern, Mut oder Menschlichkeit erzählt. Möglichst über eine verstorbene Person oder ein lange zurückliegendes Ereignis";
   const frage = `Finde für einen Instagram-Beitrag ${gesucht}.
 
 Themenfeld: ${themenfeld}
@@ -249,7 +269,7 @@ export async function erzeugeText(vorgabe) {
   for (let versuch = 1; versuch <= 3; versuch++) {
     try {
       const antwort = await anfrage({
-        output_config: { effort: "high", format: { type: "json_schema", schema: SCHEMA } },
+        output_config: { effort: "xhigh", format: { type: "json_schema", schema: SCHEMA } },
         system: systemPrompt(),
         messages: [{ role: "user", content: auftrag(vorgabe) }],
       });
