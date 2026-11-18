@@ -59,15 +59,23 @@ gh secret set IG_ACCESS_TOKEN
 - `IG_ACCESS_TOKEN`: das Token aus Schritt 2.
 
 ### 3b. Titelbilder
-Jede Geschichte bekommt ein KI-erzeugtes Titelbild (Googles Bildmodell über die Gemini API).
-Dafür auf <https://aistudio.google.com/apikey> einen API-Schlüssel anlegen und hinterlegen:
+Jede Geschichte bekommt ein KI-erzeugtes Titelbild. Der Dienst richtet sich nach dem hinterlegten Schlüssel:
+
+- **GPT Image (OpenAI):** Schlüssel von <https://platform.openai.com/api-keys>, braucht ein API-Konto mit Guthaben.
+
+```bash
+gh secret set OPENAI_API_KEY
+```
+
+- **Google (Gemini API):** Schlüssel von <https://aistudio.google.com/apikey>.
 
 ```bash
 gh secret set GEMINI_API_KEY
 ```
 
-Ohne Schlüssel bleibt die Titelseite reiner Text. Unter jeder Bildunterschrift steht der Hinweis,
-dass die Geschichte erfunden und das Titelbild KI-generiert ist.
+Sind beide hinterlegt, wird OpenAI verwendet. Ohne Schlüssel bleibt die Titelseite reiner Text.
+Modell und Qualität lassen sich in `config.json` über `bildmodell` und `bildqualitaet` (low, medium, high) ändern.
+Unter jeder Bildunterschrift steht der Hinweis, dass die Geschichte erfunden und das Titelbild KI-generiert ist.
 
 ### 4. Token-Verlängerung (nur beim älteren Instagram-Login)
 Das Instagram-Token läuft nach 60 Tagen ab. Damit es sich selbst verlängert:
