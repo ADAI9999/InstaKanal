@@ -1,0 +1,163 @@
+{
+  "typ": "wahre_geschichte",
+  "design": "archiv",
+  "bildstil": "schwarzweiss",
+  "stempel": "Wahre Geschichte",
+  "thema": "Abraham Wald und die fehlenden Einschusslöcher",
+  "titel": "Die Bomber kamen voller Einschusslöcher zurück. Ein Mathematiker riet: Nicht dort panzern, wo die Löcher sind.",
+  "aufhaenger": "Er hatte recht. Und das betrifft jede Erfolgsgeschichte.",
+  "bildidee": "Black and white archival-style photograph of a Second World War four-engine bomber parked on an airfield, its fuselage and wings riddled with bullet holes, ground crew silhouettes in the distance, overcast sky.",
+  "bilder_auf_jeder_seite": true,
+  "seiten": [
+    {
+      "ueberschrift": "New York, Zweiter Weltkrieg",
+      "absaetze": [
+        "An der Columbia University rechnet eine kleine Gruppe von Mathematikern für das US-Militär.",
+        "Einer von ihnen: Abraham Wald. Er hatte Österreich nach dem Anschluss 1938 verlassen."
+      ],
+      "bildidee": "Black and white photograph of a 1940s office: a wooden desk covered with papers, graphs and a mechanical calculator, a man in a white shirt seen from behind working under a desk lamp."
+    },
+    {
+      "ueberschrift": "Das Problem",
+      "absaetze": [
+        "Viele Bomber kehren nicht zurück.",
+        "Panzerplatten würden helfen. Aber sie machen die Maschinen schwer.",
+        "Wo also schützen?"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Die Daten",
+      "absaetze": [
+        "Man untersucht die Flugzeuge, die von ihren Einsätzen zurückkommen.",
+        "Manche Stellen: oft durchlöchert.",
+        "Andere, etwa die Motoren: **auffällig selten getroffen.**"
+      ],
+      "bildidee": "Black and white close-up photograph of an aluminium aircraft fuselage with a cluster of bullet holes, rivets and peeling paint, hard side light."
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Der naheliegende Gedanke:",
+        "Panzer dorthin, wo die meisten Löcher sind. Dort wird offenbar geschossen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Wald dreht die Frage um",
+      "absaetze": [
+        "**Wo wurden die Flugzeuge getroffen, die nicht zurückgekommen sind?**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Die zählt niemand. Sie fehlen in den Daten.",
+        "Ein Treffer an einer robusten Stelle: Die Maschine kommt heim. Mit Löchern.",
+        "Ein Treffer im Motor: Sie kommt oft nicht heim. *Und taucht in keiner Statistik auf.*"
+      ],
+      "bildidee": "Black and white photograph of an empty airfield runway at dusk, a few ground crew waiting and looking at the empty sky."
+    },
+    {
+      "ueberschrift": "Seine Folgerung",
+      "absaetze": [
+        "Die Löcher zeigen nicht, wo es gefährlich ist.",
+        "**Sie zeigen, wo ein Flugzeug Treffer überleben kann.**",
+        "Schützen muss man die Stellen, an denen die Heimkehrer kaum Löcher haben."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Der Denkfehler hat einen Namen",
+      "absaetze": [
+        "Survivorship Bias: Man schaut nur auf die, die durchgekommen sind.",
+        "Und zieht daraus die falschen Schlüsse."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Er steckt in fast jedem Erfolgsratgeber",
+      "absaetze": [
+        "Ein paar Studienabbrecher werden Milliardäre. Ihre Geschichten kennt jeder.",
+        "Von den vielen, die abgebrochen haben und gescheitert sind, erzählt niemand. *Sie schreiben keine Bücher.*"
+      ],
+      "bildidee": "Black and white photograph of a bookshop shelf full of business and success books with blank spines, one empty gap in the row, soft window light."
+    },
+    {
+      "ueberschrift": "Bevor du einen Erfolg nachmachst",
+      "absaetze": [
+        "Frag wie Wald:",
+        "**Wo sind die, bei denen es nicht geklappt hat? Und was haben die genauso gemacht?**"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Wir lernen fast nur von denen, die es geschafft haben. Die anderen sitzen nicht in Talkshows.\n\nWelche Erfolgsgeschichte hast du zuletzt einfach geglaubt?",
+  "hashtags": [
+    "denkfehler",
+    "erfolg",
+    "geschichte",
+    "statistik",
+    "survivorshipbias"
+  ],
+  "quellen": [
+    "https://en.wikipedia.org/wiki/Abraham_Wald",
+    "https://doi.org/10.1080/01621459.1984.10478038",
+    "https://eduardofe.netlify.app/posts/2022-02-09-wald-plane/"
+  ],
+  "erstellt": "2026-11-18T21:44:47.503Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "Geprüfte Fakten (aus den Quellen): Abraham Wald war im Zweiten Weltkrieg Mitglied der Statistical Research Group an der Columbia University in New York, die für das US-Militär arbeitete. Er hatte Österreich nach dem Anschluss 1938 verlassen, weil er und seine Familie als Juden verfolgt wurden. Die Gruppe untersuchte die Verteilung der Schäden an Flugzeugen, die von Einsätzen zurückkehrten, um Bomberverluste zu verringern. Walds Kerngedanke (Bericht 1943, aufgearbeitet von Mangel und Samaniego 1984): Die Schäden der Heimkehrer zeigen, wo ein Flugzeug Treffer überstehen kann; Maschinen, die an anderen Stellen getroffen wurden, kehren vermutlich nicht zurück, die Daten der Heimkehrer verraten also wenig über die tatsächliche Verwundbarkeit. Bei den Heimkehrern lag der Anteil der Treffer an den Motoren unter dem Flächenanteil der Motoren. Die verbreitete Empfehlung, die Stellen mit wenigen Treffern zu schützen, folgt daraus. Survivorship Bias (Überlebensirrtum) ist die übliche Bezeichnung dieses Denkfehlers. Nicht belegt und deshalb nicht verwendet: wörtliche Dialoge mit Offizieren, Zahlen zu geretteten Leben.",
+  "lektorat": {
+    "entwurf": 1,
+    "titelseite": {
+      "note": 5,
+      "begruendung": "„Nicht dort panzern, wo die Löcher sind“ verrät die Pointe schon auf der ersten Seite. Wer die Geschichte kennt, und das sind wegen des allgegenwärtigen Flugzeug-mit-roten-Punkten-Memes viele, wischt sofort weiter. Der Zusatz „das betrifft jede Erfolgsgeschichte“ ist eine austauschbare Verheißung und keine konkrete Frage."
+    },
+    "ueberraschung": {
+      "note": 4,
+      "begruendung": "Die Wald-Anekdote gehört zu den meisterzählten Geschichten auf LinkedIn und Instagram. Auch die Übertragung auf Studienabbrecher-Milliardäre (S. 10) ist das Standardbeispiel. Die wirklich unbekannten Details aus den Notizen fehlen: Wald verglich den Trefferanteil mit dem Flächenanteil der Motoren, und sein Bericht wurde erst 1984 von Mangel und Samaniego aufgearbeitet."
+    },
+    "stimmigkeit": {
+      "note": 6,
+      "begruendung": "Auf S. 4 heißt es nur „Motoren: auffällig selten getroffen“. Ein kritischer Leser denkt sofort: Motoren sind eben kleine Ziele. Die Antwort (Trefferanteil unter Flächenanteil) steht in den Notizen, im Entwurf aber nicht. Das Gewichtsargument auf S. 3 ist nicht belegt. „Die zählt niemand“ (S. 7) ist schief, denn die Verluste wurden gezählt, nur ihre Schäden nicht. Der Titel schreibt Wald eine wörtliche Empfehlung zu, die laut Notizen die verbreitete Lesart ist."
+    },
+    "gehalt": {
+      "note": 5,
+      "begruendung": "Die Prüffrage auf S. 11 („Wo sind die, bei denen es nicht geklappt hat? Und was haben die genauso gemacht?“) ist brauchbar. Das Konzept Survivorship Bias dürfte der Zielgruppe aber weitgehend bekannt sein. Das Werkzeug, mit dem Wald den Fehler tatsächlich erkannt hat, also der Vergleich mit der Erwartung, wird nicht vermittelt."
+    },
+    "abwechslung": {
+      "note": 5,
+      "begruendung": "Der Aufbau folgt dem üblichen Schema für Erfolgs-Karussells: Anekdote, Denkfehler mit Namen, Übertragung auf Ratgeber, Frage an den Leser. Ein Studienabbrecher-Beispiel findet sich in unzähligen Beiträgen. Eigenständig wirkt der Beitrag nur, solange man die Geschichte nicht kennt."
+    },
+    "sprache": {
+      "note": 7,
+      "begruendung": "Die Zeilen sind kurz und klar und der Rhythmus stimmt („Mit Löchern.“, „Und taucht in keiner Statistik auf.“). Das Ende kommt ohne Predigt aus. S. 11 kippt mit „Bevor du einen Erfolg nachmachst“ leicht ins Ratgeberhafte, bleibt aber erträglich."
+    },
+    "schwaechste_stelle": "Die Titelseite. Sie erzählt die Pointe (nicht dort panzern, wo die Löcher sind) und bedient genau das Bild, das jeder schon tausendmal gesehen hat. Wer die Geschichte kennt, und das ist ein großer Teil der Zielgruppe, hat keinen Grund mehr zu wischen. Wer sie nicht kennt, bekommt die Auflösung von S. 6–8 schon vorweg.",
+    "hinweise": "Die Pointe muss vom Titel weg. Die Titelseite sollte eine echte Frage aufwerfen, etwa: Warum waren an den Motoren der Heimkehrer weniger Treffer, als es ihre Fläche erwarten ließ? Auf S. 4 gehört der belegte Kern hinein: Der Trefferanteil der Motoren lag unter ihrem Flächenanteil. Damit ist der Einwand „Motoren sind halt klein“ entkräftet, und der Leser lernt Walds eigentliches Werkzeug, den Vergleich von Beobachtung und Erwartung. Streiche das unbelegte Gewichtsargument auf S. 3. Ersetze „Die zählt niemand“ durch „Ihre Treffer kann niemand untersuchen“. Formuliere S. 7 vorsichtiger, denn die Notizen sagen „vermutlich“. Als überraschende Ebene lassen sich zwei belegte Tatsachen nutzen: Wald war selbst ein Überlebender, der als Jude aus Österreich floh, und sein Bericht von 1943 wurde erst 1984 aufgearbeitet. Ersetze außerdem das abgegriffene Studienabbrecher-Beispiel durch einen frischeren Alltagsfall.",
+    "schnitt": 5.333333333333333,
+    "bestanden": false
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "Das Bild zeigt im kontrastreichen, filmischen Schwarz-Weiß-Stil einen viermotorigen Weltkriegsbomber voller Einschusslöcher als klares, formatfüllendes Hauptmotiv mit Bodenpersonal-Silhouetten und dramatischem Himmel, passt damit genau zum Titel und bleibt auch als Daumennagel gut lesbar."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 4,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg",
+    "11.jpg",
+    "12.jpg"
+  ]
+}
