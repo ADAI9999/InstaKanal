@@ -69,15 +69,20 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           FREIGABE=$(node -p "require('./config.json').freigabe")
           : > /tmp/themen.txt
-          FERTIG=0; FEHLER=0
-
-          for i in $(seq 1 "$N"); do
-            echo "::group::Beitrag $i von $N"
+          FERTIG=0; FEHLER=0; VERWORFEN=0; i=0
+          # Durchgefallene Entwürfe werden nicht vorgelegt; dafür wird weiter erzeugt, höchstens doppelt so oft wie nötig.
+          while [ "$FERTIG" -lt "$N" ] && [ "$i" -lt $((N * 2)) ]; do
+            i=$((i + 1))
+            echo "::group::Versuch $i (fertig: $FERTIG von $N)"
             git fetch -q origin main
             git checkout -q --detach origin/main
             : > /tmp/ausgabe.txt
-            if ! GITHUB_OUTPUT=/tmp/ausgabe.txt node src/erstellen.js --typ "$TYP" --anzahl 1 --versatz "$i" --themendatei /tmp/themen.txt; then
-              FEHLER=$((FEHLER + 1))
+            set +e
+            GITHUB_OUTPUT=/tmp/ausgabe.txt node src/erstellen.js --typ "$TYP" --anzahl 1 --versatz "$i" --themendatei /tmp/themen.txt
+            CODE=$?
+            set -e
+            if [ "$CODE" -ne 0 ]; then
+              if [ "$CODE" -eq 2 ]; then VERWORFEN=$((VERWORFEN + 1)); else FEHLER=$((FEHLER + 1)); fi
               git clean -fdq posts
               echo "::endgroup::"
               continue
@@ -102,5 +107,5 @@ jobs:
             echo "::endgroup::"
           done
 
-          echo "Fertig: $FERTIG, fehlgeschlagen: $FEHLER"
+          echo "Fertig: $FERTIG, vom Lektorat verworfen: $VERWORFEN, fehlgeschlagen: $FEHLER"
           [ "$FERTIG" -gt 0 ] || exit 1

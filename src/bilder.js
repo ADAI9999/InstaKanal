@@ -105,7 +105,7 @@ const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
 const SATZ_STUFEN = [[40, 108], [70, 94], [100, 82], [140, 72], [Infinity, 62]];
 const ERZAEHL_STUFEN = [[90, 78], [150, 68], [220, 60], [290, 54], [Infinity, 50]];
 const KOPF_STUFEN = [[30, 74], [60, 62], [90, 54], [Infinity, 50]];
-const ERZAEHL_FOTO_STUFEN = [[80, 58], [130, 52], [180, 46], [Infinity, 42]];
+const ERZAEHL_FOTO_STUFEN = [[80, 64], [130, 56], [180, 50], [240, 46], [Infinity, 42]];
 
 /** Wandelt **fett** und *kursiv* in HTML um. */
 const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");

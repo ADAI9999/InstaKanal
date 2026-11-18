@@ -94,6 +94,10 @@ async function erstelleEinen(zaehler, bisherige) {
 
   const vorgabe = { format, themenfeld, bildstil, bisherige, notizen };
   const { inhalt, urteil, runde } = await schreibeGeprueft(vorgabe);
+  if (!urteil.bestanden) {
+    // Nur Beiträge, die das Lektorat bestehen, werden vorgelegt. Kein Bild, keine Kosten mehr.
+    throw new DurchgefallenFehler(`Nach ${runde} Entwürfen nicht bestanden („${inhalt.thema}“), verworfen.`);
+  }
   const id = neueId(format);
   const ordner = path.join(POSTS_ORDNER, id);
   const { foto, bildpruefung } = await bildGeprueft(inhalt, bildstil);
@@ -115,6 +119,8 @@ async function erstelleEinen(zaehler, bisherige) {
   console.log(`Fertig: posts/${id}/ (${post.bilder.length} Seiten, ${post.seitenbilder} Seitenbilder), Thema: ${post.thema}`);
   return { id, kurz: `[${FORMATE[format].name}] ${post.thema}: ${post.titel}` };
 }
+
+class DurchgefallenFehler extends Error {}
 
 async function main() {
   if (args.includes("--beispiel")) {
@@ -146,6 +152,6 @@ async function main() {
 }
 
 main().catch((fehler) => {
-  console.error(`Fehler: ${fehler.message}`);
-  process.exit(1);
+  console.error(`${fehler instanceof DurchgefallenFehler ? "Verworfen" : "Fehler"}: ${fehler.message}`);
+  process.exit(fehler instanceof DurchgefallenFehler ? 2 : 1);
 });
