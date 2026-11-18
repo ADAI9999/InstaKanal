@@ -19,11 +19,13 @@ const note = (beschreibung) => ({
 const TEXT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["passt_zum_kanal", "spannungsbogen", "thema_interessant", "sprache", "schwaechste_stelle", "hinweise"],
+  required: ["titelseite", "passt_zum_kanal", "spannungsbogen", "thema_interessant", "nutzwert", "sprache", "schwaechste_stelle", "hinweise"],
   properties: {
+    titelseite: note("Wirft der erste Satz in höchstens zwölf Wörtern eine konkrete Frage auf, die man beantwortet haben will? Würde man im Feed dafür anhalten?"),
     passt_zum_kanal: note("Passt der Beitrag zu Namen, Versprechen und Zielgruppe des Kanals?"),
     spannungsbogen: note("Zwingt die Titelseite zum Wischen, steigt die Spannung, gibt es eine Wendung und einen Schluss, der sitzt?"),
     thema_interessant: note("Würde ein fremder Mensch im Feed dafür anhalten und es jemandem schicken?"),
+    nutzwert: note("Gibt es etwas, das man heute Abend nachmachen kann und deshalb speichert oder dem Partner schickt? Wird es am Ende klar erklärt?"),
     sprache: note("Klingt es wie ein Mensch, der erzählt, oder wie ein Ratgeber?"),
     schwaechste_stelle: { type: "string", description: "Die eine Stelle, an der am ehesten jemand aufhört zu wischen, und warum" },
     hinweise: { type: "string", description: "Konkrete Anweisungen für eine bessere Fassung, drei bis fünf Sätze" },
@@ -70,7 +72,7 @@ Versprechen: ${konfig.nische}
 Zielgruppe: ${konfig.zielgruppe}
 Schwerpunkt dieses Beitrags: ${schwerpunkt || "frei"}
 
-Der Maßstab sind Kanäle mit mehreren hunderttausend Followern in diesem Feld. Ihre besten Beiträge haben eine Titelseite, die eine Lage mit Fallhöhe nennt und eine Lücke offen lässt; Figuren, die einander Dinge sagen, die sitzen; eine Wendung, die man nicht kommen sieht; mindestens eine Stelle, die wehtut; und am Ende etwas, das man selbst anwenden oder jemandem schicken will.
+Der Maßstab sind die meistgeteilten Beiträge von Kanälen mit mehreren hunderttausend Followern in diesem Feld. Sie beginnen mit einer einzigen konkreten Tatsache, die eine Frage aufwirft; es geht um einen Menschen, den man beschützen oder nicht verlieren will; sie bringen ein Werkzeug mit, das man am selben Abend nachmachen kann und das am Ende erklärt wird; sie haben Figuren, die einander Dinge sagen, die sitzen; eine Wendung, die man nicht kommen sieht; mindestens eine Stelle, die wehtut; und am Ende etwas, das man selbst anwenden oder jemandem schicken will.
 
 Typische Gründe für eine Ablehnung: Das Thema ist zu klein oder zu speziell, um Fremde zu interessieren. Der Ausgang steht nach der Titelseite fest. Die Mitte tritt auf der Stelle. Die Sprache klingt nach Büro oder Kalender. Der Beitrag könnte auf jedem beliebigen Kanal stehen und hat mit dem Versprechen dieses Kanals wenig zu tun.
 
@@ -81,7 +83,7 @@ Der Entwurf:
 ${alsText(typ, inhalt)}`;
 
   const urteil = await frage(TEXT_SCHEMA, auftrag, "high");
-  const noten = [urteil.passt_zum_kanal, urteil.spannungsbogen, urteil.thema_interessant, urteil.sprache].map((n) => n.note);
+  const noten = [urteil.titelseite, urteil.passt_zum_kanal, urteil.spannungsbogen, urteil.thema_interessant, urteil.nutzwert, urteil.sprache].map((n) => n.note);
   return { ...urteil, schnitt: noten.reduce((a, b) => a + b, 0) / noten.length, bestanden: noten.every((n) => n >= MINDESTNOTE) };
 }
 
@@ -102,7 +104,7 @@ export async function pruefeBild(foto, titel, bildidee) {
     [
       {
         type: "text",
-        text: `Dieses Bild soll die Titelseite eines Instagram-Karussells tragen. Der Titeltext darunter lautet:\n\n„${titel}“\n\nBestellt war dieses Motiv: ${bildidee}\n\nDas Bild passt, wenn es die Hauptfigur und die Stimmung des Titels zeigt und wie ein echtes Foto wirkt. Es fällt durch, wenn es etwas anderes zeigt als bestellt, wenn Hände, Gesichter oder Gegenstände sichtbar verformt sind, wenn Schrift, Logos oder Wasserzeichen im Bild stehen, oder wenn es nach Werbefoto statt nach einem echten Moment aussieht.`,
+        text: `Dieses Bild soll die Titelseite eines Instagram-Karussells tragen. Der Titeltext darunter lautet:\n\n„${titel}“\n\nBestellt war dieses Motiv: ${bildidee}\n\nDas Bild passt, wenn es die Hauptfigur und die Stimmung des Titels zeigt, wie ein echtes Foto wirkt und im Feed auffällt: ein klares Hauptmotiv, nah herangeholt, mit einem Ausdruck oder Detail, das auch in Daumennagelgröße lesbar ist und neugierig macht. Es fällt durch, wenn es beliebig oder unauffällig ist (kleine Figuren in einer weiten Szene, flaches Licht, nichtssagender Ausdruck), wenn es etwas anderes zeigt als bestellt, wenn Hände, Gesichter oder Gegenstände sichtbar verformt sind, wenn Schrift, Logos oder Wasserzeichen im Bild stehen, oder wenn es nach Werbefoto statt nach einem echten Moment aussieht.`,
       },
       { type: "image", source: { type: "base64", media_type: foto.typ, data: foto.daten } },
     ],

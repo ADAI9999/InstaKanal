@@ -4,7 +4,7 @@
 //   https://aistudio.google.com/docs/image-generation
 import { konfig } from "./konfig.js";
 
-const STIL = `Photorealistic, candid photograph that looks like it was taken with a phone or a small camera by a friend, not a stock photo. Natural light, real-looking skin and textures, slightly imperfect framing, shallow depth of field. The main subject sits in the upper two thirds of the frame; the bottom third is calm and darker, because text will be placed below. Every person shown is fictional and does not resemble any real, known individual. No text, no captions, no logos, no brand names, no watermarks, no borders.`;
+const STIL = `Photorealistic documentary photograph with a cinematic look: one clear main subject, shot close (head and shoulders, or hands with an object), strong directional light with deep shadows, high contrast, rich but slightly muted colours, shallow depth of field, real-looking skin and textures. It must stop a thumb scrolling through a feed: the emotion on the face or the oddness of the moment is readable at thumbnail size. Looks like a real, unposed moment in Germany (German streets, cars, houses, interiors), not a stock or advertising photo. The main subject sits in the upper two thirds of the frame; the bottom third is darker and calm, because text will be placed over it. Every person shown is fictional and does not resemble any real, known individual. No text, no captions, no logos, no brand names, no watermarks, no borders.`;
 
 async function mitOpenAI(bildidee, schluessel) {
   const modell = konfig.bildmodell || "gpt-image-2.5-sunburst";

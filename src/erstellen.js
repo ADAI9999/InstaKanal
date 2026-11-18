@@ -60,7 +60,7 @@ async function schreibeGeprueft(typ, themen, schwerpunkt) {
   for (let runde = 1; runde <= 3; runde++) {
     const inhalt = await erzeugeText(typ, themen, schwerpunkt, kritik);
     const urteil = await pruefeInhalt(typ, inhalt, schwerpunkt);
-    const noten = `Kanal ${urteil.passt_zum_kanal.note}, Spannung ${urteil.spannungsbogen.note}, Thema ${urteil.thema_interessant.note}, Sprache ${urteil.sprache.note}`;
+    const noten = `Titelseite ${urteil.titelseite.note}, Kanal ${urteil.passt_zum_kanal.note}, Spannung ${urteil.spannungsbogen.note}, Thema ${urteil.thema_interessant.note}, Nutzwert ${urteil.nutzwert.note}, Sprache ${urteil.sprache.note}`;
     console.log(`Lektorat, Entwurf ${runde} („${inhalt.thema}“): ${noten} → ${urteil.bestanden ? "bestanden" : "abgelehnt"}`);
     if (!bester || urteil.schnitt > bester.urteil.schnitt) bester = { inhalt, urteil, runde };
     if (urteil.bestanden) break;

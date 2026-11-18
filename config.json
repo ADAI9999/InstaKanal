@@ -2,15 +2,16 @@
   "handle": "erfolgsguru7",
   "instagramKontoId": "17841460011821939",
   "kanalname": "ERFOLGSGURU",
-  "nische": "Erfolg, erzählt über Menschen: was er kostet, wem man ihn verdankt, wen man dabei übersieht und wie man nach einem Rückschlag wieder aufsteht. Es geht um Beruf, Geld und Durchhalten, aber immer aus der Sicht eines Menschen, dem etwas wehtut oder der etwas zu verlieren hat.",
+  "nische": "Erfolg im Leben, erzählt über Menschen: wie man die schützt, die einem wichtig sind, wie man sich im Beruf behauptet, ohne sie zu verlieren, und wie man nach einem Rückschlag wieder aufsteht. Jeder Beitrag gibt etwas mit, das man noch am selben Tag anwenden kann.",
   "schwerpunkte": [
-    "Anerkennung im Beruf: übergangen oder unterschätzt werden, und der eine Mensch, der an einen glaubt",
-    "Eltern und Herkunft: was Eltern für den Weg ihrer Kinder aufgegeben haben, Stolz und Scham, ein Satz des Vaters oder der Mutter",
-    "Neuanfang und Geld: Jobverlust, Schulden, mit leeren Händen von vorn anfangen, eine Hilfe, mit der niemand gerechnet hat",
-    "Durchhalten: jemand macht weiter, als keiner hinsieht, und was Jahre später daraus wird",
-    "Was Erfolg kostet: die Freundschaft oder Familie, die man über der Arbeit fast verloren hätte, und wer geblieben ist"
+    "Eltern und Kinder: eine Abmachung, eine Frage oder ein Ritual, das ein Kind schützt oder stark macht",
+    "Anerkennung im Beruf: übergangen oder unterschätzt werden, und der Mensch zu Hause oder im Betrieb, der an einen glaubt",
+    "Die eigenen Eltern: was sie aufgegeben haben, Stolz und Scham, ein Satz des Vaters oder der Mutter",
+    "Partnerschaft und Freundschaft: wen man über der Arbeit fast verloren hätte, und was man dagegen tun kann",
+    "Neuanfang und Geld: Jobverlust oder Schulden, vor der Familie verschwiegen, und eine Hilfe, mit der niemand gerechnet hat",
+    "Güte gegenüber Fremden: eine kleine Geste ohne Publikum, und was Jahre später daraus wird"
   ],
-  "zielgruppe": "deutschsprachige Erwachsene ab etwa 25, die beruflich und persönlich vorankommen wollen",
+  "zielgruppe": "deutschsprachige Erwachsene von etwa 28 bis 55, viele davon Eltern, die im Leben und im Beruf vorankommen wollen",
   "tonfall": "ruhig, klar, ermutigend, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
   "freigabe": true,
   "rhythmus": [
@@ -25,6 +26,6 @@
     "gedaempft": "#9A9FAB",
     "akzent": "#E9B44C"
   },
-  "abspann": "Jeden Tag eine Geschichte, die dich weiterbringt.",
+  "abspann": "Diese Seite siehst du vielleicht nie wieder. Folge uns, wenn du mehr solche Geschichten willst.",
   "wasserzeichen": "Erfolgsguru"
 }

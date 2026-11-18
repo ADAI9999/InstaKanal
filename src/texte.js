@@ -10,7 +10,7 @@ const gemeinsam = {
   thema: { ...text, description: "Thema in 2 bis 5 Wörtern, dient der Vermeidung von Wiederholungen" },
   caption: { ...text, description: "Bildunterschrift: 2 bis 3 kurze Absätze, zusammen 150 bis 400 Zeichen, ohne Hashtags und ohne Folge-Aufruf" },
   hashtags: { type: "array", items: text, description: "3 bis 5 Hashtags ohne #" },
-  bildidee: { ...text, description: "Englische Beschreibung des Titelbilds in 2 bis 3 Sätzen: die Hauptfigur des Beitrags im entscheidenden Moment, mit Alter, Aussehen, Kleidung, Gesichtsausdruck, Ort und Licht. Ein Mensch, dem man die Gefühlslage ansieht, in einer alltäglichen Umgebung in Mitteleuropa. Keine Namen, keine Schrift im Bild." },
+  bildidee: { ...text, description: "Englische Beschreibung des Titelbilds in 2 bis 3 Sätzen. Das Bild muss im Feed in einer halben Sekunde auffallen und eine Frage aufwerfen: EIN klares Hauptmotiv, nah herangeholt (Gesicht und Oberkörper oder ein Gegenstand in einer Hand), ein starker, eindeutiger Gesichtsausdruck oder eine ungewöhnliche Situation, dazu das eine Detail aus der Geschichte, das neugierig macht. Nenne Alter, Aussehen, Kleidung, Ausdruck, Ort in Deutschland und eine dramatische Lichtquelle (Handylicht im Dunkeln, Straßenlaterne, Türspalt, Gegenlicht). Höchstens zwei Personen. Keine Namen, keine Schrift im Bild." },
 };
 
 const SCHEMATA = {
@@ -91,6 +91,15 @@ Geschichte: eine kurze, erfundene Erzählung aus dem Alltag in der Ich-Form. So 
 - Die letzten ein bis zwei Seiten verlassen die Geschichte und sprechen die Leserin oder den Leser direkt an: was daraus folgt, in klaren Sätzen. Der wichtigste Satz steht in **Fettschrift**.
 - Hervorhebungen: ein Schlüsselwort oder der Schlüsselsatz in **doppelten Sternchen** (fett), ein nachklingender Satz in *einfachen Sternchen* (kursiv). Sparsam, höchstens eine Hervorhebung pro Seite.
 - Konkrete Details machen die Geschichte glaubhaft: der Gruppenchat, der kalte Kaffee, die Jacke am Haken. Kein Triumph und keine Abrechnung am Ende.
+
+Was die meistgeteilten Beiträge der großen Kanäle in diesem Feld gemeinsam haben (ausgewertet nach Likes und Weiterleitungen):
+- Der erste Satz der Titelseite ist eine einzige, konkrete Tatsache, die sofort eine Frage aufwirft, höchstens zwölf Wörter: eine ungewöhnliche Abmachung, ein Gegenstand, eine Zahl, ein Satz, den jemand gesagt hat. Erst danach kommt die Lage. Ein Einstieg wie „Ich bin 36 und arbeite als …“ ist dafür zu schwach, weil er nichts verspricht.
+- Es geht fast immer um Menschen, die man beschützen oder nicht verlieren will: das eigene Kind, die alten Eltern, den Partner, die beste Freundin, auch ein Tier. Beruf und Geld tragen nur, wenn ein solcher Mensch mit im Spiel ist.
+- Die Geschichte bringt etwas mit, das man noch am selben Abend nachmachen kann: eine Abmachung, eine Frage, ein kleines Ritual, einen Satz. Dieses Werkzeug wird in der Geschichte benutzt und auf einer der letzten Seiten Schritt für Schritt erklärt („Such dir … Sag deinem Kind … Stell keine Fragen.“). Daran entscheidet sich, ob jemand den Beitrag speichert und dem Partner schickt.
+- Genaue Angaben erzeugen Spannung und Glaubwürdigkeit: Uhrzeiten („Um 23:47 Uhr vibrierte mein Handy.“), Alter, Anzahl, was genau auf dem Tisch stand.
+- Nach der ersten Wendung kommt ein zweiter Schlag: Das Werkzeug hilft jemandem, an den keiner gedacht hat, oder die Person, vor der man Angst hatte, reagiert anders als erwartet.
+- Kurze Zeilen. Selten mehr als zwölf Wörter pro Satz, oft ein Satz pro Absatz.
+- Eigene Einfälle: Die Abmachungen, Fragen und Rituale dieser Kanäle werden nicht nacherzählt. Jeder Beitrag braucht ein eigenes Werkzeug.
 
 Woran solche Geschichten scheitern, und was stattdessen trägt:
 - Zu kleine Fallhöhe. Ein Tippfehler in einem Angebot bewegt niemanden. Es muss um etwas gehen, das fast jeder kennt und das wehtut: übersehen werden, sich für die eigene Herkunft schämen, den Stolz der Eltern nie gehört haben, jemanden über der Arbeit verloren haben, mit vierzig von vorn anfangen.
