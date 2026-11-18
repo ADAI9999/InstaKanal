@@ -2,6 +2,7 @@
 //
 //   node src/posten.js            veröffentlichen
 //   node src/posten.js --probe    nur prüfen, nichts veröffentlichen
+//   node src/posten.js --id <teil> einen bestimmten Beitrag veröffentlichen
 import { konfig, ladePosts, speicherePost } from "./konfig.js";
 import { veroeffentliche, pruefeZugang } from "./instagram.js";
 
@@ -32,7 +33,10 @@ async function main() {
     const konto = await pruefeZugang();
     console.log(`Zugang in Ordnung: Instagram-Konto @${konto.username}`);
   }
-  const post = ladePosts().find((p) => !p.veroeffentlicht);
+  const wunsch = process.argv.includes("--id") ? process.argv[process.argv.indexOf("--id") + 1] : "";
+  const offen = ladePosts().filter((p) => !p.veroeffentlicht);
+  const post = wunsch ? offen.find((p) => p.id === wunsch || p.id.includes(wunsch)) : offen[0];
+  if (wunsch && !post) throw new Error(`Kein freigegebener, ungeposteter Beitrag passt zu „${wunsch}“.`);
   if (!post) {
     console.log("Kein offener Beitrag vorhanden. Nichts zu tun.");
     return;

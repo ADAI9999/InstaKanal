@@ -13,6 +13,10 @@ on:
         description: "Nur prüfen, nichts veröffentlichen"
         type: boolean
         default: false
+      id:
+        description: "Bestimmten Beitrag posten (Teil der ID, z. B. beethoven); leer = ältester"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -37,7 +41,8 @@ jobs:
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           PROBE: ${{ inputs.probe && '--probe' || '' }}
-        run: node src/posten.js $PROBE
+          WUNSCH: ${{ inputs.id || '' }}
+        run: node src/posten.js $PROBE ${WUNSCH:+--id "$WUNSCH"}
 
       - name: Als veröffentlicht vermerken
         run: |
