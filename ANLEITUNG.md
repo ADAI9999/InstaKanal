@@ -1,19 +1,27 @@
 # InstaKanal – Anleitung
 
-Automatisierter Instagram-Kanal. Jeden Tag entsteht ein Beitrag,
-du gibst ihn frei, abends wird er veröffentlicht.
+Automatisierter Instagram-Kanal mit zwei Beiträgen pro Tag. Du gibst jeden Beitrag frei, bevor er erscheint.
 
-Jeder Beitrag ist ein Karussell mit 11 bis 15 Seiten:
-- **Geschichte:** eine kurze, erfundene Alltagserzählung mit Schlusssatz
-- **Gedanken:** eine Sammlung eigener Sätze zu einem Thema
+Jeder Beitrag ist ein Karussell mit KI-Titelbild:
+- **Geschichte:** eine erfundene Ich-Erzählung mit Aufhänger, Wendung und Schluss an den Leser
+- **Liste:** nummerierte Sätze oder Schritte zum Mitnehmen („Diese 7 Sätze …“)
 
 ## So läuft es ab
 
-1. **05:00 Uhr** – GitHub erzeugt einen Beitrag: Text über die Claude API, Bilder im Kanal-Design.
-2. **Freigabe** – Du bekommst auf GitHub eine Anfrage „Freigabe: …“ mit Bildern und Bildunterschrift.
-   - **Merge** (Zusammenführen) = freigeben
-   - **Close** (Schließen) = verwerfen
-3. **18:00 Uhr** – Der älteste freigegebene Beitrag wird auf Instagram veröffentlicht.
+1. **19:30 Uhr** – GitHub erzeugt die zwei Beiträge für den nächsten Tag.
+   - Jeder Entwurf geht durch ein **Lektorat**: Ein zweiter Lauf bewertet streng, ob er zum Kanal passt,
+     ob der Spannungsbogen trägt, ob das Thema interessiert und wie die Sprache klingt (Noten 1 bis 10).
+     Unter Note 7 in einem Kriterium wird neu geschrieben, bis zu dreimal.
+   - Das **Titelbild** wird ebenfalls geprüft und bei Mängeln einmal neu erzeugt.
+2. **Freigabe** – Für jeden Beitrag bekommst du eine Anfrage „Freigabe: …“ mit Noten, Begründung,
+   schwächster Stelle, allen Seiten und der Bildunterschrift.
+   - **Merge** = freigeben
+   - **Close** = verwerfen
+3. **07:15 Uhr und 18:45 Uhr** – Jeweils der älteste freigegebene Beitrag wird veröffentlicht.
+
+Die Zeiten gelten für die Winterzeit; in der Sommerzeit verschiebt sich alles um eine Stunde nach hinten
+(GitHub rechnet in Weltzeit). GitHub startet geplante Abläufe außerdem oft einige Minuten verspätet.
+Warten schon zwei oder mehr Beiträge, wird abends nichts Neues erzeugt.
 
 Die Freigabe geht auch am Handy in der GitHub-App.
 

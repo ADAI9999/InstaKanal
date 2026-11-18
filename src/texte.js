@@ -45,17 +45,18 @@ const SCHEMATA = {
     required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags", "bildidee"],
     properties: {
       thema: gemeinsam.thema,
-      titel: { ...text, description: "Titelseite: macht neugierig auf die Sammlung, höchstens 80 Zeichen" },
+      titel: { ...text, description: "Titelseite: Zahl, für wen und welcher Nutzen, 2 kurze Sätze, höchstens 130 Zeichen. Endet gern mit Doppelpunkt." },
       saetze: {
         type: "array",
-        description: "9 bis 12 Sätze, einer pro Seite",
+        description: "7 bis 10 Punkte, einer pro Seite",
         items: {
           type: "object",
           additionalProperties: false,
-          required: ["satz", "hervorhebung"],
+          required: ["satz", "hervorhebung", "erklaerung"],
           properties: {
             satz: { ...text, description: "höchstens 140 Zeichen" },
             hervorhebung: { ...text, description: "1 bis 3 aufeinanderfolgende Wörter, wörtlich aus dem Satz, die farbig betont werden" },
+            erklaerung: { ...text, description: "Ein bis zwei kurze Sätze darunter: wann man das sagt oder tut und was es bewirkt, höchstens 150 Zeichen" },
           },
         },
       },
@@ -99,9 +100,11 @@ Woran solche Geschichten scheitern, und was stattdessen trägt:
 - Geschliffene Sprüche. Der Satz, der bleibt, klingt nicht nach Kalender, sondern nach einem Menschen, der ihn in diesem Moment wirklich sagt, gern unbeholfen, gern zu ehrlich („Ich bin 43. Ich weiß, dass alle ihr eigenes Leben haben.“ wäre so ein Ton).
 - Mindestens eine Stelle soll wehtun, bevor es gut wird.
 
-Sätze: eine Sammlung eigener, pointierter Sätze zu einem gemeinsamen Thema, einer pro Seite.
-- Jeder Satz steht für sich und trifft eine Beobachtung, die man kennt, aber selten ausgesprochen hört.
-- Die Sätze unterscheiden sich in Bau und Länge, damit die Sammlung nicht leiert.
+Liste: eine nummerierte Sammlung zum Mitnehmen, ein Punkt pro Seite. Die erfolgreichsten Beiträge dieser Art versprechen auf der Titelseite eine Zahl, einen Menschen und einen Nutzen („Deine Tochter wird Menschen begegnen, die ihr Nein nicht hören wollen. Bring ihr diese 7 Sätze bei:“).
+- Die Titelseite nennt, für wen die Liste ist und in welcher Lage sie hilft. Sie macht die Lage spürbar, bevor sie die Zahl nennt.
+- Jeder Punkt ist ein Satz, den man wörtlich sagen, oder ein Schritt, den man heute tun kann. Darunter steht in ein bis zwei kurzen Sätzen, wann man ihn braucht und was er bewirkt.
+- Die Punkte steigern sich: der stärkste steht am Ende, nicht am Anfang.
+- Kein Punkt ist eine Binsenweisheit. Wer die Liste liest, soll bei mindestens zwei Punkten denken: Das hätte ich früher wissen sollen.
 
 Die Bildunterschrift vertieft den Gedanken in zwei bis drei kurzen Absätzen und endet mit einem kleinen Anstoß für heute.
 
@@ -115,22 +118,25 @@ Grenzen, weil der Kanal mit seinem Namen dafür einsteht:
 - Deutsche Rechtschreibung mit echten Umlauten und ß, Anführungszeichen „so“.`;
 }
 
-function auftrag(typ, bisherigeThemen, schwerpunkt) {
-  const art = typ === "geschichte" ? "eine Geschichte" : "eine Sammlung von Sätzen";
+function auftrag(typ, bisherigeThemen, schwerpunkt, kritik) {
+  const art = typ === "geschichte" ? "eine Geschichte" : "eine Liste";
+  const nachbessern = kritik
+    ? `\n\nEin strenges Lektorat hat den vorigen Entwurf zum Thema „${kritik.thema}“ abgelehnt. Schwächste Stelle: ${kritik.schwaechste_stelle}\nHinweise: ${kritik.hinweise}\nSchreibe einen neuen Entwurf, der diese Schwächen nicht hat. Ein anderes Thema ist erlaubt und oft die bessere Wahl.`
+    : "";
   const feld = schwerpunkt ? `\n\nSchwerpunkt dieses Beitrags: ${schwerpunkt}.` : "";
   const liste = bisherigeThemen.length
     ? `\n\nDiese Themen gab es zuletzt schon. Wähle ein deutlich anderes Thema, andere Figuren und einen anderen Schauplatz:\n${bisherigeThemen.map((t) => `- ${t}`).join("\n")}`
     : "";
-  return `Schreibe ${art}.${feld}${liste}\n\nFülle alle Felder aus, auch Bildunterschrift, Hashtags und Bildidee: Sie werden ungeprüft übernommen.`;
+  return `Schreibe ${art}.${feld}${liste}${nachbessern}\n\nFülle alle Felder aus, auch Bildunterschrift, Hashtags und Bildidee: Sie werden ungeprüft übernommen.`;
 }
 
 /** Erzeugt den Text eines Beitrags über die Claude API. */
-export async function erzeugeText(typ, bisherigeThemen, schwerpunkt) {
+export async function erzeugeText(typ, bisherigeThemen, schwerpunkt, kritik) {
   // Das Schema erzwingt die Felder, aber nicht ihren Inhalt. Fällt die Prüfung durch, wird neu erzeugt.
   let letzter;
   for (let versuch = 1; versuch <= 3; versuch++) {
     try {
-      return await erzeugeEinmal(typ, bisherigeThemen, schwerpunkt);
+      return await erzeugeEinmal(typ, bisherigeThemen, schwerpunkt, kritik);
     } catch (fehler) {
       letzter = fehler;
       console.log(`Text: Versuch ${versuch} verworfen (${fehler.message.split("\n").join(" ")})`);
@@ -139,7 +145,7 @@ export async function erzeugeText(typ, bisherigeThemen, schwerpunkt) {
   throw letzter;
 }
 
-async function erzeugeEinmal(typ, bisherigeThemen, schwerpunkt) {
+async function erzeugeEinmal(typ, bisherigeThemen, schwerpunkt, kritik) {
   const client = new Anthropic();
   const antwort = await client.beta.messages.create({
     model: MODELL,
@@ -151,7 +157,7 @@ async function erzeugeEinmal(typ, bisherigeThemen, schwerpunkt) {
       format: { type: "json_schema", schema: SCHEMATA[typ] },
     },
     system: systemPrompt(),
-    messages: [{ role: "user", content: auftrag(typ, bisherigeThemen, schwerpunkt) }],
+    messages: [{ role: "user", content: auftrag(typ, bisherigeThemen, schwerpunkt, kritik) }],
   });
 
   if (antwort.stop_reason === "refusal") {
@@ -189,9 +195,12 @@ export function pruefe(typ, inhalt) {
     anzahl(inhalt.seiten, "Geschichte");
     inhalt.seiten.forEach((s, i) => max(s.absaetze.join(" ").replace(/\*/g, ""), 340, `Seite ${i + 2}`));
   } else {
-    max(inhalt.titel, 110, "Titel");
-    anzahl(inhalt.saetze, "Sammlung");
-    inhalt.saetze.forEach((s, i) => max(s.satz, 180, `Satz ${i + 1}`));
+    max(inhalt.titel, 170, "Titel");
+    anzahl(inhalt.saetze, "Liste");
+    inhalt.saetze.forEach((s, i) => {
+      max(s.satz, 180, `Punkt ${i + 1}`);
+      max(s.erklaerung ?? "", 200, `Erklärung ${i + 1}`);
+    });
     max(inhalt.abschluss, 150, "Schlusssatz");
   }
   max(inhalt.caption, 1200, "Bildunterschrift");
@@ -229,23 +238,21 @@ export const BEISPIELE = {
     bildidee: "A man in his late twenties in a light blue shirt sits alone at an office desk in the early evening, staring at his laptop with a worried, tense expression, one hand on his forehead. Warm desk lamp light, dark office in the background.",
   },
   saetze: {
-    thema: "Grenzen setzen",
-    titel: "Sätze, die ich gern zehn Jahre früher gehört hätte",
+    thema: "Sätze fürs Gehaltsgespräch",
+    titel: "Du leistest seit Jahren mehr, als in deinem Vertrag steht. Diese 7 Sätze helfen dir, es endlich auszusprechen:",
     saetze: [
-      { satz: "Wer dich nur mag, solange du Ja sagst, mag dein Ja.", hervorhebung: "mag dein Ja" },
-      { satz: "Du musst nicht jede Einladung annehmen, nur weil du Zeit hättest.", hervorhebung: "Zeit hättest" },
-      { satz: "Eine Erklärung ist ein Geschenk, keine Schuld.", hervorhebung: "keine Schuld" },
-      { satz: "Müdigkeit ist ein Grund. Du brauchst keinen besseren.", hervorhebung: "ein Grund" },
-      { satz: "Menschen, die deine Grenze verstehen, fragen nicht dreimal nach.", hervorhebung: "nicht dreimal" },
-      { satz: "Ruhe zu brauchen ist kein Urteil über die anderen.", hervorhebung: "kein Urteil" },
-      { satz: "Du darfst jemanden gernhaben und trotzdem früher gehen.", hervorhebung: "früher gehen" },
-      { satz: "Ein Nein, das du freundlich sagst, bleibt ein Nein.", hervorhebung: "bleibt ein Nein" },
-      { satz: "Wer sich an deiner Grenze stößt, stand vorher schon zu nah.", hervorhebung: "zu nah" },
+      { satz: "Ich möchte über meine Entwicklung sprechen, nicht nur über dieses Jahr.", hervorhebung: "meine Entwicklung", erklaerung: "Der Einstieg. Er zeigt, dass du bleiben willst, und nimmt dem Gespräch die Schärfe." },
+      { satz: "Diese drei Dinge habe ich übernommen, die nicht in meiner Stelle stehen.", hervorhebung: "drei Dinge", erklaerung: "Zähl sie auf. Was niemand ausspricht, sieht auch niemand." },
+      { satz: "Ich hätte gern eine Zahl von Ihnen, bevor ich meine nenne.", hervorhebung: "eine Zahl", erklaerung: "Wer zuerst nennt, verhandelt nach unten. Frag ruhig und warte." },
+      { satz: "Das liegt unter dem, was ich mir vorgestellt habe.", hervorhebung: "unter dem", erklaerung: "Kein Vorwurf, keine Rechtfertigung. Danach still sein." },
+      { satz: "Was müsste passieren, damit wir in sechs Monaten dort sind?", hervorhebung: "in sechs Monaten", erklaerung: "Macht aus einem Nein einen Plan mit Datum." },
+      { satz: "Können wir das schriftlich festhalten?", hervorhebung: "schriftlich", erklaerung: "Freundlich gefragt, aber unverzichtbar. Zusagen ohne Papier verblassen." },
+      { satz: "Ich brauche darauf heute keine Antwort. Aber ich brauche eine.", hervorhebung: "Aber ich brauche eine", erklaerung: "Der Satz, den die wenigsten sagen. Er entscheidet, ob etwas passiert." },
     ],
-    abschluss: "Welcher Satz war heute für dich? Schick ihn jemandem, der ihn braucht.",
+    abschluss: "Speicher dir die Liste für dein nächstes Gespräch. Und schick sie jemandem, der zu lange wartet.",
     caption:
-      "Grenzen setzt man selten in großen Gesprächen. Meist sind es kleine Sätze an einem gewöhnlichen Dienstag.\n\nSuch dir einen Satz aus und probier ihn diese Woche einmal aus.",
-    hashtags: ["grenzen", "selbstachtung", "nachdenken", "beziehungen"],
+      "Die meisten Gehaltsgespräche scheitern nicht an der Leistung, sondern an den Sätzen, die niemand geübt hat.\n\nSuch dir einen aus und sag ihn einmal laut, bevor du ihn brauchst.",
+    hashtags: ["gehalt", "karriere", "erfolg", "selbstwert"],
     bildidee: "A woman in her mid thirties stands in a hallway by a half-open front door, looking back over her shoulder with a calm, determined expression. Soft evening light from the doorway.",
   },
 };

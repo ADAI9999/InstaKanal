@@ -1,8 +1,8 @@
-name: Post erstellen
+name: Beiträge erstellen
 
 on:
   schedule:
-    - cron: "0 4 * * *" # täglich 04:00 UTC (05:00 / 06:00 deutscher Zeit)
+    - cron: "30 18 * * *" # täglich 18:30 UTC (19:30 / 20:30 deutscher Zeit): die zwei Beiträge für den Folgetag
   workflow_dispatch:
     inputs:
       typ:
@@ -10,6 +10,11 @@ on:
         type: choice
         default: auto
         options: [auto, geschichte, saetze]
+      anzahl:
+        description: "Wie viele Beiträge"
+        type: choice
+        default: "2"
+        options: ["1", "2", "3"]
 
 permissions:
   contents: write
@@ -22,7 +27,7 @@ concurrency:
 jobs:
   erstellen:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,45 +37,55 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
 
-      - name: Beitrag erzeugen
+      - name: Warteschlange prüfen
+        id: schlange
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          OFFEN=$(gh pr list --state open --search "Freigabe in:title" --json number --jq length)
+          WARTEND=$(node -e "import('./src/konfig.js').then(k=>console.log(k.ladePosts().filter(p=>!p.veroeffentlicht).length))")
+          echo "Offene Freigaben: $OFFEN, freigegeben und noch nicht gepostet: $WARTEND"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ $((OFFEN + WARTEND)) -ge 2 ]; then
+            echo "::notice::Es warten schon genug Beiträge. Heute wird nichts Neues erzeugt."
+            echo "weiter=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "weiter=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Beiträge erzeugen
         id: post
+        if: steps.schlange.outputs.weiter == 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TYP: ${{ inputs.typ || 'auto' }}
-        run: node src/erstellen.js --typ "$TYP"
+          ANZAHL: ${{ inputs.anzahl || '2' }}
+        run: node src/erstellen.js --typ "$TYP" --anzahl "$ANZAHL"
 
       - name: Zur Freigabe vorlegen oder direkt übernehmen
+        if: steps.schlange.outputs.weiter == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          ID: ${{ steps.post.outputs.id }}
+          IDS: ${{ steps.post.outputs.ids }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           FREIGABE=$(node -p "require('./config.json').freigabe")
-          git add "posts/$ID"
 
           if [ "$FREIGABE" != "true" ]; then
-            git commit -m "Neuer Beitrag: $ID"
+            git add posts
+            git commit -m "Neue Beiträge: $IDS"
             git push origin HEAD:main
             exit 0
           fi
 
-          ZWEIG="post/$ID"
-          git checkout -b "$ZWEIG"
-          git commit -m "Neuer Beitrag: $ID"
-          git push origin "$ZWEIG"
-
-          {
-            echo "Zusammenführen (Merge) = freigeben. Schließen = verwerfen."
-            echo
-            for bild in $(node -p "require('./posts/$ID/post.json').bilder.join(' ')"); do
-              echo "<img src=\"https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$ZWEIG/posts/$ID/$bild\" width=\"200\">"
-            done
-            echo
-            echo "**Bildunterschrift**"
-            echo
-            node -p "const p=require('./posts/$ID/post.json'); p.caption + '\n\n' + p.hashtags.map(h=>'#'+h).join(' ')"
-          } > /tmp/pr.md
-          gh pr create --base main --head "$ZWEIG" --title "Freigabe: $ID" --body-file /tmp/pr.md
+          for ID in $IDS; do
+            ZWEIG="post/$ID"
+            git checkout -q -b "$ZWEIG" origin/main
+            git add "posts/$ID"
+            git commit -q -m "Neuer Beitrag: $ID"
+            git push -q origin "$ZWEIG"
+            node src/freigabetext.js "$ID" "$ZWEIG" > /tmp/pr.md
+            gh pr create --base main --head "$ZWEIG" --title "Freigabe: $(node -p "require('./posts/$ID/post.json').thema.trim()")" --body-file /tmp/pr.md
+          done

@@ -2,7 +2,8 @@ name: Post veröffentlichen
 
 on:
   schedule:
-    - cron: "0 17 * * *" # täglich 17:00 UTC (18:00 / 19:00 deutscher Zeit)
+    - cron: "15 6 * * *" # täglich 06:15 UTC (07:15 Winterzeit / 08:15 Sommerzeit)
+    - cron: "45 17 * * *" # täglich 17:45 UTC (18:45 Winterzeit / 19:45 Sommerzeit)
   workflow_dispatch:
     inputs:
       probe:
