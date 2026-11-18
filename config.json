@@ -2,18 +2,21 @@
   "handle": "erfolgsguru7",
   "instagramKontoId": "17841460011821939",
   "kanalname": "ERFOLGSGURU",
-  "schlusszeile": "Mach's trotzdem.",
-  "nische": "Lebensnahe Geschichten und Gedanken darüber, wie Menschen im Alltag über sich hinauswachsen: in der Familie, in Freundschaft und Partnerschaft, im Beruf und bei Neuanfängen",
+  "nische": "Erfolg im Alltag, erzählt in kurzen Geschichten: Erfolg entsteht aus Gewohnheiten, Disziplin, klaren Entscheidungen und dem Mut, nach Rückschlägen neu anzufangen. Gemeint ist Erfolg im Beruf ebenso wie im eigenen Leben und in Beziehungen.",
   "schwerpunkte": [
-    "Familie und Freundschaft",
-    "Beruf: ein Fehler, eine Kündigung, ein Gespräch mit Vorgesetzten oder Kollegen, ein Neuanfang",
-    "Partnerschaft und Selbstachtung",
-    "Durchhalten, Gewohnheiten und der Mut, etwas zu Ende zu bringen oder aufzugeben"
+    "Beruf und Karriere: ein Fehler, eine Bewerbung, ein Gespräch mit Vorgesetzten, eine Kündigung, der erste eigene Kunde",
+    "Disziplin und Gewohnheiten: früh aufstehen, dranbleiben, etwas jeden Tag tun, auch wenn niemand zusieht",
+    "Rückschläge und Neuanfang: scheitern, sich aufrappeln, es noch einmal anders versuchen",
+    "Familie, Freundschaft und Partnerschaft: was Erfolg wert ist, wenn die Menschen fehlen, und was man dafür tun muss"
   ],
-  "zielgruppe": "deutschsprachige Erwachsene ab etwa 30, die über ihr Leben und ihre Beziehungen nachdenken",
-  "tonfall": "ruhig, warm, klar, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
+  "zielgruppe": "deutschsprachige Erwachsene ab etwa 25, die beruflich und persönlich vorankommen wollen",
+  "tonfall": "ruhig, klar, ermutigend, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
   "freigabe": true,
-  "rhythmus": ["geschichte", "saetze", "geschichte"],
+  "rhythmus": [
+    "geschichte",
+    "saetze",
+    "geschichte"
+  ],
   "farben": {
     "hintergrund": "#0E1014",
     "flaeche": "#171A21",
