@@ -9,7 +9,7 @@ on:
         description: "Art des Beitrags"
         type: choice
         default: auto
-        options: [auto, zitat, karussell]
+        options: [auto, geschichte, saetze]
 
 permissions:
   contents: write
@@ -43,7 +43,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ID: ${{ steps.post.outputs.id }}
-          ANZAHL: ${{ steps.post.outputs.anzahl }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -64,8 +63,8 @@ jobs:
           {
             echo "Zusammenführen (Merge) = freigeben. Schließen = verwerfen."
             echo
-            for n in $(seq 1 "$ANZAHL"); do
-              echo "<img src=\"https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$ZWEIG/posts/$ID/$n.jpg\" width=\"260\">"
+            for bild in $(node -p "require('./posts/$ID/post.json').bilder.join(' ')"); do
+              echo "<img src=\"https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$ZWEIG/posts/$ID/$bild\" width=\"200\">"
             done
             echo
             echo "**Bildunterschrift**"

@@ -1,12 +1,12 @@
 // Erzeugt einen neuen Beitrag: Text (Claude API) + Bilder, abgelegt unter posts/<id>/.
 //
 //   node src/erstellen.js                 Typ nach Rhythmus aus config.json
-//   node src/erstellen.js --typ zitat     Typ festlegen (zitat | karussell)
+//   node src/erstellen.js --typ saetze    Typ festlegen (geschichte | saetze)
 //   node src/erstellen.js --beispiel      Beispieltexte ohne API, Ausgabe nach vorschau/
 import fs from "node:fs";
 import path from "node:path";
 import { konfig, ladePosts, speicherePost, POSTS_ORDNER, WURZEL } from "./konfig.js";
-import { erzeugeText, pruefe, BEISPIELE } from "./texte.js";
+import { erzeugeText, pruefe, BEISPIELE, TYPEN } from "./texte.js";
 import { rendere } from "./bilder.js";
 
 const args = process.argv.slice(2);
@@ -14,7 +14,7 @@ const beispiel = args.includes("--beispiel");
 const typWunsch = args.includes("--typ") ? args[args.indexOf("--typ") + 1] : "auto";
 
 function waehleTyp(posts) {
-  if (typWunsch === "zitat" || typWunsch === "karussell") return typWunsch;
+  if (TYPEN.includes(typWunsch)) return typWunsch;
   if (typWunsch && typWunsch !== "auto") throw new Error(`Unbekannter Typ: ${typWunsch}`);
   return konfig.rhythmus[posts.length % konfig.rhythmus.length];
 }
@@ -29,7 +29,8 @@ function neueId(typ) {
 
 async function main() {
   if (beispiel) {
-    for (const typ of ["zitat", "karussell"]) {
+    fs.rmSync(path.join(WURZEL, "vorschau"), { recursive: true, force: true });
+    for (const typ of TYPEN) {
       const ordner = path.join(WURZEL, "vorschau", typ);
       const bilder = await rendere({ typ, ...pruefe(typ, structuredClone(BEISPIELE[typ])) }, ordner);
       console.log(`Beispiel ${typ}: ${bilder.length} Bild(er) in ${path.relative(WURZEL, ordner)}/`);

@@ -2,7 +2,7 @@
 //
 //   node src/posten.js            veröffentlichen
 //   node src/posten.js --probe    nur prüfen, nichts veröffentlichen
-import { ladePosts, speicherePost } from "./konfig.js";
+import { konfig, ladePosts, speicherePost } from "./konfig.js";
 import { veroeffentliche } from "./instagram.js";
 
 const probe = process.argv.includes("--probe");
@@ -16,7 +16,7 @@ function bildBasis() {
 
 function bildunterschrift(post) {
   const tags = post.hashtags.map((h) => `#${h}`).join(" ");
-  return `${post.caption}\n\n${tags}`.slice(0, 2200);
+  return `${post.caption}\n\n✅ Folge @${konfig.handle} für mehr\n\n${tags}`.slice(0, 2200);
 }
 
 async function main() {
@@ -39,11 +39,7 @@ async function main() {
     return;
   }
 
-  const mediaId = await veroeffentliche({
-    bildUrls,
-    caption,
-    altText: post.typ === "zitat" ? post.zitat : undefined,
-  });
+  const mediaId = await veroeffentliche({ bildUrls, caption });
   post.veroeffentlicht = { mediaId, zeit: new Date().toISOString() };
   speicherePost(post.ordner, post);
   console.log(`Veröffentlicht. Media-ID: ${mediaId}`);

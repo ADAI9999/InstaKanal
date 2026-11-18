@@ -1,11 +1,11 @@
 {
   "handle": "deinkanal",
   "kanalname": "DEIN KANAL",
-  "nische": "Erfolg & Mindset: Disziplin, Gewohnheiten, Fokus, Selbstverantwortung, langfristiges Denken",
-  "zielgruppe": "deutschsprachige Erwachsene von 20 bis 40, die beruflich und persönlich vorankommen wollen",
-  "tonfall": "klar, direkt, respektvoll, per Du. Keine Floskeln, keine Ausrufezeichen-Ketten, keine Emojis im Bild.",
+  "nische": "Lebensnahe Geschichten und Gedanken über Freundschaft, Familie, Beziehung, Respekt, Selbstachtung, Grenzen, Lebenszeit und den Mut, etwas anders zu machen",
+  "zielgruppe": "deutschsprachige Erwachsene ab etwa 30, die über ihr Leben und ihre Beziehungen nachdenken",
+  "tonfall": "ruhig, warm, klar, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
   "freigabe": true,
-  "rhythmus": ["zitat", "karussell", "zitat"],
+  "rhythmus": ["geschichte", "saetze", "geschichte"],
   "farben": {
     "hintergrund": "#0E1014",
     "flaeche": "#171A21",

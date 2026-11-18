@@ -41,16 +41,12 @@ async function warteAufContainer(id) {
 }
 
 /** Veröffentlicht ein Bild oder ein Karussell. Gibt die Media-ID zurück. */
-export async function veroeffentliche({ bildUrls, caption, altText }) {
+export async function veroeffentliche({ bildUrls, caption }) {
   const konto = await kontoId();
   let container;
 
   if (bildUrls.length === 1) {
-    container = await anfrage("POST", `/${konto}/media`, {
-      image_url: bildUrls[0],
-      caption,
-      ...(altText ? { alt_text: altText } : {}),
-    });
+    container = await anfrage("POST", `/${konto}/media`, { image_url: bildUrls[0], caption });
   } else {
     const kinder = [];
     for (const url of bildUrls) {

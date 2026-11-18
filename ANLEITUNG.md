@@ -1,7 +1,11 @@
 # InstaKanal – Anleitung
 
-Automatisierter Instagram-Kanal. Jeden Tag entsteht ein Beitrag (Zitat-Bild oder Karussell),
+Automatisierter Instagram-Kanal. Jeden Tag entsteht ein Beitrag,
 du gibst ihn frei, abends wird er veröffentlicht.
+
+Jeder Beitrag ist ein Karussell mit 11 bis 15 Seiten:
+- **Geschichte:** eine kurze, erfundene Alltagserzählung mit Schlusssatz
+- **Gedanken:** eine Sammlung eigener Sätze zu einem Thema
 
 ## So läuft es ab
 
@@ -21,7 +25,7 @@ Die Freigabe geht auch am Handy in der GitHub-App.
 | `kanalname` | Schriftzug oben links |
 | `nische`, `zielgruppe`, `tonfall` | steuern die Texte |
 | `freigabe` | `true` = du gibst jeden Beitrag frei, `false` = voll automatisch |
-| `rhythmus` | Reihenfolge der Beitragsarten |
+| `rhythmus` | Reihenfolge der Beitragsarten (`geschichte`, `saetze`) |
 | `farben` | Farben des Designs |
 
 ## Einmalige Einrichtung
@@ -89,5 +93,5 @@ Veröffentlicht sofort den nächsten freigegebenen Beitrag.
 ## Gut zu wissen
 - Das Repository muss **öffentlich** sein: Instagram holt die Bilder über einen öffentlichen Link ab.
   Geheimnisse liegen nicht im Repository, sondern verschlüsselt bei GitHub.
-- Alle Texte sind eigene Formulierungen. Fremde Beiträge werden nicht kopiert.
+- Alle Texte sind erfunden und selbst formuliert: keine realen Personen, keine fremden Beiträge, keine Promi-Zitate.
 - Instagram erlaubt über die API höchstens 100 Beiträge pro Tag; hier ist es einer.
