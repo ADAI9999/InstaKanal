@@ -215,13 +215,16 @@ function auftrag({ format, themenfeld, bildstil, bisherige, notizen, kritik }) {
 
 async function anfrage(parameter) {
   const client = new Anthropic();
-  return client.beta.messages.create({
-    model: MODELL,
-    max_tokens: 16000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    ...parameter,
-  });
+  // Gestreamt, weil hohe Denkstufen lange Antworten brauchen und ungestreamt in Zeitlimits laufen.
+  return client.beta.messages
+    .stream({
+      model: MODELL,
+      max_tokens: 64000,
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      ...parameter,
+    })
+    .finalMessage();
 }
 
 const nurText = (antwort) => antwort.content.filter((b) => b.type === "text").map((b) => b.text).join("");

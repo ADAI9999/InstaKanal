@@ -47,14 +47,16 @@ export function alsText(inhalt) {
 
 async function frage(schema, inhalt, effort) {
   const client = new Anthropic();
-  const antwort = await client.beta.messages.create({
-    model: MODELL,
-    max_tokens: 16000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    output_config: { effort, format: { type: "json_schema", schema } },
-    messages: [{ role: "user", content: inhalt }],
-  });
+  const antwort = await client.beta.messages
+    .stream({
+      model: MODELL,
+      max_tokens: 64000,
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      output_config: { effort, format: { type: "json_schema", schema } },
+      messages: [{ role: "user", content: inhalt }],
+    })
+    .finalMessage();
   if (antwort.stop_reason !== "end_turn") throw new Error(`Prüfung abgebrochen (${antwort.stop_reason})`);
   return JSON.parse(antwort.content.filter((b) => b.type === "text").map((b) => b.text).join(""));
 }
