@@ -50,6 +50,7 @@ body>*{position:relative}
 .erzaehl p+p{margin-top:.85em}
 .nummer{font-family:"Playfair Display",serif;font-weight:700;font-size:64px;line-height:1;color:${f.akzent};margin-bottom:44px}
 .weiter{font-weight:600;color:${f.akzent}}
+.schlusszeile{margin-top:44px;font-size:60px}
 .folgen{margin-top:56px;display:inline-block;align-self:flex-start;padding:26px 44px;border-radius:999px;
   background:${f.akzent};color:${f.hintergrund};font-size:36px;font-weight:700}
 `;
@@ -107,7 +108,7 @@ function seitenHtml(post) {
 
   const ende = seite({
     rubrik,
-    mitte: `<div class="strich"></div><p class="serif fett" style="--gr:${groesse(schluss.length, SATZ_STUFEN)}px">${esc(schluss)}</p><span class="folgen">Folge @${esc(konfig.handle)}</span>`,
+    mitte: `<div class="strich"></div><p class="serif fett" style="--gr:${groesse(schluss.length, SATZ_STUFEN)}px">${esc(schluss)}</p>${konfig.schlusszeile ? `<p class="serif akzent schlusszeile">${esc(konfig.schlusszeile)}</p>` : ""}<span class="folgen">Folge @${esc(konfig.handle)}</span>`,
     fussLinks: "Speichern für später",
     fussRechts: zaehler(gesamt),
   });

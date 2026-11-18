@@ -23,6 +23,7 @@ Die Freigabe geht auch am Handy in der GitHub-App.
 |---|---|
 | `handle` | Instagram-Name ohne @, steht auf jedem Bild |
 | `kanalname` | Schriftzug oben links |
+| `schlusszeile` | feste Zeile auf der letzten Seite |
 | `nische`, `zielgruppe`, `tonfall` | steuern die Texte |
 | `freigabe` | `true` = du gibst jeden Beitrag frei, `false` = voll automatisch |
 | `rhythmus` | Reihenfolge der Beitragsarten (`geschichte`, `saetze`) |
