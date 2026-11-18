@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const WURZEL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-export const POSTS_ORDNER = path.join(WURZEL, "posts");
+export const POSTS_ORDNER = process.env.POSTS_ORDNER || path.join(WURZEL, "posts");
 
 export const konfig = JSON.parse(fs.readFileSync(path.join(WURZEL, "config.json"), "utf8"));
 

@@ -33,7 +33,7 @@ const SCHRIFTEN = [
 export const DESIGNS = {
   nacht: { hintergrund: "#0E1014", text: "#F4F1EA", gedaempft: "#9A9FAB", akzent: "#E9B44C", titel: '"Playfair Display",serif', lauf: '"Playfair Display",serif', glanz: true },
   papier: { hintergrund: "#F2EBDD", text: "#24201B", gedaempft: "#7C7264", akzent: "#A3352A", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false, block: "rand" },
-  archiv: { hintergrund: "#E6E1D5", text: "#1B1B1A", gedaempft: "#6E6A61", akzent: "#B3261E", titel: '"Special Elite",monospace', lauf: '"Courier Prime",monospace', glanz: false, rahmen: true, block: "foto", skala: 0.8 },
+  archiv: { hintergrund: "#E6E1D5", text: "#1B1B1A", gedaempft: "#6E6A61", akzent: "#B3261E", titel: '"Special Elite",monospace', lauf: '"Courier Prime",monospace', glanz: false, rahmen: true, block: "foto", skala: 0.8, laufskala: 0.95 },
   vollbild: { hintergrund: "#0B0B0C", text: "#FFFFFF", gedaempft: "#D0D0D0", akzent: "#F2C14E", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false, vollbild: true },
 };
 
@@ -56,7 +56,7 @@ let SCHRIFT_CSS = null;
  */
 function blockCss(f) {
   const titelH = f.block === "foto" ? 590 : 680;
-  const seiteH = f.block === "foto" ? 560 : 610;
+  const seiteH = f.block === "foto" ? 500 : 610;
   const oben = f.block === "foto" ? 70 : 0;
   const lage =
     f.block === "foto"
@@ -90,7 +90,7 @@ body>*{position:relative}
 .serif{font-family:${f.lauf};line-height:1.25;letter-spacing:-.005em}
 .fett{font-family:${f.titel};font-weight:700;font-size:calc(var(--gr) * ${f.skala ?? 1});text-wrap:balance;line-height:1.2}
 .akzent{color:${f.akzent};font-style:italic;font-weight:700}
-.erzaehl{font-weight:400;font-size:calc(var(--gr) * ${f.skala ?? 1});line-height:1.38;letter-spacing:0;text-wrap:pretty}
+.erzaehl{font-weight:400;font-size:calc(var(--gr) * ${f.laufskala ?? f.skala ?? 1});line-height:1.38;letter-spacing:0;text-wrap:pretty}
 .erzaehl p+p{margin-top:.8em}
 .kopfzeile{margin-bottom:.6em;color:${f.akzent}}
 .kopfzeile.allein{color:${f.text}}
@@ -150,7 +150,7 @@ const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
 const SATZ_STUFEN = [[40, 108], [70, 94], [100, 82], [140, 72], [Infinity, 62]];
 const ERZAEHL_STUFEN = [[90, 78], [150, 68], [220, 60], [290, 54], [Infinity, 50]];
 const KOPF_STUFEN = [[30, 74], [60, 62], [90, 54], [Infinity, 50]];
-const ERZAEHL_FOTO_STUFEN = [[80, 64], [130, 56], [180, 50], [240, 46], [Infinity, 42]];
+const ERZAEHL_FOTO_STUFEN = [[80, 66], [130, 60], [180, 54], [240, 50], [Infinity, 46]];
 
 /** Wandelt **fett** und *kursiv* in HTML um. */
 const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");
