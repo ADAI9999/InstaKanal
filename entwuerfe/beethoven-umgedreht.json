@@ -5,7 +5,7 @@
   "thema": "Beethoven hört seinen Triumph nicht",
   "titel": "Er stand bei der Uraufführung seiner größten Sinfonie auf der Bühne. Hören konnte er sie nicht.",
   "aufhaenger": "Am Ende musste ihn eine junge Sängerin umdrehen.",
-  "bildidee": "A grand candle-lit concert hall in Vienna in 1824, seen from the side of the stage. An older composer with wild grey hair in a dark tailcoat stands with his back to the audience, still lost in the music, while behind him the whole hall is on its feet waving hats and white handkerchiefs. A young woman singer in a pale 1820s dress reaches gently for his shoulder.",
+  "bildidee": "Seen from the orchestra's side, facing the composer: an older man with wild grey hair in a dark tailcoat stands in the foreground looking towards the viewer, eyes half closed, arms still raised in conducting, completely unaware. Far behind him, in the background of a candle-lit 1820s theatre, the whole audience is on its feet waving hats and white handkerchiefs. A young woman singer in a pale dress steps towards him from the side.",
   "bilder_auf_jeder_seite": true,
   "seiten": [
     {
@@ -53,22 +53,23 @@
     {
       "ueberschrift": "",
       "absaetze": [
-        "Die Melodie aus dem Schluss dieser Sinfonie ist heute die Hymne Europas.",
+        "Er hatte sein größtes Werk geschrieben, als er es nicht mehr hören konnte.",
+        "Die Melodie aus dem Schluss ist heute die Hymne Europas.",
         "*Er hat sie nie so gehört wie wir.*"
       ],
       "bildidee": "An old handwritten music score lying on a wooden desk beside a quill and an inkwell, early morning light through a tall window, a few small golden stars painted in the pale sky outside."
     },
     {
-      "ueberschrift": "",
+      "ueberschrift": "Erfolg braucht manchmal zwei",
       "absaetze": [
-        "Viele Menschen ahnen nicht, was sie bewirken. Sie stehen mit dem Rücken zum Saal.",
-        "**Sei der Mensch, der sie umdreht.**",
-        "Sag heute jemandem, was seine Arbeit für dich bedeutet."
+        "Einen, der weitermacht, obwohl er nicht hört, ob es gut ist.",
+        "**Und einen, der ihn umdreht.**",
+        "Kennst du jemanden, der gerade so arbeitet? Sag ihm heute, was du siehst."
       ],
       "bildidee": "Two people seen from behind on a modern city street at dusk, one gently placing a hand on the other's shoulder so they turn around, warm street lights."
     }
   ],
-  "caption": "Beethoven schrieb seine Neunte, als er fast nichts mehr hörte. Den größten Erfolg seines Lebens konnte er nur sehen, weil jemand ihn umgedreht hat.\n\nWen kennst du, der mit dem Rücken zum Saal steht?",
+  "caption": "Beethoven schrieb die Neunte, als er fast nichts mehr hörte. Den Jubel darüber sah er nur, weil eine junge Sängerin ihn umdrehte.\n\nWer in deinem Leben macht gerade weiter, ohne zu hören, ob es gut ist?",
   "hashtags": [
     "beethoven",
     "geschichte",
