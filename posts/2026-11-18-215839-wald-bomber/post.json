@@ -29,9 +29,9 @@
     {
       "ueberschrift": "Die Daten",
       "absaetze": [
-        "Man untersucht die Flugzeuge, die von ihren Einsätzen zurückkommen.",
-        "Manche Stellen sind oft durchlöchert.",
-        "Die Motoren dagegen haben **weniger Treffer, als ihre Größe erwarten ließe.**"
+        "Man untersucht die Flugzeuge, die zurückkommen.",
+        "Manche Stellen: oft durchlöchert.",
+        "Die Motoren: **weniger Treffer, als ihre Größe erwarten ließe.**"
       ],
       "bildidee": "Black and white close-up photograph of an aluminium aircraft fuselage with a cluster of bullet holes, rivets and peeling paint, hard side light."
     },
@@ -77,10 +77,10 @@
       "bildidee": ""
     },
     {
-      "ueberschrift": "Er steckt in fast jedem Erfolgsratgeber",
+      "ueberschrift": "Er steckt überall",
       "absaetze": [
-        "Ein paar Studienabbrecher werden Milliardäre. Ihre Geschichten kennt jeder.",
-        "Von den vielen, die abgebrochen haben und gescheitert sind, erzählt niemand. *Sie schreiben keine Bücher.*"
+        "„Früher war die Musik besser.“ Von früher hören wir nur noch die Hits. Der Rest ist vergessen.",
+        "Genauso in Erfolgsratgebern: die Gewohnheiten der Erfolgreichen. *Wie viele Gescheiterte hatten dieselben?*"
       ],
       "bildidee": "Black and white photograph of a bookshop shelf full of business and success books with blank spines, one empty gap in the row, soft window light."
     },
@@ -138,7 +138,8 @@
     "schwaechste_stelle": "Seite 10: Die Studienabbrecher-Milliardäre sind das abgenutzteste Beispiel für Survivorship Bias überhaupt. Genau hier, wo der Beitrag dem Leser etwas Eigenes geben müsste, wischt jemand weiter mit dem Gefühl „kenn ich schon“.",
     "hinweise": "Streiche das Gewichtsargument auf Seite 3 und das Wort „klein“ auf Seite 2, denn beides steht nicht in den Notizen. Ersetze „Seine Folgerung“ auf Seite 8 durch „Daraus folgt“ und „kaum Löcher“ durch „weniger Löcher, als zu erwarten wäre“. Mach Walds eigentlichen Kniff zur Überraschung: Er schaute nicht nur auf Löcher, sondern verglich den Trefferanteil der Motoren mit ihrem Flächenanteil. Diesen Vergleich mit einer Erwartung kann der Leser selbst anwenden. Ersetze die Studienabbrecher durch ein näheres, frischeres Beispiel aus dem Alltag der Zielgruppe, etwa Karrieretipps erfolgreicher Führungskräfte auf LinkedIn oder Vorher-nachher-Bilder. Formuliere die Titelseite so, dass das Fehlende konkret wird, zum Beispiel: „Die wichtigsten Flugzeuge waren nie im Datensatz“.",
     "schnitt": 6.166666666666667,
-    "bestanden": false
+    "bestanden": false,
+    "hinweis": "Text nach dem Lektorat von Hand überarbeitet"
   },
   "bildpruefung": {
     "passt": true,
