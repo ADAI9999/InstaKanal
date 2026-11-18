@@ -1,18 +1,26 @@
-// Veröffentlichen über die offizielle Instagram-API (Instagram-Login).
+// Veröffentlichen über die offizielle Instagram-API.
 // Doku: https://developers.facebook.com/docs/instagram-platform/content-publishing
-const HOST = process.env.IG_API_HOST || "graph.instagram.com";
+import { konfig } from "./konfig.js";
+
 const VERSION = process.env.IG_API_VERSION || "v27.0";
-const BASIS = `https://${HOST}/${VERSION}`;
+
+// Unified Login liefert Systemnutzer-Token für graph.facebook.com (beginnen mit "EA"),
+// das ältere Instagram-Login liefert Token für graph.instagram.com (beginnen mit "IG").
+function host() {
+  if (process.env.IG_API_HOST) return process.env.IG_API_HOST;
+  return token().startsWith("IG") ? "graph.instagram.com" : "graph.facebook.com";
+}
+const basis = () => `https://${host()}/${VERSION}`;
 
 function token() {
-  const t = process.env.IG_ACCESS_TOKEN;
+  const t = process.env.IG_ACCESS_TOKEN?.trim();
   if (!t) throw new Error("IG_ACCESS_TOKEN fehlt (GitHub-Secret bzw. Umgebungsvariable).");
   return t;
 }
 
 async function anfrage(methode, pfad, felder = {}) {
   const daten = new URLSearchParams({ ...felder, access_token: token() });
-  const url = methode === "GET" ? `${BASIS}${pfad}?${daten}` : `${BASIS}${pfad}`;
+  const url = methode === "GET" ? `${basis()}${pfad}?${daten}` : `${basis()}${pfad}`;
   const antwort = await fetch(url, methode === "GET" ? {} : { method: "POST", body: daten });
   const json = await antwort.json().catch(() => ({}));
   if (!antwort.ok || json.error) {
@@ -23,7 +31,11 @@ async function anfrage(methode, pfad, felder = {}) {
 }
 
 export async function kontoId() {
-  if (process.env.IG_USER_ID) return process.env.IG_USER_ID;
+  const fest = process.env.IG_USER_ID || konfig.instagramKontoId;
+  if (fest) return fest;
+  if (host() !== "graph.instagram.com") {
+    throw new Error("Die Instagram-Konto-ID fehlt (instagramKontoId in config.json).");
+  }
   const ich = await anfrage("GET", "/me", { fields: "user_id,username" });
   return ich.user_id ?? ich.id;
 }
@@ -66,10 +78,17 @@ export async function veroeffentliche({ bildUrls, caption }) {
   return ergebnis.id;
 }
 
-/** Verlängert das 60-Tage-Token. Gibt das neue Token zurück. */
+/** Liest Namen und ID des Kontos, ohne etwas zu verändern. */
+export async function pruefeZugang() {
+  const konto = await kontoId();
+  return anfrage("GET", `/${konto}`, { fields: "username" });
+}
+
+/** Verlängert ein 60-Tage-Token des Instagram-Logins. Systemnutzer-Token laufen nicht ab. */
 export async function erneuereToken() {
+  if (host() !== "graph.instagram.com") throw new Error("Dieses Token läuft nicht ab und muss nicht verlängert werden.");
   const daten = new URLSearchParams({ grant_type: "ig_refresh_token", access_token: token() });
-  const antwort = await fetch(`https://${HOST}/refresh_access_token?${daten}`);
+  const antwort = await fetch(`https://${host()}/refresh_access_token?${daten}`);
   const json = await antwort.json().catch(() => ({}));
   if (!antwort.ok || !json.access_token) {
     throw new Error(`Token konnte nicht verlängert werden: ${json.error?.message ?? antwort.status}`);

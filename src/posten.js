@@ -3,7 +3,7 @@
 //   node src/posten.js            veröffentlichen
 //   node src/posten.js --probe    nur prüfen, nichts veröffentlichen
 import { konfig, ladePosts, speicherePost } from "./konfig.js";
-import { veroeffentliche } from "./instagram.js";
+import { veroeffentliche, pruefeZugang } from "./instagram.js";
 
 const probe = process.argv.includes("--probe");
 
@@ -20,6 +20,10 @@ function bildunterschrift(post) {
 }
 
 async function main() {
+  if (probe && process.env.IG_ACCESS_TOKEN) {
+    const konto = await pruefeZugang();
+    console.log(`Zugang in Ordnung: Instagram-Konto @${konto.username}`);
+  }
   const post = ladePosts().find((p) => !p.veroeffentlicht);
   if (!post) {
     console.log("Kein offener Beitrag vorhanden. Nichts zu tun.");
