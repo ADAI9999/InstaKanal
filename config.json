@@ -1,0 +1,16 @@
+{
+  "handle": "deinkanal",
+  "kanalname": "DEIN KANAL",
+  "nische": "Erfolg & Mindset: Disziplin, Gewohnheiten, Fokus, Selbstverantwortung, langfristiges Denken",
+  "zielgruppe": "deutschsprachige Erwachsene von 20 bis 40, die beruflich und persönlich vorankommen wollen",
+  "tonfall": "klar, direkt, respektvoll, per Du. Keine Floskeln, keine Ausrufezeichen-Ketten, keine Emojis im Bild.",
+  "freigabe": true,
+  "rhythmus": ["zitat", "karussell", "zitat"],
+  "farben": {
+    "hintergrund": "#0E1014",
+    "flaeche": "#171A21",
+    "text": "#F4F1EA",
+    "gedaempft": "#9A9FAB",
+    "akzent": "#E9B44C"
+  }
+}

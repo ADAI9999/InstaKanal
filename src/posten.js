@@ -1,0 +1,55 @@
+// Veröffentlicht den ältesten freigegebenen, noch nicht geposteten Beitrag.
+//
+//   node src/posten.js            veröffentlichen
+//   node src/posten.js --probe    nur prüfen, nichts veröffentlichen
+import { ladePosts, speicherePost } from "./konfig.js";
+import { veroeffentliche } from "./instagram.js";
+
+const probe = process.argv.includes("--probe");
+
+function bildBasis() {
+  if (process.env.BILD_BASIS_URL) return process.env.BILD_BASIS_URL.replace(/\/$/, "");
+  const repo = process.env.GITHUB_REPOSITORY;
+  if (!repo) throw new Error("GITHUB_REPOSITORY oder BILD_BASIS_URL muss gesetzt sein.");
+  return `https://raw.githubusercontent.com/${repo}/main`;
+}
+
+function bildunterschrift(post) {
+  const tags = post.hashtags.map((h) => `#${h}`).join(" ");
+  return `${post.caption}\n\n${tags}`.slice(0, 2200);
+}
+
+async function main() {
+  const post = ladePosts().find((p) => !p.veroeffentlicht);
+  if (!post) {
+    console.log("Kein offener Beitrag vorhanden. Nichts zu tun.");
+    return;
+  }
+
+  const bildUrls = post.bilder.map((b) => `${bildBasis()}/posts/${post.id}/${b}`);
+  for (const url of bildUrls) {
+    const antwort = await fetch(url, { method: "HEAD" });
+    if (!antwort.ok) throw new Error(`Bild nicht öffentlich abrufbar (${antwort.status}): ${url}`);
+  }
+
+  const caption = bildunterschrift(post);
+  console.log(`Beitrag: ${post.id} (${post.bilder.length} Bild(er)), Thema: ${post.thema}`);
+  if (probe) {
+    console.log(`Probe: Bilder erreichbar, es wurde nichts veröffentlicht.\n\n${caption}`);
+    return;
+  }
+
+  const mediaId = await veroeffentliche({
+    bildUrls,
+    caption,
+    altText: post.typ === "zitat" ? post.zitat : undefined,
+  });
+  post.veroeffentlicht = { mediaId, zeit: new Date().toISOString() };
+  speicherePost(post.ordner, post);
+  console.log(`Veröffentlicht. Media-ID: ${mediaId}`);
+}
+
+main().catch((fehler) => {
+  console.error(`Fehler: ${fehler.message}`);
+  process.exit(1);
+});

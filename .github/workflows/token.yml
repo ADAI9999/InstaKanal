@@ -1,0 +1,44 @@
+name: Instagram-Token verlängern
+
+# Das Instagram-Token läuft nach 60 Tagen ab. Dieser Ablauf verlängert es zweimal im Monat
+# und speichert das neue Token wieder als Secret. Dafür braucht er das Secret GH_PAT
+# (siehe ANLEITUNG.md). Ohne GH_PAT wird er übersprungen.
+
+on:
+  schedule:
+    - cron: "0 3 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verlaengern:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_PAT: ${{ secrets.GH_PAT }}
+    steps:
+      - name: Prüfen, ob GH_PAT vorhanden ist
+        id: pruefung
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::warning::GH_PAT fehlt. Das Token wird nicht automatisch verlängert."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.pruefung.outputs.ok == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.pruefung.outputs.ok == 'true'
+        with:
+          node-version: 24
+      - name: Token verlängern und speichern
+        if: steps.pruefung.outputs.ok == 'true'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          set -o pipefail
+          node src/token-erneuern.js | gh secret set IG_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY"

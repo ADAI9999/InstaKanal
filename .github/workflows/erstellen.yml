@@ -1,0 +1,75 @@
+name: Post erstellen
+
+on:
+  schedule:
+    - cron: "0 4 * * *" # täglich 04:00 UTC (05:00 / 06:00 deutscher Zeit)
+  workflow_dispatch:
+    inputs:
+      typ:
+        description: "Art des Beitrags"
+        type: choice
+        default: auto
+        options: [auto, zitat, karussell]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: erstellen
+  cancel-in-progress: false
+
+jobs:
+  erstellen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Beitrag erzeugen
+        id: post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TYP: ${{ inputs.typ || 'auto' }}
+        run: node src/erstellen.js --typ "$TYP"
+
+      - name: Zur Freigabe vorlegen oder direkt übernehmen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ID: ${{ steps.post.outputs.id }}
+          ANZAHL: ${{ steps.post.outputs.anzahl }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          FREIGABE=$(node -p "require('./config.json').freigabe")
+          git add "posts/$ID"
+
+          if [ "$FREIGABE" != "true" ]; then
+            git commit -m "Neuer Beitrag: $ID"
+            git push origin HEAD:main
+            exit 0
+          fi
+
+          ZWEIG="post/$ID"
+          git checkout -b "$ZWEIG"
+          git commit -m "Neuer Beitrag: $ID"
+          git push origin "$ZWEIG"
+
+          {
+            echo "Zusammenführen (Merge) = freigeben. Schließen = verwerfen."
+            echo
+            for n in $(seq 1 "$ANZAHL"); do
+              echo "<img src=\"https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$ZWEIG/posts/$ID/$n.jpg\" width=\"260\">"
+            done
+            echo
+            echo "**Bildunterschrift**"
+            echo
+            node -p "const p=require('./posts/$ID/post.json'); p.caption + '\n\n' + p.hashtags.map(h=>'#'+h).join(' ')"
+          } > /tmp/pr.md
+          gh pr create --base main --head "$ZWEIG" --title "Freigabe: $ID" --body-file /tmp/pr.md
