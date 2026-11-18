@@ -41,8 +41,8 @@ body>*{position:relative}
   font-size:26px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:${f.gedaempft}}
 .kopf .marke{color:${f.text}}
 .mitte{flex:1;display:flex;flex-direction:column;justify-content:center}
-.fuss{display:flex;justify-content:space-between;align-items:center;font-size:28px;color:${f.gedaempft}}
-.fuss b{color:${f.text};font-weight:600}
+.fuss{display:flex;justify-content:space-between;align-items:center;font-size:26px;color:${f.gedaempft}}
+.fuss .marke{font-family:"Playfair Display",serif;font-style:italic;font-size:26px;letter-spacing:.02em;opacity:.8}
 .strich{width:96px;height:6px;background:${f.akzent};border-radius:3px;margin-bottom:56px}
 .serif{font-family:"Playfair Display",serif;line-height:1.2;letter-spacing:-.01em}
 .fett{font-weight:700;font-size:var(--gr);text-wrap:balance}
@@ -73,9 +73,8 @@ body.mitfoto .kopf{color:${f.text}}
 function seite({ rubrik, mitte, fussLinks, fussRechts, foto, zentriert }) {
   const bild = foto ? `<div class="foto" style="background-image:url(data:${foto.typ};base64,${foto.daten})"></div>` : "";
   return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""} ${zentriert ? "zentriert" : ""}">
-${bild}<div class="kopf"><span class="marke">${esc(konfig.kanalname)}</span><span>${esc(rubrik)}</span></div>
-<div class="mitte">${mitte}</div>
-<div class="fuss"><span>${fussLinks}</span><span>${fussRechts}</span></div>
+${bild}<div class="mitte">${mitte}</div>
+<div class="fuss"><span class="marke">${esc(konfig.wasserzeichen ?? konfig.kanalname)}</span><span>${fussRechts}</span></div>
 </body></html>`;
 }
 

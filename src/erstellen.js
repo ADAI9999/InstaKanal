@@ -43,7 +43,9 @@ async function main() {
   const typ = waehleTyp(posts);
   const themen = posts.slice(-40).map((p) => p.thema);
   const felder = konfig.schwerpunkte ?? [];
-  const schwerpunkt = felder.length ? felder[posts.length % felder.length] : "";
+  // Der Schwerpunkt wechselt täglich und rückt mit jedem vorhandenen Beitrag weiter.
+  const tag = Math.floor(Date.now() / 86_400_000);
+  const schwerpunkt = felder.length ? felder[(tag + posts.length) % felder.length] : "";
   console.log(`Erzeuge Beitrag vom Typ „${typ}“${schwerpunkt ? `, Schwerpunkt: ${schwerpunkt}` : ""} …`);
 
   const inhalt = await erzeugeText(typ, themen, schwerpunkt);

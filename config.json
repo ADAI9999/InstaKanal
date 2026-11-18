@@ -2,12 +2,13 @@
   "handle": "erfolgsguru7",
   "instagramKontoId": "17841460011821939",
   "kanalname": "ERFOLGSGURU",
-  "nische": "Erfolg im Alltag, erzählt in kurzen Geschichten: Erfolg entsteht aus Gewohnheiten, Disziplin, klaren Entscheidungen und dem Mut, nach Rückschlägen neu anzufangen. Gemeint ist Erfolg im Beruf ebenso wie im eigenen Leben und in Beziehungen.",
+  "nische": "Erfolg, erzählt über Menschen: was er kostet, wem man ihn verdankt, wen man dabei übersieht und wie man nach einem Rückschlag wieder aufsteht. Es geht um Beruf, Geld und Durchhalten, aber immer aus der Sicht eines Menschen, dem etwas wehtut oder der etwas zu verlieren hat.",
   "schwerpunkte": [
-    "Beruf und Karriere: ein Fehler, eine Bewerbung, ein Gespräch mit Vorgesetzten, eine Kündigung, der erste eigene Kunde",
-    "Disziplin und Gewohnheiten: früh aufstehen, dranbleiben, etwas jeden Tag tun, auch wenn niemand zusieht",
-    "Rückschläge und Neuanfang: scheitern, sich aufrappeln, es noch einmal anders versuchen",
-    "Familie, Freundschaft und Partnerschaft: was Erfolg wert ist, wenn die Menschen fehlen, und was man dafür tun muss"
+    "Anerkennung im Beruf: übergangen oder unterschätzt werden, und der eine Mensch, der an einen glaubt",
+    "Eltern und Herkunft: was Eltern für den Weg ihrer Kinder aufgegeben haben, Stolz und Scham, ein Satz des Vaters oder der Mutter",
+    "Neuanfang und Geld: Jobverlust, Schulden, mit leeren Händen von vorn anfangen, eine Hilfe, mit der niemand gerechnet hat",
+    "Durchhalten: jemand macht weiter, als keiner hinsieht, und was Jahre später daraus wird",
+    "Was Erfolg kostet: die Freundschaft oder Familie, die man über der Arbeit fast verloren hätte, und wer geblieben ist"
   ],
   "zielgruppe": "deutschsprachige Erwachsene ab etwa 25, die beruflich und persönlich vorankommen wollen",
   "tonfall": "ruhig, klar, ermutigend, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
@@ -24,5 +25,6 @@
     "gedaempft": "#9A9FAB",
     "akzent": "#E9B44C"
   },
-  "abspann": "Jeden Tag eine Geschichte, die dich weiterbringt."
+  "abspann": "Jeden Tag eine Geschichte, die dich weiterbringt.",
+  "wasserzeichen": "Erfolgsguru"
 }

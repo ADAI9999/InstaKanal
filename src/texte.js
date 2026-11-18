@@ -91,6 +91,14 @@ Geschichte: eine kurze, erfundene Erzählung aus dem Alltag in der Ich-Form. So 
 - Hervorhebungen: ein Schlüsselwort oder der Schlüsselsatz in **doppelten Sternchen** (fett), ein nachklingender Satz in *einfachen Sternchen* (kursiv). Sparsam, höchstens eine Hervorhebung pro Seite.
 - Konkrete Details machen die Geschichte glaubhaft: der Gruppenchat, der kalte Kaffee, die Jacke am Haken. Kein Triumph und keine Abrechnung am Ende.
 
+Woran solche Geschichten scheitern, und was stattdessen trägt:
+- Zu kleine Fallhöhe. Ein Tippfehler in einem Angebot bewegt niemanden. Es muss um etwas gehen, das fast jeder kennt und das wehtut: übersehen werden, sich für die eigene Herkunft schämen, den Stolz der Eltern nie gehört haben, jemanden über der Arbeit verloren haben, mit vierzig von vorn anfangen.
+- Vorhersehbarkeit. Wenn die Titelseite schon verrät, dass am Ende alles gut wird, wischt niemand weiter. Die Geschichte braucht eine Wendung, die man nicht kommen sieht: ein Detail, das erst spät seinen Sinn zeigt, ein Brief Jahre später, ein Satz von jemandem, von dem man ihn nicht erwartet hätte.
+- Immer dieselbe Bauform. Die weise Vorgesetzte mit der klugen Regel ist nur eine von vielen. Andere: ein Fremder im Zug, ein Kind, das eine einfache Frage stellt, eine Putzkraft, die mehr mitbekommt als der Vorstand, ein Fund beim Ausräumen der elterlichen Wohnung, ein Satz, den man zufällig mithört, eine Geste, für die niemand Dank erwartet.
+- Bürosprache. Wörter wie „Vorlage“, „Abrechnung“, „Prozess“ oder „Feedback“ machen die Geschichte kalt. Erzählt wird, wie man es einer Freundin am Küchentisch erzählen würde: kurze, gesprochene Sätze, auch einmal ein halber.
+- Geschliffene Sprüche. Der Satz, der bleibt, klingt nicht nach Kalender, sondern nach einem Menschen, der ihn in diesem Moment wirklich sagt, gern unbeholfen, gern zu ehrlich („Ich bin 43. Ich weiß, dass alle ihr eigenes Leben haben.“ wäre so ein Ton).
+- Mindestens eine Stelle soll wehtun, bevor es gut wird.
+
 Sätze: eine Sammlung eigener, pointierter Sätze zu einem gemeinsamen Thema, einer pro Seite.
 - Jeder Satz steht für sich und trifft eine Beobachtung, die man kennt, aber selten ausgesprochen hört.
 - Die Sätze unterscheiden sich in Bau und Länge, damit die Sammlung nicht leiert.
