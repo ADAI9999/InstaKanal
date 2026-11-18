@@ -1,0 +1,51 @@
+name: Handgeschriebenen Beitrag erzeugen
+
+on:
+  workflow_dispatch:
+    inputs:
+      datei:
+        description: "Entwurf, z. B. entwuerfe/beethoven-umgedreht.json"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  erzeugen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Beitrag erzeugen
+        id: post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DATEI: ${{ inputs.datei }}
+        run: node src/manuell.js "$DATEI"
+
+      - name: Zur Freigabe vorlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ID: ${{ steps.post.outputs.ids }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ZWEIG="post/$ID"
+          git checkout -q -b "$ZWEIG"
+          git add "posts/$ID"
+          git commit -q -m "Neuer Beitrag: $ID"
+          git push -q origin "$ZWEIG"
+          node src/freigabetext.js "$ID" "$ZWEIG" > /tmp/pr.md
+          gh pr create --base main --head "$ZWEIG" --title "Freigabe: $(node -p "require('./posts/$ID/post.json').thema.trim()")" --body-file /tmp/pr.md \
+            --assignee "$GITHUB_REPOSITORY_OWNER" --reviewer "$GITHUB_REPOSITORY_OWNER"

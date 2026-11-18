@@ -14,7 +14,28 @@ const SCHRIFTEN = [
   ["Playfair Display", 400, "italic", "@fontsource/playfair-display/files/playfair-display-latin-400-italic.woff2"],
   ["Playfair Display", 700, "normal", "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2"],
   ["Playfair Display", 700, "italic", "@fontsource/playfair-display/files/playfair-display-latin-700-italic.woff2"],
+  ["Lora", 400, "normal", "@fontsource/lora/files/lora-latin-400-normal.woff2"],
+  ["Lora", 400, "italic", "@fontsource/lora/files/lora-latin-400-italic.woff2"],
+  ["Lora", 700, "normal", "@fontsource/lora/files/lora-latin-700-normal.woff2"],
+  ["Lora", 700, "italic", "@fontsource/lora/files/lora-latin-700-italic.woff2"],
+  ["Special Elite", 400, "normal", "@fontsource/special-elite/files/special-elite-latin-400-normal.woff2"],
+  ["Courier Prime", 400, "normal", "@fontsource/courier-prime/files/courier-prime-latin-400-normal.woff2"],
+  ["Courier Prime", 700, "normal", "@fontsource/courier-prime/files/courier-prime-latin-700-normal.woff2"],
 ];
+
+/**
+ * Gestaltungen. Jeder Beitrag wählt eine, damit der Feed nicht einfarbig wirkt.
+ *   nacht    dunkler Grund, goldene Akzente
+ *   papier   warmes Papier, dunkle Schrift, rote Akzente; passt zu Zeichnungen
+ *   archiv   graues Akten-Papier, Schreibmaschinenschrift, roter Stempel; für wahre Begebenheiten
+ *   vollbild jedes Bild füllt die ganze Seite, Text weiß unten auf dem Bild
+ */
+export const DESIGNS = {
+  nacht: { hintergrund: "#0E1014", text: "#F4F1EA", gedaempft: "#9A9FAB", akzent: "#E9B44C", titel: '"Playfair Display",serif', lauf: '"Playfair Display",serif', glanz: true },
+  papier: { hintergrund: "#F2EBDD", text: "#24201B", gedaempft: "#7C7264", akzent: "#A3352A", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false },
+  archiv: { hintergrund: "#E6E1D5", text: "#1B1B1A", gedaempft: "#6E6A61", akzent: "#B3261E", titel: '"Special Elite",monospace', lauf: '"Courier Prime",monospace', glanz: false, rahmen: true },
+  vollbild: { hintergrund: "#0B0B0C", text: "#FFFFFF", gedaempft: "#D0D0D0", akzent: "#F2C14E", titel: '"Playfair Display",serif', lauf: '"Lora",serif', glanz: false, vollbild: true },
+};
 
 export function schriftCss() {
   return SCHRIFTEN.map(([familie, gewicht, stil, datei]) => {
@@ -26,60 +47,62 @@ export function schriftCss() {
 const esc = (s) =>
   String(s).replace(/[&<>"]/g, (z) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[z]);
 
-function css() {
-  const f = konfig.farben;
+let SCHRIFT_CSS = null;
+
+function css(design = "nacht") {
+  const f = DESIGNS[design] ?? DESIGNS.nacht;
+  SCHRIFT_CSS ??= schriftCss();
   return `
-${schriftCss()}
+${SCHRIFT_CSS}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:${BREITE}px;height:${HOEHE}px}
 body{background:${f.hintergrund};color:${f.text};font-family:"Inter",sans-serif;
   display:flex;flex-direction:column;padding:96px 92px 84px;position:relative;overflow:hidden}
 body::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(900px 700px at 85% -10%, ${f.akzent}22, transparent 60%)}
+  ${f.glanz ? `background:radial-gradient(900px 700px at 85% -10%, ${f.akzent}22, transparent 60%)` : ""}}
+${f.rahmen ? `body::after{content:"";position:absolute;inset:34px;border:2px solid ${f.text}33;pointer-events:none}` : ""}
 body>*{position:relative}
-.kopf{display:flex;justify-content:space-between;align-items:center;
-  font-size:26px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:${f.gedaempft}}
-.kopf .marke{color:${f.text}}
 .mitte{flex:1;display:flex;flex-direction:column;justify-content:center}
 .fuss{display:flex;justify-content:space-between;align-items:center;font-size:26px;color:${f.gedaempft}}
-.fuss .marke{font-family:"Playfair Display",serif;font-style:italic;font-size:26px;letter-spacing:.02em;opacity:.8}
+.fuss .marke{font-family:"Playfair Display",serif;font-style:italic;font-size:26px;letter-spacing:.02em;opacity:.85}
 .strich{width:96px;height:6px;background:${f.akzent};border-radius:3px;margin-bottom:56px}
-.serif{font-family:"Playfair Display",serif;line-height:1.2;letter-spacing:-.01em}
-.fett{font-weight:700;font-size:var(--gr);text-wrap:balance}
+.serif{font-family:${f.lauf};line-height:1.25;letter-spacing:-.005em}
+.fett{font-family:${f.titel};font-weight:700;font-size:var(--gr);text-wrap:balance;line-height:1.2}
 .akzent{color:${f.akzent};font-style:italic;font-weight:700}
-.erzaehl{font-weight:400;font-size:var(--gr);line-height:1.34;letter-spacing:0;text-wrap:pretty}
-.erzaehl p+p{margin-top:.85em}
-.erklaerung{margin-top:40px;font-size:40px;line-height:1.45;color:${f.text};opacity:.8;text-wrap:pretty}
+.erzaehl{font-weight:400;font-size:var(--gr);line-height:1.38;letter-spacing:0;text-wrap:pretty}
+.erzaehl p+p{margin-top:.8em}
 .kopfzeile{margin-bottom:.6em;color:${f.akzent}}
 .kopfzeile.allein{color:${f.text}}
 .kopfzeile b{color:${f.akzent}}
 .kopfzeile:not(.allein) b{color:${f.text}}
 .erzaehl b{font-weight:700}
 .erzaehl i{font-style:italic}
-.aufhaenger{margin-top:36px;font-size:40px;line-height:1.35;color:${f.text};opacity:.85;text-wrap:balance}
+.aufhaenger{margin-top:36px;font-family:${f.lauf};font-style:italic;font-size:42px;line-height:1.35;color:${f.text};opacity:.9;text-wrap:balance}
 .abspann{margin-top:0;font-size:46px;line-height:1.4;text-wrap:balance}
+.stempel{display:inline-block;align-self:center;margin-bottom:40px;padding:10px 26px;border:4px solid ${f.akzent};color:${f.akzent};
+  font-family:"Special Elite",monospace;font-size:34px;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-4deg)}
 body.zentriert .mitte{align-items:center;text-align:center}
 body.zentriert .folgen{align-self:center}
-.nummer{font-family:"Playfair Display",serif;font-weight:700;font-size:64px;line-height:1;color:${f.akzent};margin-bottom:44px}
 .weiter{font-weight:600;color:${f.akzent}}
-.schlusszeile{margin-top:44px;font-size:60px}
 .foto{position:absolute;inset:0 0 auto 0;height:860px;background-size:cover;background-position:center}
 .foto::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(to bottom, ${f.hintergrund}b3 0%, ${f.hintergrund}00 22%, ${f.hintergrund}00 58%, ${f.hintergrund} 100%)}
+  background:linear-gradient(to bottom, ${f.hintergrund}${f.vollbild ? "00" : "b3"} 0%, ${f.hintergrund}00 22%, ${f.hintergrund}00 ${f.vollbild ? "45" : "58"}%, ${f.hintergrund}${f.vollbild ? "f0" : ""} 100%)}
 body.mitfoto::before{display:none}
 body.seitenfoto .foto{height:740px}
 body.seitenfoto .mitte{padding-bottom:40px}
 body.mitfoto .mitte{justify-content:flex-end;padding-bottom:64px}
 body.mitfoto .strich{margin-bottom:40px}
-body.mitfoto .kopf{color:${f.text}}
+${f.vollbild ? `body.mitfoto .foto, body.seitenfoto .foto{height:${HOEHE}px}
+body.mitfoto .mitte{padding-bottom:20px}
+body.mitfoto{text-shadow:0 2px 18px #000a}` : ""}
 .folgen{margin-top:56px;display:inline-block;align-self:flex-start;padding:26px 44px;border-radius:999px;
-  background:${f.akzent};color:${f.hintergrund};font-size:36px;font-weight:700}
+  background:${f.akzent};color:${f.hintergrund};font-size:36px;font-weight:700;text-shadow:none}
 `;
 }
 
-function seite({ mitte, fussRechts, foto, zentriert, klein }) {
+function seite({ mitte, fussRechts, foto, zentriert, klein, design }) {
   const bild = foto ? `<div class="foto" style="background-image:url(data:${foto.typ};base64,${foto.daten})"></div>` : "";
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""} ${foto && klein ? "seitenfoto" : ""} ${zentriert ? "zentriert" : ""}">
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css(design)}</style></head><body class="${foto ? "mitfoto" : ""} ${foto && klein ? "seitenfoto" : ""} ${zentriert ? "zentriert" : ""}">
 ${bild}<div class="mitte">${mitte}</div>
 <div class="fuss"><span class="marke">${esc(konfig.wasserzeichen ?? konfig.kanalname)}</span><span>${fussRechts}</span></div>
 </body></html>`;
@@ -115,9 +138,11 @@ function seitenHtml(post, foto, seitenfotos = []) {
   const gesamt = post.seiten.length + 2;
   const zaehler = (n) => `${n} / ${gesamt}`;
   const zentriert = true;
+  const design = DESIGNS[post.design] ? post.design : "nacht";
 
   const titel = seite({
-    mitte: `<div class="strich"></div><h1 class="serif fett" style="--gr:${groesse(post.titel.length, foto ? FOTOTITEL_STUFEN : TITEL_STUFEN)}px">${esc(post.titel)}</h1>${post.aufhaenger ? `<p class="aufhaenger">${esc(post.aufhaenger)}</p>` : ""}`,
+    design,
+    mitte: `${post.stempel ? `<div class="stempel">${esc(post.stempel)}</div>` : `<div class="strich"></div>`}<h1 class="serif fett" style="--gr:${groesse(post.titel.length, foto ? FOTOTITEL_STUFEN : TITEL_STUFEN)}px">${esc(post.titel)}</h1>${post.aufhaenger ? `<p class="aufhaenger">${esc(post.aufhaenger)}</p>` : ""}`,
     foto,
     zentriert,
     fussRechts: `<span class="weiter">Wischen →</span>`,
@@ -135,10 +160,11 @@ function seitenHtml(post, foto, seitenfotos = []) {
     const textHtml = absaetze.length
       ? `<div class="serif erzaehl" style="--gr:${groesse(laenge, bild ? ERZAEHL_FOTO_STUFEN : ERZAEHL_STUFEN)}px">${absaetze.map((a) => `<p>${fmt(a)}</p>`).join("")}</div>`
       : "";
-    return seite({ mitte: kopfHtml + textHtml, fussRechts: zaehler(i + 2), zentriert, foto: bild, klein: true });
+    return seite({ design, mitte: kopfHtml + textHtml, fussRechts: zaehler(i + 2), zentriert, foto: bild, klein: true });
   });
 
   const ende = seite({
+    design,
     mitte: `<p class="serif abspann">${esc(konfig.abspann ?? "")}</p><span class="folgen">Folge @${esc(konfig.handle)}</span>`,
     foto,
     zentriert,
