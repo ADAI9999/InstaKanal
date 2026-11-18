@@ -8,6 +8,7 @@ import path from "node:path";
 import { konfig, ladePosts, speicherePost, POSTS_ORDNER, WURZEL } from "./konfig.js";
 import { erzeugeText, pruefe, BEISPIELE, TYPEN } from "./texte.js";
 import { rendere } from "./bilder.js";
+import { findeTitelfoto } from "./fotos.js";
 
 const args = process.argv.slice(2);
 const beispiel = args.includes("--beispiel");
@@ -41,13 +42,22 @@ async function main() {
   const posts = ladePosts();
   const typ = waehleTyp(posts);
   const themen = posts.slice(-40).map((p) => p.thema);
-  console.log(`Erzeuge Beitrag vom Typ „${typ}“ …`);
+  const felder = konfig.schwerpunkte ?? [];
+  const schwerpunkt = felder.length ? felder[posts.length % felder.length] : "";
+  console.log(`Erzeuge Beitrag vom Typ „${typ}“${schwerpunkt ? `, Schwerpunkt: ${schwerpunkt}` : ""} …`);
 
-  const inhalt = await erzeugeText(typ, themen);
+  const inhalt = await erzeugeText(typ, themen, schwerpunkt);
   const id = neueId(typ);
   const ordner = path.join(POSTS_ORDNER, id);
-  const post = { typ, erstellt: new Date().toISOString(), ...inhalt };
-  post.bilder = await rendere(post, ordner);
+  const post = { typ, erstellt: new Date().toISOString(), schwerpunkt, ...inhalt };
+
+  const foto = await findeTitelfoto({
+    begriff: inhalt.bildsuche,
+    titel: inhalt.titel,
+    benutzteIds: new Set(posts.map((p) => p.titelfoto?.id).filter(Boolean)),
+  });
+  if (foto) post.titelfoto = { id: foto.id, url: foto.url, fotograf: foto.fotograf };
+  post.bilder = await rendere(post, ordner, foto);
   speicherePost(ordner, post);
 
   console.log(`Fertig: posts/${id}/ (${post.bilder.length} Bild(er)), Thema: ${post.thema}`);

@@ -10,13 +10,14 @@ const gemeinsam = {
   thema: { ...text, description: "Thema in 2 bis 5 Wörtern, dient der Vermeidung von Wiederholungen" },
   caption: { ...text, description: "Bildunterschrift: 2 bis 3 kurze Absätze, zusammen 150 bis 400 Zeichen, ohne Hashtags und ohne Folge-Aufruf" },
   hashtags: { type: "array", items: text, description: "3 bis 5 Hashtags ohne #" },
+  bildsuche: { ...text, description: "Englischer Suchbegriff aus 2 bis 4 Wörtern für ein Symbolfoto zur Titelseite: ein Gegenstand oder Ort aus dem Beitrag, stimmungsvoll, ohne Menschen (z. B. \"empty kitchen table morning\")" },
 };
 
 const SCHEMATA = {
   geschichte: {
     type: "object",
     additionalProperties: false,
-    required: ["thema", "titel", "seiten", "moral", "caption", "hashtags"],
+    required: ["thema", "titel", "seiten", "moral", "caption", "hashtags", "bildsuche"],
     properties: {
       thema: gemeinsam.thema,
       titel: { ...text, description: "Titelseite: Einstieg mitten in der Szene, 2 bis 3 kurze Sätze, höchstens 120 Zeichen. Verrät das Ende nicht." },
@@ -35,12 +36,13 @@ const SCHEMATA = {
       moral: { ...text, description: "Schlusssatz der letzten Seite, höchstens 110 Zeichen" },
       caption: gemeinsam.caption,
       hashtags: gemeinsam.hashtags,
+      bildsuche: gemeinsam.bildsuche,
     },
   },
   saetze: {
     type: "object",
     additionalProperties: false,
-    required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags"],
+    required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags", "bildsuche"],
     properties: {
       thema: gemeinsam.thema,
       titel: { ...text, description: "Titelseite: macht neugierig auf die Sammlung, höchstens 80 Zeichen" },
@@ -60,6 +62,7 @@ const SCHEMATA = {
       abschluss: { ...text, description: "Schlusssatz der letzten Seite, höchstens 110 Zeichen" },
       caption: gemeinsam.caption,
       hashtags: gemeinsam.hashtags,
+      bildsuche: gemeinsam.bildsuche,
     },
   },
 };
@@ -99,16 +102,17 @@ Grenzen, weil der Kanal mit seinem Namen dafür einsteht:
 - Deutsche Rechtschreibung mit echten Umlauten und ß, Anführungszeichen „so“.`;
 }
 
-function auftrag(typ, bisherigeThemen) {
+function auftrag(typ, bisherigeThemen, schwerpunkt) {
   const art = typ === "geschichte" ? "eine Geschichte" : "eine Sammlung von Sätzen";
+  const feld = schwerpunkt ? `\n\nSchwerpunkt dieses Beitrags: ${schwerpunkt}.` : "";
   const liste = bisherigeThemen.length
     ? `\n\nDiese Themen gab es zuletzt schon. Wähle ein deutlich anderes Thema, andere Figuren und einen anderen Schauplatz:\n${bisherigeThemen.map((t) => `- ${t}`).join("\n")}`
     : "";
-  return `Schreibe ${art}.${liste}`;
+  return `Schreibe ${art}.${feld}${liste}`;
 }
 
 /** Erzeugt den Text eines Beitrags über die Claude API. */
-export async function erzeugeText(typ, bisherigeThemen) {
+export async function erzeugeText(typ, bisherigeThemen, schwerpunkt) {
   const client = new Anthropic();
   const antwort = await client.beta.messages.create({
     model: MODELL,
@@ -120,7 +124,7 @@ export async function erzeugeText(typ, bisherigeThemen) {
       format: { type: "json_schema", schema: SCHEMATA[typ] },
     },
     system: systemPrompt(),
-    messages: [{ role: "user", content: auftrag(typ, bisherigeThemen) }],
+    messages: [{ role: "user", content: auftrag(typ, bisherigeThemen, schwerpunkt) }],
   });
 
   if (antwort.stop_reason === "refusal") {
@@ -187,6 +191,7 @@ export const BEISPIELE = {
     caption:
       "Zuneigung sieht nicht immer nach Zuneigung aus. Manchmal sieht sie aus wie ein Anruf zur falschen Zeit oder eine Frage, die man schon hundertmal gehört hat.\n\nWer ruft dich regelmäßig an, ohne dass du je zuerst anrufst? Dreh es diese Woche einmal um.",
     hashtags: ["familie", "geschichten", "dankbarkeit", "nachdenken"],
+    bildsuche: "old telephone on table",
   },
   saetze: {
     thema: "Grenzen setzen",
@@ -206,5 +211,6 @@ export const BEISPIELE = {
     caption:
       "Grenzen setzt man selten in großen Gesprächen. Meist sind es kleine Sätze an einem gewöhnlichen Dienstag.\n\nSuch dir einen Satz aus und probier ihn diese Woche einmal aus.",
     hashtags: ["grenzen", "selbstachtung", "nachdenken", "beziehungen"],
+    bildsuche: "closed door warm light",
   },
 };

@@ -36,6 +36,7 @@ jobs:
         id: post
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           TYP: ${{ inputs.typ || 'auto' }}
         run: node src/erstellen.js --typ "$TYP"
 

@@ -51,14 +51,22 @@ body>*{position:relative}
 .nummer{font-family:"Playfair Display",serif;font-weight:700;font-size:64px;line-height:1;color:${f.akzent};margin-bottom:44px}
 .weiter{font-weight:600;color:${f.akzent}}
 .schlusszeile{margin-top:44px;font-size:60px}
+.foto{position:absolute;inset:0 0 auto 0;height:860px;background-size:cover;background-position:center}
+.foto::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom, ${f.hintergrund}b3 0%, ${f.hintergrund}00 22%, ${f.hintergrund}00 58%, ${f.hintergrund} 100%)}
+body.mitfoto::before{display:none}
+body.mitfoto .mitte{justify-content:flex-end;padding-bottom:64px}
+body.mitfoto .strich{margin-bottom:40px}
+body.mitfoto .kopf{color:${f.text}}
 .folgen{margin-top:56px;display:inline-block;align-self:flex-start;padding:26px 44px;border-radius:999px;
   background:${f.akzent};color:${f.hintergrund};font-size:36px;font-weight:700}
 `;
 }
 
-function seite({ rubrik, mitte, fussLinks, fussRechts }) {
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body>
-<div class="kopf"><span class="marke">${esc(konfig.kanalname)}</span><span>${esc(rubrik)}</span></div>
+function seite({ rubrik, mitte, fussLinks, fussRechts, foto }) {
+  const bild = foto ? `<div class="foto" style="background-image:url(data:${foto.typ};base64,${foto.daten})"></div>` : "";
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""}">
+${bild}<div class="kopf"><span class="marke">${esc(konfig.kanalname)}</span><span>${esc(rubrik)}</span></div>
 <div class="mitte">${mitte}</div>
 <div class="fuss"><span>${fussLinks}</span><span>${fussRechts}</span></div>
 </body></html>`;
@@ -80,10 +88,11 @@ function hervorheben(satz, phrase) {
 }
 
 const TITEL_STUFEN = [[40, 104], [70, 90], [100, 78], [Infinity, 68]];
+const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
 const SATZ_STUFEN = [[60, 96], [90, 84], [120, 74], [Infinity, 64]];
 const ERZAEHL_STUFEN = [[90, 66], [140, 60], [190, 54], [Infinity, 48]];
 
-function seitenHtml(post) {
+function seitenHtml(post, foto) {
   const handle = `<b>@${esc(konfig.handle)}</b>`;
   const istGeschichte = post.typ === "geschichte";
   const rubrik = istGeschichte ? "Geschichte" : "Gedanken";
@@ -94,7 +103,8 @@ function seitenHtml(post) {
 
   const titel = seite({
     rubrik,
-    mitte: `<div class="strich"></div><h1 class="serif fett" style="--gr:${groesse(post.titel.length, TITEL_STUFEN)}px">${esc(post.titel)}</h1>`,
+    mitte: `<div class="strich"></div><h1 class="serif fett" style="--gr:${groesse(post.titel.length, foto ? FOTOTITEL_STUFEN : TITEL_STUFEN)}px">${esc(post.titel)}</h1>`,
+    foto,
     fussLinks: handle,
     fussRechts: `<span class="weiter">Wischen →</span>`,
   });
@@ -117,14 +127,14 @@ function seitenHtml(post) {
 }
 
 /** Rendert alle Seiten eines Beitrags als JPEG und gibt die Dateinamen zurück. */
-export async function rendere(post, ordner) {
+export async function rendere(post, ordner, foto = null) {
   fs.rmSync(ordner, { recursive: true, force: true });
   fs.mkdirSync(ordner, { recursive: true });
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage({ viewport: { width: BREITE, height: HOEHE }, deviceScaleFactor: 1 });
     const dateien = [];
-    const seiten = seitenHtml(post);
+    const seiten = seitenHtml(post, foto);
     for (let i = 0; i < seiten.length; i++) {
       await page.setContent(seiten[i], { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);

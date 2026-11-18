@@ -3,7 +3,13 @@
   "instagramKontoId": "17841460011821939",
   "kanalname": "ERFOLGSGURU",
   "schlusszeile": "Mach's trotzdem.",
-  "nische": "Lebensnahe Geschichten und Gedanken über Freundschaft, Familie, Beziehung, Respekt, Selbstachtung, Grenzen, Lebenszeit und den Mut, etwas anders zu machen",
+  "nische": "Lebensnahe Geschichten und Gedanken darüber, wie Menschen im Alltag über sich hinauswachsen: in der Familie, in Freundschaft und Partnerschaft, im Beruf und bei Neuanfängen",
+  "schwerpunkte": [
+    "Familie und Freundschaft",
+    "Beruf: ein Fehler, eine Kündigung, ein Gespräch mit Vorgesetzten oder Kollegen, ein Neuanfang",
+    "Partnerschaft und Selbstachtung",
+    "Durchhalten, Gewohnheiten und der Mut, etwas zu Ende zu bringen oder aufzugeben"
+  ],
   "zielgruppe": "deutschsprachige Erwachsene ab etwa 30, die über ihr Leben und ihre Beziehungen nachdenken",
   "tonfall": "ruhig, warm, klar, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
   "freigabe": true,

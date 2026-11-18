@@ -27,6 +27,7 @@ Die Freigabe geht auch am Handy in der GitHub-App.
 | `nische`, `zielgruppe`, `tonfall` | steuern die Texte |
 | `freigabe` | `true` = du gibst jeden Beitrag frei, `false` = voll automatisch |
 | `rhythmus` | Reihenfolge der Beitragsarten (`geschichte`, `saetze`) |
+| `schwerpunkte` | Themenfelder, die der Reihe nach drankommen |
 | `farben` | Farben des Designs |
 
 ## Einmalige Einrichtung
@@ -57,7 +58,16 @@ gh secret set IG_ACCESS_TOKEN
 - `ANTHROPIC_API_KEY`: Schlüssel von <https://console.anthropic.com> (Kosten: wenige Cent pro Beitrag).
 - `IG_ACCESS_TOKEN`: das Token aus Schritt 2.
 
-### 4. Token-Verlängerung (empfohlen)
+### 3b. Titelfotos (optional)
+Mit einem kostenlosen Schlüssel von <https://www.pexels.com/api/> bekommt jede Titelseite ein lizenzfreies Symbolfoto.
+Claude wählt aus sechs Treffern das passendste und verwirft Bilder mit erkennbaren Gesichtern.
+Ohne Schlüssel bleibt die Titelseite reiner Text.
+
+```bash
+gh secret set PEXELS_API_KEY
+```
+
+### 4. Token-Verlängerung (nur beim älteren Instagram-Login)
 Das Instagram-Token läuft nach 60 Tagen ab. Damit es sich selbst verlängert:
 1. Auf GitHub unter Settings → Developer settings → **Fine-grained tokens** ein Token anlegen,
    nur für dieses Repository, Berechtigung **Secrets: Read and write**.

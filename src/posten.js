@@ -16,7 +16,8 @@ function bildBasis() {
 
 function bildunterschrift(post) {
   const tags = post.hashtags.map((h) => `#${h}`).join(" ");
-  return `${post.caption}\n\n✅ Folge @${konfig.handle} für mehr\n\n${tags}`.slice(0, 2200);
+  const quelle = post.titelfoto ? `\n\nTitelfoto: ${post.titelfoto.fotograf} / Pexels` : "";
+  return `${post.caption}\n\n✅ Folge @${konfig.handle} für mehr\n\n${tags}${quelle}`.slice(0, 2200);
 }
 
 async function main() {
