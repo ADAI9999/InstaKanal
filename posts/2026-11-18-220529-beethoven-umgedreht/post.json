@@ -62,14 +62,14 @@
     {
       "ueberschrift": "",
       "absaetze": [
-        "Manchmal steckt man so tief in der eigenen Arbeit, dass man den Erfolg nicht bemerkt.",
-        "**Dann braucht es jemanden, der einen umdreht.**",
-        "Wem könntest du heute zeigen, was er erreicht hat?"
+        "Caroline Unger hätte sich einfach verbeugen können. Der Jubel galt auch ihr.",
+        "Sie ging stattdessen zu ihm hinüber.",
+        "**Manchmal ist die größte Geste, jemandem zu zeigen, was er erreicht hat.**"
       ],
       "bildidee": "Two people seen from behind on a modern city street at dusk, one gently placing a hand on the other's shoulder so they turn around, warm street lights."
     }
   ],
-  "caption": "Beethoven schrieb die Neunte, als er fast nichts mehr hörte. Den Jubel darüber sah er nur, weil eine junge Sängerin ihn umdrehte.\n\nWer in deinem Leben macht gerade weiter, ohne zu hören, ob es gut ist?",
+  "caption": "Beethoven schrieb die Neunte, als er fast nichts mehr hörte. Den Jubel darüber sah er nur, weil eine 20-jährige Sängerin ihn umdrehte.\n\nWem könntest du heute zeigen, was er erreicht hat?",
   "hashtags": [
     "beethoven",
     "geschichte",
@@ -114,7 +114,8 @@
     "schwaechste_stelle": "Seite 8: Die Übertragung „Manchmal steckt man so tief in der eigenen Arbeit, dass man den Erfolg nicht bemerkt“ passt nicht zur Geschichte. Beethoven war taub, nicht vertieft. Wer beim zweiten Lesen nachdenkt, schüttelt den Kopf, und die abschließende Appellfrage wirkt wie eine Predigt.",
     "hinweise": "Streiche alles, was nicht in den Notizen steht: „voll“, „mit dem ganzen Körper“, „behutsam“, „größtes Werk“. Formuliere Seite 4 so, dass die Unsicherheit der Quellen ehrlich bleibt, etwa „Als ein Satz endet – die Berichte sagen nicht einheitlich, welcher –“. Mach das wenig bekannte Umlauf-Detail zum Kern: Die Musiker sollten den Komponisten ignorieren, und genau er bekam den Jubel. Ersetze die Moral durch eine Pointe, die wirklich aus der Geschichte folgt, oder lass die Szene ohne Belehrung enden. Behalte nur eine Frage, entweder auf Seite 8 oder in der Bildunterschrift.",
     "schnitt": 6,
-    "bestanden": false
+    "bestanden": false,
+    "hinweis": "Text nach dem Lektorat von Hand überarbeitet"
   },
   "bildpruefung": {
     "passt": true,
