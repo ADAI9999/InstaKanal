@@ -1,27 +1,43 @@
 # InstaKanal – Anleitung
 
-Automatisierter Instagram-Kanal mit zwei Beiträgen pro Tag. Du gibst jeden Beitrag frei, bevor er erscheint.
+Automatisierter Instagram-Kanal mit vier Beiträgen pro Tag. Die Beiträge entstehen eine Woche im Voraus,
+und du gibst jeden frei, bevor er erscheint.
 
 Jeder Beitrag ist ein Karussell mit KI-Titelbild:
-- **Geschichte:** eine erfundene Ich-Erzählung mit Aufhänger, Wendung und Schluss an den Leser
+- **Geschichte:** eine erfundene Ich-Erzählung mit Aufhänger, Wendung und einem Werkzeug zum Nachmachen
 - **Liste:** nummerierte Sätze oder Schritte zum Mitnehmen („Diese 7 Sätze …“)
+
+Lebt eine Geschichte von Schauplätzen, Tieren oder einem Gleichnis, bekommt jede Seite ein eigenes Bild;
+sonst gibt es nur das Titelbild.
 
 ## So läuft es ab
 
-1. **19:30 Uhr** – GitHub erzeugt die zwei Beiträge für den nächsten Tag.
-   - Jeder Entwurf geht durch ein **Lektorat**: Ein zweiter Lauf bewertet streng, ob er zum Kanal passt,
-     ob der Spannungsbogen trägt, ob das Thema interessiert und wie die Sprache klingt (Noten 1 bis 10).
-     Unter Note 7 in einem Kriterium wird neu geschrieben, bis zu dreimal.
-   - Das **Titelbild** wird ebenfalls geprüft und bei Mängeln einmal neu erzeugt.
-2. **Freigabe** – Für jeden Beitrag bekommst du eine Anfrage „Freigabe: …“ mit Noten, Begründung,
-   schwächster Stelle, allen Seiten und der Bildunterschrift.
-   - **Merge** = freigeben
-   - **Close** = verwerfen
-3. **07:15 Uhr und 18:45 Uhr** – Jeweils der älteste freigegebene Beitrag wird veröffentlicht.
+1. **Mittwochs 20:00 Uhr** – GitHub füllt den Vorrat auf 28 Beiträge auf (4 pro Tag, 7 Tage).
+   - Jeder Entwurf geht durch ein **Lektorat** mit sechs Noten von 1 bis 10: Titelseite, passt zum Kanal,
+     Spannungsbogen, Thema, Nutzwert, Sprache. Unter Note 7 wird neu geschrieben, bis zu dreimal.
+   - Das **Titelbild** wird geprüft und bei Mängeln einmal neu erzeugt.
+2. **Freigabe** – Für jeden Beitrag bekommst du eine Anfrage „Freigabe: …“ mit Noten, schwächster Stelle,
+   allen Seiten und der Bildunterschrift. **Merge** = freigeben, **Close** = verwerfen.
+3. **07:15, 12:15, 17:15 und 20:15 Uhr** – Jeweils der älteste freigegebene Beitrag wird veröffentlicht.
 
-Die Zeiten gelten für die Winterzeit; in der Sommerzeit verschiebt sich alles um eine Stunde nach hinten
-(GitHub rechnet in Weltzeit). GitHub startet geplante Abläufe außerdem oft einige Minuten verspätet.
-Warten schon zwei oder mehr Beiträge, wird abends nichts Neues erzeugt.
+Die Zeiten gelten für die Winterzeit; in der Sommerzeit verschiebt sich alles um eine Stunde nach hinten.
+GitHub startet geplante Abläufe oft einige Minuten verspätet.
+
+**Stoppen:** Erzeugen und Posten lassen sich getrennt anhalten und wieder starten:
+
+```bash
+gh workflow disable erstellen.yml
+```
+
+```bash
+gh workflow disable posten.yml
+```
+
+Wieder einschalten mit `enable` statt `disable`. Vorrat außer der Reihe auffüllen:
+
+```bash
+gh workflow run erstellen.yml
+```
 
 Die Freigabe geht auch am Handy in der GitHub-App.
 

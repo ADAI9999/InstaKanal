@@ -63,6 +63,8 @@ body.zentriert .folgen{align-self:center}
 .foto::after{content:"";position:absolute;inset:0;
   background:linear-gradient(to bottom, ${f.hintergrund}b3 0%, ${f.hintergrund}00 22%, ${f.hintergrund}00 58%, ${f.hintergrund} 100%)}
 body.mitfoto::before{display:none}
+body.seitenfoto .foto{height:740px}
+body.seitenfoto .mitte{padding-bottom:40px}
 body.mitfoto .mitte{justify-content:flex-end;padding-bottom:64px}
 body.mitfoto .strich{margin-bottom:40px}
 body.mitfoto .kopf{color:${f.text}}
@@ -71,9 +73,9 @@ body.mitfoto .kopf{color:${f.text}}
 `;
 }
 
-function seite({ rubrik, mitte, fussLinks, fussRechts, foto, zentriert }) {
+function seite({ rubrik, mitte, fussLinks, fussRechts, foto, zentriert, klein }) {
   const bild = foto ? `<div class="foto" style="background-image:url(data:${foto.typ};base64,${foto.daten})"></div>` : "";
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""} ${zentriert ? "zentriert" : ""}">
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""} ${foto && klein ? "seitenfoto" : ""} ${zentriert ? "zentriert" : ""}">
 ${bild}<div class="mitte">${mitte}</div>
 <div class="fuss"><span class="marke">${esc(konfig.wasserzeichen ?? konfig.kanalname)}</span><span>${fussRechts}</span></div>
 </body></html>`;
@@ -98,12 +100,13 @@ const TITEL_STUFEN = [[40, 104], [70, 90], [100, 78], [Infinity, 68]];
 const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
 const SATZ_STUFEN = [[60, 84], [90, 74], [120, 66], [Infinity, 58]];
 const ERZAEHL_STUFEN = [[110, 62], [180, 56], [250, 50], [Infinity, 45]];
+const ERZAEHL_FOTO_STUFEN = [[80, 54], [130, 48], [180, 43], [Infinity, 38]];
 
 /** Wandelt **fett** und *kursiv* in HTML um. */
 const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");
 const ohneSterne = (s) => s.replace(/\*/g, "");
 
-function seitenHtml(post, foto) {
+function seitenHtml(post, foto, seitenfotos = []) {
   const handle = `<b>@${esc(konfig.handle)}</b>`;
   const istGeschichte = post.typ === "geschichte";
   const rubrik = "";
@@ -123,9 +126,9 @@ function seitenHtml(post, foto) {
 
   const mitten = inhalt.map((eintrag, i) => {
     const mitte = istGeschichte
-      ? `<div class="serif erzaehl" style="--gr:${groesse(ohneSterne(eintrag.absaetze.join(" ")).length, ERZAEHL_STUFEN)}px">${eintrag.absaetze.map((a) => `<p>${fmt(a)}</p>`).join("")}</div>`
+      ? `<div class="serif erzaehl" style="--gr:${groesse(ohneSterne(eintrag.absaetze.join(" ")).length, seitenfotos[i] ? ERZAEHL_FOTO_STUFEN : ERZAEHL_STUFEN)}px">${eintrag.absaetze.map((a) => `<p>${fmt(a)}</p>`).join("")}</div>`
       : `<div class="nummer">${String(i + 1).padStart(2, "0")}</div><p class="serif fett" style="--gr:${groesse(eintrag.satz.length, SATZ_STUFEN)}px">${hervorheben(eintrag.satz, eintrag.hervorhebung)}</p>${eintrag.erklaerung ? `<p class="erklaerung">${esc(eintrag.erklaerung)}</p>` : ""}`;
-    return seite({ rubrik, mitte, fussLinks: handle, fussRechts: zaehler(i + 2), zentriert });
+    return seite({ rubrik, mitte, fussLinks: handle, fussRechts: zaehler(i + 2), zentriert, foto: seitenfotos[i] ?? null, klein: true });
   });
 
   const schlussHtml = istGeschichte
@@ -144,14 +147,14 @@ function seitenHtml(post, foto) {
 }
 
 /** Rendert alle Seiten eines Beitrags als JPEG und gibt die Dateinamen zurück. */
-export async function rendere(post, ordner, foto = null) {
+export async function rendere(post, ordner, foto = null, seitenfotos = []) {
   fs.rmSync(ordner, { recursive: true, force: true });
   fs.mkdirSync(ordner, { recursive: true });
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage({ viewport: { width: BREITE, height: HOEHE }, deviceScaleFactor: 1 });
     const dateien = [];
-    const seiten = seitenHtml(post, foto);
+    const seiten = seitenHtml(post, foto, seitenfotos);
     for (let i = 0; i < seiten.length; i++) {
       await page.setContent(seiten[i], { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);

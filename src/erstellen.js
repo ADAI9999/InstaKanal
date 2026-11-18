@@ -22,12 +22,10 @@ function waehleTyp(zaehler) {
   return konfig.rhythmus[zaehler % konfig.rhythmus.length];
 }
 
+/** Zeitstempel im Namen: eindeutig auch über mehrere Freigabe-Zweige hinweg und zeitlich sortierbar. */
 function neueId(typ) {
-  const datum = new Date().toISOString().slice(0, 10);
-  for (let n = 1; ; n++) {
-    const id = `${datum}-${typ}${n > 1 ? `-${n}` : ""}`;
-    if (!fs.existsSync(path.join(POSTS_ORDNER, id))) return id;
-  }
+  const jetzt = new Date().toISOString();
+  return `${jetzt.slice(0, 10)}-${jetzt.slice(11, 19).replace(/:/g, "")}-${typ}`;
 }
 
 async function main() {
@@ -41,13 +39,21 @@ async function main() {
     return;
   }
 
-  const anzahl = args.includes("--anzahl") ? Number(args[args.indexOf("--anzahl") + 1]) : 1;
+  const wert = (name, ersatz) => (args.includes(name) ? args[args.indexOf(name) + 1] : ersatz);
+  const anzahl = Number(wert("--anzahl", 1));
+  const versatz = Number(wert("--versatz", 0));
+  // Themen aus noch nicht freigegebenen Beiträgen desselben Laufs, damit sich nichts wiederholt.
+  const themendatei = wert("--themendatei", "");
   const posts = ladePosts();
   const themen = posts.slice(-40).map((p) => p.thema);
+  if (themendatei && fs.existsSync(themendatei)) {
+    themen.push(...fs.readFileSync(themendatei, "utf8").split("\n").filter(Boolean));
+  }
   const ids = [];
   for (let n = 0; n < anzahl; n++) {
-    const post = await erstelleEinen(posts.length + n, themen);
+    const post = await erstelleEinen(posts.length + versatz + n, themen);
     themen.push(post.thema);
+    if (themendatei) fs.appendFileSync(themendatei, `${post.thema}\n`);
     ids.push(post.id);
   }
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `ids=${ids.join(" ")}\n`);
@@ -83,6 +89,18 @@ async function bildGeprueft(inhalt) {
   return { foto, bildpruefung: pruefung };
 }
 
+/** Erzeugt Bilder für die Erzählseiten, wenn der Beitrag das vorsieht. Ein fehlendes Bild lässt die Seite ohne. */
+async function seitenbilder(inhalt) {
+  if (!inhalt.bilder_auf_jeder_seite || !inhalt.seiten) return [];
+  const fotos = [];
+  for (const seite of inhalt.seiten) {
+    const idee = (seite.bildidee ?? "").trim();
+    fotos.push(idee ? await erzeugeTitelbild(idee).catch(() => null) : null);
+  }
+  console.log(`Seitenbilder: ${fotos.filter(Boolean).length} von ${inhalt.seiten.length}`);
+  return fotos;
+}
+
 async function erstelleEinen(zaehler, themen) {
   const typ = waehleTyp(zaehler);
   const felder = konfig.schwerpunkte ?? [];
@@ -104,7 +122,9 @@ async function erstelleEinen(zaehler, themen) {
     bildpruefung,
     titelbild: foto ? "ki" : "ohne",
   };
-  post.bilder = await rendere(post, ordner, foto);
+  const seitenfotos = foto ? await seitenbilder(inhalt) : [];
+  post.seitenbilder = seitenfotos.filter(Boolean).length;
+  post.bilder = await rendere(post, ordner, foto, seitenfotos);
   speicherePost(ordner, post);
   console.log(`Fertig: posts/${id}/ (${post.bilder.length} Bild(er)), Thema: ${post.thema}`);
   return { id, thema: post.thema };

@@ -2,8 +2,11 @@ name: Post veröffentlichen
 
 on:
   schedule:
-    - cron: "15 6 * * *" # täglich 06:15 UTC (07:15 Winterzeit / 08:15 Sommerzeit)
-    - cron: "45 17 * * *" # täglich 17:45 UTC (18:45 Winterzeit / 19:45 Sommerzeit)
+    # Vier Beiträge pro Tag. Zeiten in UTC; deutsche Zeit = +1 Stunde (Winter) bzw. +2 Stunden (Sommer).
+    - cron: "15 6 * * *" # 07:15
+    - cron: "15 11 * * *" # 12:15
+    - cron: "15 16 * * *" # 17:15
+    - cron: "15 19 * * *" # 20:15
   workflow_dispatch:
     inputs:
       probe:

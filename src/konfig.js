@@ -18,7 +18,8 @@ export function ladePosts() {
       id: name,
       ordner: path.join(POSTS_ORDNER, name),
       ...JSON.parse(fs.readFileSync(path.join(POSTS_ORDNER, name, "post.json"), "utf8")),
-    }));
+    }))
+    .sort((a, b) => String(a.erstellt).localeCompare(String(b.erstellt)));
 }
 
 export function speicherePost(ordner, post) {

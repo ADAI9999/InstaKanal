@@ -17,19 +17,21 @@ const SCHEMATA = {
   geschichte: {
     type: "object",
     additionalProperties: false,
-    required: ["thema", "titel", "aufhaenger", "seiten", "caption", "hashtags", "bildidee"],
+    required: ["thema", "titel", "aufhaenger", "bilder_auf_jeder_seite", "seiten", "caption", "hashtags", "bildidee"],
     properties: {
       thema: gemeinsam.thema,
       titel: { ...text, description: "Titelseite: Wer erzählt und in welcher Lage, 2 bis 3 kurze Sätze, höchstens 130 Zeichen. Verrät das Ende nicht." },
       aufhaenger: { ...text, description: "Kurze Zeile unter dem Titel, die zum Wischen zwingt, höchstens 70 Zeichen" },
+      bilder_auf_jeder_seite: { type: "boolean", description: "Wahr nur bei Geschichten, die von Bildern leben; siehe Vorgaben" },
       seiten: {
         type: "array",
         description: "8 bis 13 Seiten: erst die Geschichte, dann ein bis zwei Seiten, die die Leserin oder den Leser direkt ansprechen",
         items: {
           type: "object",
           additionalProperties: false,
-          required: ["absaetze"],
+          required: ["absaetze", "bildidee"],
           properties: {
+            bildidee: { ...text, description: "Nur wenn bilder_auf_jeder_seite wahr ist: englische Beschreibung des Bildes dieser Seite in einem Satz, ohne wiederkehrende Gesichter. Sonst leer." },
             absaetze: { type: "array", items: text, description: "2 bis 3 kurze Absätze, zusammen höchstens 260 Zeichen. **fett** und *kursiv* sind erlaubt." },
           },
         },
@@ -99,6 +101,7 @@ Was die meistgeteilten Beiträge der großen Kanäle in diesem Feld gemeinsam ha
 - Genaue Angaben erzeugen Spannung und Glaubwürdigkeit: Uhrzeiten („Um 23:47 Uhr vibrierte mein Handy.“), Alter, Anzahl, was genau auf dem Tisch stand.
 - Nach der ersten Wendung kommt ein zweiter Schlag: Das Werkzeug hilft jemandem, an den keiner gedacht hat, oder die Person, vor der man Angst hatte, reagiert anders als erwartet.
 - Kurze Zeilen. Selten mehr als zwölf Wörter pro Satz, oft ein Satz pro Absatz.
+- Bilder: Jeder Beitrag hat ein Titelbild. Ein Bild auf jeder Seite (bilder_auf_jeder_seite) lohnt sich nur, wenn die Geschichte von wechselnden Schauplätzen, Tieren, Gegenständen oder einem Gleichnis lebt und die Seiten kurz sind (höchstens 150 Zeichen). Weil jedes Bild einzeln erzeugt wird, sähe dieselbe Person auf jeder Seite anders aus: Die Seitenbilder zeigen deshalb Orte, Gegenstände, Hände, Rückenansichten, Tiere oder Menschenmengen, nie das Gesicht der Hauptfigur. Bei Geschichten, die von Gesprächen leben, bleibt es beim Titelbild.
 - Eigene Einfälle: Die Abmachungen, Fragen und Rituale dieser Kanäle werden nicht nacherzählt. Jeder Beitrag braucht ein eigenes Werkzeug.
 
 Woran solche Geschichten scheitern, und was stattdessen trägt:
