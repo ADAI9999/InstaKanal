@@ -34,6 +34,13 @@ async function main() {
     console.log(`Zugang in Ordnung: Instagram-Konto @${konto.username}`);
   }
   const wunsch = process.argv.includes("--id") ? process.argv[process.argv.indexOf("--id") + 1] : "";
+  // Tageshöchstzahl (deutsche Zeit); gilt für geplante Läufe, nicht für gezieltes Posten.
+  const tag = (d) => new Date(d).toLocaleDateString("de-DE", { timeZone: "Europe/Berlin" });
+  const heute = ladePosts().filter((p) => p.veroeffentlicht && tag(p.veroeffentlicht.zeit) === tag(Date.now())).length;
+  if (!wunsch && !probe && heute >= (konfig.maxProTag ?? 4)) {
+    console.log(`Heute schon ${heute} Beiträge veröffentlicht (Höchstzahl ${konfig.maxProTag}). Nichts zu tun.`);
+    return;
+  }
   const offen = ladePosts().filter((p) => !p.veroeffentlicht);
   const post = wunsch ? offen.find((p) => p.id === wunsch || p.id.includes(wunsch)) : offen[0];
   if (wunsch && !post) throw new Error(`Kein freigegebener, ungeposteter Beitrag passt zu „${wunsch}“.`);
