@@ -113,11 +113,25 @@ function auftrag(typ, bisherigeThemen, schwerpunkt) {
   const liste = bisherigeThemen.length
     ? `\n\nDiese Themen gab es zuletzt schon. Wähle ein deutlich anderes Thema, andere Figuren und einen anderen Schauplatz:\n${bisherigeThemen.map((t) => `- ${t}`).join("\n")}`
     : "";
-  return `Schreibe ${art}.${feld}${liste}`;
+  return `Schreibe ${art}.${feld}${liste}\n\nFülle alle Felder aus, auch Bildunterschrift, Hashtags und Bildidee: Sie werden ungeprüft übernommen.`;
 }
 
 /** Erzeugt den Text eines Beitrags über die Claude API. */
 export async function erzeugeText(typ, bisherigeThemen, schwerpunkt) {
+  // Das Schema erzwingt die Felder, aber nicht ihren Inhalt. Fällt die Prüfung durch, wird neu erzeugt.
+  let letzter;
+  for (let versuch = 1; versuch <= 3; versuch++) {
+    try {
+      return await erzeugeEinmal(typ, bisherigeThemen, schwerpunkt);
+    } catch (fehler) {
+      letzter = fehler;
+      console.log(`Text: Versuch ${versuch} verworfen (${fehler.message.split("\n").join(" ")})`);
+    }
+  }
+  throw letzter;
+}
+
+async function erzeugeEinmal(typ, bisherigeThemen, schwerpunkt) {
   const client = new Anthropic();
   const antwort = await client.beta.messages.create({
     model: MODELL,
@@ -148,6 +162,14 @@ export function pruefe(typ, inhalt) {
   const max = (wert, grenze, name) => {
     if (wert.length > grenze) fehler.push(`${name} ist zu lang (${wert.length} > ${grenze} Zeichen)`);
   };
+  const min = (wert, grenze, name) => {
+    if ((wert ?? "").trim().length < grenze) fehler.push(`${name} fehlt oder ist zu kurz`);
+  };
+  min(inhalt.thema, 3, "Thema");
+  min(inhalt.titel, 20, "Titel");
+  min(inhalt.caption, 80, "Bildunterschrift");
+  min(inhalt.bildidee, 60, "Bildidee");
+  if ((inhalt.hashtags ?? []).filter((h) => h.trim()).length < 3) fehler.push("Hashtags fehlen");
   // Instagram erlaubt 20 Bilder pro Karussell; Titel- und Schlussseite kommen dazu.
   const anzahl = (liste, name) => {
     if (liste.length < 6 || liste.length > 18) fehler.push(`${name}: ${liste.length} Seiten (erlaubt: 6 bis 18)`);
