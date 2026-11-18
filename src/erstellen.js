@@ -8,7 +8,7 @@ import path from "node:path";
 import { konfig, ladePosts, speicherePost, POSTS_ORDNER, WURZEL } from "./konfig.js";
 import { erzeugeText, pruefe, BEISPIELE, TYPEN } from "./texte.js";
 import { rendere } from "./bilder.js";
-import { findeTitelfoto } from "./fotos.js";
+import { erzeugeTitelbild } from "./titelbild.js";
 
 const args = process.argv.slice(2);
 const beispiel = args.includes("--beispiel");
@@ -51,12 +51,8 @@ async function main() {
   const ordner = path.join(POSTS_ORDNER, id);
   const post = { typ, erstellt: new Date().toISOString(), schwerpunkt, ...inhalt };
 
-  const foto = await findeTitelfoto({
-    begriff: inhalt.bildsuche,
-    titel: inhalt.titel,
-    benutzteIds: new Set(posts.map((p) => p.titelfoto?.id).filter(Boolean)),
-  });
-  if (foto) post.titelfoto = { id: foto.id, url: foto.url, fotograf: foto.fotograf };
+  const foto = await erzeugeTitelbild(inhalt.bildidee);
+  post.titelbild = foto ? "ki" : "ohne";
   post.bilder = await rendere(post, ordner, foto);
   speicherePost(ordner, post);
 

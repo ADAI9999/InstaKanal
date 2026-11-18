@@ -10,39 +10,39 @@ const gemeinsam = {
   thema: { ...text, description: "Thema in 2 bis 5 Wörtern, dient der Vermeidung von Wiederholungen" },
   caption: { ...text, description: "Bildunterschrift: 2 bis 3 kurze Absätze, zusammen 150 bis 400 Zeichen, ohne Hashtags und ohne Folge-Aufruf" },
   hashtags: { type: "array", items: text, description: "3 bis 5 Hashtags ohne #" },
-  bildsuche: { ...text, description: "Englischer Suchbegriff aus 2 bis 4 Wörtern für ein Symbolfoto zur Titelseite: ein Gegenstand oder Ort aus dem Beitrag, stimmungsvoll, ohne Menschen (z. B. \"empty kitchen table morning\")" },
+  bildidee: { ...text, description: "Englische Beschreibung des Titelbilds in 2 bis 3 Sätzen: die Hauptfigur des Beitrags im entscheidenden Moment, mit Alter, Aussehen, Kleidung, Gesichtsausdruck, Ort und Licht. Ein Mensch, dem man die Gefühlslage ansieht, in einer alltäglichen Umgebung in Mitteleuropa. Keine Namen, keine Schrift im Bild." },
 };
 
 const SCHEMATA = {
   geschichte: {
     type: "object",
     additionalProperties: false,
-    required: ["thema", "titel", "seiten", "moral", "caption", "hashtags", "bildsuche"],
+    required: ["thema", "titel", "aufhaenger", "seiten", "caption", "hashtags", "bildidee"],
     properties: {
       thema: gemeinsam.thema,
-      titel: { ...text, description: "Titelseite: Einstieg mitten in der Szene, 2 bis 3 kurze Sätze, höchstens 120 Zeichen. Verrät das Ende nicht." },
+      titel: { ...text, description: "Titelseite: Wer erzählt und in welcher Lage, 2 bis 3 kurze Sätze, höchstens 130 Zeichen. Verrät das Ende nicht." },
+      aufhaenger: { ...text, description: "Kurze Zeile unter dem Titel, die zum Wischen zwingt, höchstens 70 Zeichen" },
       seiten: {
         type: "array",
-        description: "10 bis 13 Seiten, die die Geschichte erzählen",
+        description: "8 bis 13 Seiten: erst die Geschichte, dann ein bis zwei Seiten, die die Leserin oder den Leser direkt ansprechen",
         items: {
           type: "object",
           additionalProperties: false,
           required: ["absaetze"],
           properties: {
-            absaetze: { type: "array", items: text, description: "1 bis 3 kurze Absätze, zusammen höchstens 190 Zeichen" },
+            absaetze: { type: "array", items: text, description: "2 bis 3 kurze Absätze, zusammen höchstens 260 Zeichen. **fett** und *kursiv* sind erlaubt." },
           },
         },
       },
-      moral: { ...text, description: "Schlusssatz der letzten Seite, höchstens 110 Zeichen" },
       caption: gemeinsam.caption,
       hashtags: gemeinsam.hashtags,
-      bildsuche: gemeinsam.bildsuche,
+      bildidee: gemeinsam.bildidee,
     },
   },
   saetze: {
     type: "object",
     additionalProperties: false,
-    required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags", "bildsuche"],
+    required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags", "bildidee"],
     properties: {
       thema: gemeinsam.thema,
       titel: { ...text, description: "Titelseite: macht neugierig auf die Sammlung, höchstens 80 Zeichen" },
@@ -62,7 +62,7 @@ const SCHEMATA = {
       abschluss: { ...text, description: "Schlusssatz der letzten Seite, höchstens 110 Zeichen" },
       caption: gemeinsam.caption,
       hashtags: gemeinsam.hashtags,
-      bildsuche: gemeinsam.bildsuche,
+      bildidee: gemeinsam.bildidee,
     },
   },
 };
@@ -79,12 +79,17 @@ Die Beiträge erscheinen ohne weitere Redaktion. Ein Beitrag ist gelungen, wenn 
 
 Es gibt zwei Arten von Beiträgen.
 
-Geschichte: eine kurze, erfundene Erzählung aus dem Alltag, in der Ich-Form oder über eine namenlose Person („eine Frau“, „mein Vater“).
-- Die Titelseite beginnt mitten in der Szene und lässt eine Frage offen.
-- Jede Seite trägt einen kleinen Schritt: eine Beobachtung, ein Detail, ein Satz, der gesagt oder nicht gesagt wird. Wenige Worte, kurze Sätze, viel Weißraum.
-- Konkrete Details machen die Geschichte glaubhaft: der Gruppenchat, der kalte Kaffee, die Jacke am Haken.
-- Es gibt einen Wendepunkt, an dem jemand etwas erkennt oder anders handelt. Die Geschichte endet leise, ohne Abrechnung und ohne Triumph.
-- Der Schlusssatz zieht die Einsicht heraus, die über die Geschichte hinaus gilt.
+Geschichte: eine kurze, erfundene Erzählung aus dem Alltag in der Ich-Form. So sind Geschichten gebaut, die auf Instagram bis zur letzten Seite gelesen und weitergeschickt werden:
+- Titelseite: Die Erzählerin oder der Erzähler stellt sich in einem Halbsatz vor (Alter, Rolle, Lage) und nennt die Situation, in der etwas wehtut, peinlich ist oder auf dem Spiel steht.
+- Aufhänger: eine kurze Zeile unter dem Titel, die eine Lücke öffnet. Sie kündigt einen Satz, eine Frage oder eine Wendung an, ohne sie zu verraten („Dann stellte sie mir eine einzige Frage:“).
+- Es steht etwas auf dem Spiel: ein Mensch, eine Stelle, das eigene Gesicht, eine Chance. Wer erzählt, ist nicht nur Beobachter, sondern hat selbst etwas falsch gemacht, versäumt oder zu entscheiden.
+- Jede Seite ist eine kleine Szene aus zwei bis drei kurzen Absätzen. Die Geschichte lebt von wörtlicher Rede: Menschen sagen einander Dinge, die sitzen.
+- Mindestens einmal fällt ein Satz, den man sich merkt. Er wird angekündigt, bevor er kommt („Dann sagte er etwas, das ich bis heute nicht vergessen habe:“).
+- Etwas zum Mitnehmen: Die Figur, die mehr weiß (eine Chefin, ein Vater, eine alte Kollegin, ein Trainer), gibt keinen Kalenderspruch, sondern eine Frage, eine Regel oder einen ersten Schritt, den man morgen selbst anwenden kann.
+- Auflösung mit Nachhall: Ein Zeitsprung („Drei Wochen später“) oder der Rückgriff auf ein Detail vom Anfang zeigt, was sich verändert hat.
+- Die letzten ein bis zwei Seiten verlassen die Geschichte und sprechen die Leserin oder den Leser direkt an: was daraus folgt, in klaren Sätzen. Der wichtigste Satz steht in **Fettschrift**.
+- Hervorhebungen: ein Schlüsselwort oder der Schlüsselsatz in **doppelten Sternchen** (fett), ein nachklingender Satz in *einfachen Sternchen* (kursiv). Sparsam, höchstens eine Hervorhebung pro Seite.
+- Konkrete Details machen die Geschichte glaubhaft: der Gruppenchat, der kalte Kaffee, die Jacke am Haken. Kein Triumph und keine Abrechnung am Ende.
 
 Sätze: eine Sammlung eigener, pointierter Sätze zu einem gemeinsamen Thema, einer pro Seite.
 - Jeder Satz steht für sich und trifft eine Beobachtung, die man kennt, aber selten ausgesprochen hört.
@@ -92,7 +97,7 @@ Sätze: eine Sammlung eigener, pointierter Sätze zu einem gemeinsamen Thema, ei
 
 Die Bildunterschrift vertieft den Gedanken in zwei bis drei kurzen Absätzen und endet mit einem kleinen Anstoß für heute.
 
-Die Haltung des Kanals: Der Wendepunkt einer Geschichte ist ein kleiner, unbequemer Schritt, den jemand doch tut (zuerst anrufen, sich entschuldigen, Nein sagen, hinfahren), obwohl Stolz, Angst oder Bequemlichkeit dagegen sprechen. Auch die Sätze kreisen um solche Schritte. ${konfig.schlusszeile ? `Unter dem Schlusssatz steht auf der letzten Seite automatisch die Zeile „${konfig.schlusszeile}“; der Schlusssatz führt darauf hin, ohne sie zu wiederholen.` : ""}
+Die Haltung des Kanals: Erfolg entsteht aus kleinen, unbequemen Schritten, die jemand doch tut, obwohl Stolz, Angst oder Bequemlichkeit dagegen sprechen. Die letzte Seite jedes Beitrags ist ein fester Abspann mit dem Kanalnamen; sie wird nicht mitgeschrieben.
 
 Grenzen, weil der Kanal mit seinem Namen dafür einsteht:
 - Alles ist frei erfunden und selbst formuliert. Keine realen Personen, keine Prominenten, keine Marken- oder Firmennamen, keine Sprüche, die bereits als bekannte Zitate im Umlauf sind.
@@ -149,10 +154,10 @@ export function pruefe(typ, inhalt) {
   };
 
   if (typ === "geschichte") {
-    max(inhalt.titel, 150, "Titel");
+    max(inhalt.titel, 170, "Titel");
+    max(inhalt.aufhaenger, 100, "Aufhänger");
     anzahl(inhalt.seiten, "Geschichte");
-    inhalt.seiten.forEach((s, i) => max(s.absaetze.join(" "), 260, `Seite ${i + 2}`));
-    max(inhalt.moral, 150, "Schlusssatz");
+    inhalt.seiten.forEach((s, i) => max(s.absaetze.join(" ").replace(/\*/g, ""), 340, `Seite ${i + 2}`));
   } else {
     max(inhalt.titel, 110, "Titel");
     anzahl(inhalt.saetze, "Sammlung");
@@ -172,26 +177,26 @@ export function pruefe(typ, inhalt) {
 /** Feste Beispieltexte, um das Design ohne API-Schlüssel zu prüfen. */
 export const BEISPIELE = {
   geschichte: {
-    thema: "Vater ruft sonntags an",
-    titel: "Mein Vater rief jeden Sonntag um zehn an. Ich ließ es meistens klingeln.",
+    thema: "Fehler vor dem Chef zugeben",
+    titel: "Ich bin 29 und habe unseren größten Kunden fast verloren. Durch eine Mail, die ich nie hätte schicken dürfen.",
+    aufhaenger: "Mein Chef stellte mir danach nur eine Frage:",
     seiten: [
-      { absaetze: ["Nicht aus Bosheit.", "Sonntag um zehn lag ich noch im Bett oder stand unter der Dusche oder hatte einfach keine Lust zu reden."] },
-      { absaetze: ["Er hinterließ nie eine Nachricht.", "Nur der verpasste Anruf. Jede Woche derselbe Eintrag."] },
-      { absaetze: ["Wenn ich zurückrief, fragte er, ob ich genug esse.", "Dann erzählte er vom Wetter und vom Nachbarn, der schon wieder die Hecke schneidet."] },
-      { absaetze: ["Ich sagte „Ja, Papa“ und „Mhm“ und sah dabei auf mein Handy."] },
-      { absaetze: ["Im Herbst half ich ihm, den Keller auszuräumen.", "An der Wand neben dem Telefon hing ein Zettel."] },
-      { absaetze: ["Darauf standen in seiner Handschrift Stichworte.", "„Neue Wohnung fragen. Prüfung im Mai? Nicht vom Wetter anfangen.“"] },
-      { absaetze: ["Er hatte sich Notizen gemacht.", "Für ein Gespräch mit seinem eigenen Kind."] },
-      { absaetze: ["Ich stand lange vor diesem Zettel.", "Er rief aus dem Nebenraum, ob alles in Ordnung sei."] },
-      { absaetze: ["„Ja, Papa“, sagte ich.", "Diesmal sah ich ihn dabei an."] },
-      { absaetze: ["Am nächsten Sonntag rief ich um fünf vor zehn an.", "Er nahm nach dem ersten Klingeln ab."] },
-      { absaetze: ["„Ist was passiert?“, fragte er.", "„Nein“, sagte ich. „Ich wollte nur zuerst anrufen.“"] },
+      { absaetze: ["Es war ein Dienstag, kurz nach fünf.", "Ich hatte das falsche Angebot angehängt. Mit den Preisen eines anderen Kunden."] },
+      { absaetze: ["Zwanzig Minuten später rief der Einkäufer an.", "„Interessant, was Sie anderen berechnen“, sagte er. Dann legte er auf."] },
+      { absaetze: ["Ich saß vor dem Bildschirm und überlegte, wie ich es erklären könnte.", "Technischer Fehler. Falsche Vorlage. Irgendetwas, das nicht nach mir klang."] },
+      { absaetze: ["Stattdessen ging ich zu meinem Chef.", "Ich sagte: „Ich habe einen Fehler gemacht. Einen großen.“"] },
+      { absaetze: ["Er hörte zu, ohne mich zu unterbrechen.", "Dann stellte er die Frage, die ich seitdem jedem stelle, der zu mir kommt:"] },
+      { absaetze: ["„**Was ist der nächste Anruf?**“", "Nicht: Wie konnte das passieren. Nicht: Wer ist schuld."] },
+      { absaetze: ["Wir riefen den Einkäufer gemeinsam an.", "Ich sagte ihm, was passiert war. Ohne Ausrede, in drei Sätzen."] },
+      { absaetze: ["Es war lange still in der Leitung.", "„Das hat mir noch nie jemand so direkt gesagt“, meinte er schließlich."] },
+      { absaetze: ["Drei Monate später verlängerte er den Vertrag.", "*In der Mail stand: „Weil ich weiß, dass Sie anrufen, wenn etwas schiefgeht.“*"] },
+      { absaetze: ["Die meisten Fehler kosten weniger, als wir fürchten.", "Teuer wird die Zeit, in der wir überlegen, wie wir sie verstecken."] },
+      { absaetze: ["Wenn dir das nächste Mal etwas passiert, frag dich nicht, wie du dastehst.", "**Frag dich, was der nächste Anruf ist.**"] },
     ],
-    moral: "Manche Menschen bereiten sich auf dich vor. Merk es, solange sie es noch tun.",
     caption:
-      "Zuneigung sieht nicht immer nach Zuneigung aus. Manchmal sieht sie aus wie ein Anruf zur falschen Zeit oder eine Frage, die man schon hundertmal gehört hat.\n\nWer ruft dich regelmäßig an, ohne dass du je zuerst anrufst? Dreh es diese Woche einmal um.",
-    hashtags: ["familie", "geschichten", "dankbarkeit", "nachdenken"],
-    bildsuche: "old telephone on table",
+      "Ein Fehler wird selten durch den Fehler selbst groß, sondern durch die Stunden danach.\n\nWer zuerst anruft, behält das Heft in der Hand. Wer wartet, überlässt es dem Zufall.\n\nWelchen Anruf schiebst du gerade vor dir her?",
+    hashtags: ["erfolg", "karriere", "verantwortung", "fehlerkultur"],
+    bildidee: "A man in his late twenties in a light blue shirt sits alone at an office desk in the early evening, staring at his laptop with a worried, tense expression, one hand on his forehead. Warm desk lamp light, dark office in the background.",
   },
   saetze: {
     thema: "Grenzen setzen",
@@ -211,6 +216,6 @@ export const BEISPIELE = {
     caption:
       "Grenzen setzt man selten in großen Gesprächen. Meist sind es kleine Sätze an einem gewöhnlichen Dienstag.\n\nSuch dir einen Satz aus und probier ihn diese Woche einmal aus.",
     hashtags: ["grenzen", "selbstachtung", "nachdenken", "beziehungen"],
-    bildsuche: "closed door warm light",
+    bildidee: "A woman in her mid thirties stands in a hallway by a half-open front door, looking back over her shoulder with a calm, determined expression. Soft evening light from the doorway.",
   },
 };

@@ -11,6 +11,7 @@ const SCHRIFTEN = [
   ["Inter", 600, "normal", "@fontsource/inter/files/inter-latin-600-normal.woff2"],
   ["Inter", 700, "normal", "@fontsource/inter/files/inter-latin-700-normal.woff2"],
   ["Playfair Display", 400, "normal", "@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2"],
+  ["Playfair Display", 400, "italic", "@fontsource/playfair-display/files/playfair-display-latin-400-italic.woff2"],
   ["Playfair Display", 700, "normal", "@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2"],
   ["Playfair Display", 700, "italic", "@fontsource/playfair-display/files/playfair-display-latin-700-italic.woff2"],
 ];
@@ -48,6 +49,12 @@ body>*{position:relative}
 .akzent{color:${f.akzent};font-style:italic;font-weight:700}
 .erzaehl{font-weight:400;font-size:var(--gr);line-height:1.38;letter-spacing:0;text-wrap:pretty}
 .erzaehl p+p{margin-top:.85em}
+.erzaehl b{font-weight:700}
+.erzaehl i{font-style:italic}
+.aufhaenger{margin-top:36px;font-size:40px;line-height:1.35;color:${f.text};opacity:.85;text-wrap:balance}
+.abspann{margin-top:0;font-size:46px;line-height:1.4;text-wrap:balance}
+body.zentriert .mitte{align-items:center;text-align:center}
+body.zentriert .folgen{align-self:center}
 .nummer{font-family:"Playfair Display",serif;font-weight:700;font-size:64px;line-height:1;color:${f.akzent};margin-bottom:44px}
 .weiter{font-weight:600;color:${f.akzent}}
 .schlusszeile{margin-top:44px;font-size:60px}
@@ -63,9 +70,9 @@ body.mitfoto .kopf{color:${f.text}}
 `;
 }
 
-function seite({ rubrik, mitte, fussLinks, fussRechts, foto }) {
+function seite({ rubrik, mitte, fussLinks, fussRechts, foto, zentriert }) {
   const bild = foto ? `<div class="foto" style="background-image:url(data:${foto.typ};base64,${foto.daten})"></div>` : "";
-  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""}">
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8"><style>${css()}</style></head><body class="${foto ? "mitfoto" : ""} ${zentriert ? "zentriert" : ""}">
 ${bild}<div class="kopf"><span class="marke">${esc(konfig.kanalname)}</span><span>${esc(rubrik)}</span></div>
 <div class="mitte">${mitte}</div>
 <div class="fuss"><span>${fussLinks}</span><span>${fussRechts}</span></div>
@@ -90,7 +97,11 @@ function hervorheben(satz, phrase) {
 const TITEL_STUFEN = [[40, 104], [70, 90], [100, 78], [Infinity, 68]];
 const FOTOTITEL_STUFEN = [[40, 88], [70, 76], [100, 66], [Infinity, 58]];
 const SATZ_STUFEN = [[60, 96], [90, 84], [120, 74], [Infinity, 64]];
-const ERZAEHL_STUFEN = [[90, 66], [140, 60], [190, 54], [Infinity, 48]];
+const ERZAEHL_STUFEN = [[110, 62], [180, 56], [250, 50], [Infinity, 45]];
+
+/** Wandelt **fett** und *kursiv* in HTML um. */
+const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");
+const ohneSterne = (s) => s.replace(/\*/g, "");
 
 function seitenHtml(post, foto) {
   const handle = `<b>@${esc(konfig.handle)}</b>`;
@@ -99,26 +110,32 @@ function seitenHtml(post, foto) {
   const inhalt = istGeschichte ? post.seiten : post.saetze;
   const gesamt = inhalt.length + 2;
   const zaehler = (n) => `${n} / ${gesamt}`;
-  const schluss = istGeschichte ? post.moral : post.abschluss;
+  const zentriert = istGeschichte;
 
   const titel = seite({
     rubrik,
-    mitte: `<div class="strich"></div><h1 class="serif fett" style="--gr:${groesse(post.titel.length, foto ? FOTOTITEL_STUFEN : TITEL_STUFEN)}px">${esc(post.titel)}</h1>`,
+    mitte: `<div class="strich"></div><h1 class="serif fett" style="--gr:${groesse(post.titel.length, foto ? FOTOTITEL_STUFEN : TITEL_STUFEN)}px">${esc(post.titel)}</h1>${post.aufhaenger ? `<p class="aufhaenger">${esc(post.aufhaenger)}</p>` : ""}`,
     foto,
+    zentriert,
     fussLinks: handle,
     fussRechts: `<span class="weiter">Wischen →</span>`,
   });
 
   const mitten = inhalt.map((eintrag, i) => {
     const mitte = istGeschichte
-      ? `<div class="serif erzaehl" style="--gr:${groesse(eintrag.absaetze.join(" ").length, ERZAEHL_STUFEN)}px">${eintrag.absaetze.map((a) => `<p>${esc(a)}</p>`).join("")}</div>`
+      ? `<div class="serif erzaehl" style="--gr:${groesse(ohneSterne(eintrag.absaetze.join(" ")).length, ERZAEHL_STUFEN)}px">${eintrag.absaetze.map((a) => `<p>${fmt(a)}</p>`).join("")}</div>`
       : `<div class="nummer">${String(i + 1).padStart(2, "0")}</div><p class="serif fett" style="--gr:${groesse(eintrag.satz.length, SATZ_STUFEN)}px">${hervorheben(eintrag.satz, eintrag.hervorhebung)}</p>`;
-    return seite({ rubrik, mitte, fussLinks: handle, fussRechts: zaehler(i + 2) });
+    return seite({ rubrik, mitte, fussLinks: handle, fussRechts: zaehler(i + 2), zentriert });
   });
 
+  const schlussHtml = istGeschichte
+    ? `<p class="serif abspann">${esc(konfig.abspann ?? "")}</p>`
+    : `<div class="strich"></div><p class="serif fett" style="--gr:${groesse(post.abschluss.length, SATZ_STUFEN)}px">${esc(post.abschluss)}</p>`;
   const ende = seite({
     rubrik,
-    mitte: `<div class="strich"></div><p class="serif fett" style="--gr:${groesse(schluss.length, SATZ_STUFEN)}px">${esc(schluss)}</p>${konfig.schlusszeile ? `<p class="serif akzent schlusszeile">${esc(konfig.schlusszeile)}</p>` : ""}<span class="folgen">Folge @${esc(konfig.handle)}</span>`,
+    mitte: `${schlussHtml}<span class="folgen">Folge @${esc(konfig.handle)}</span>`,
+    foto: istGeschichte ? foto : null,
+    zentriert,
     fussLinks: "Speichern für später",
     fussRechts: zaehler(gesamt),
   });

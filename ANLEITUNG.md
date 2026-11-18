@@ -58,14 +58,16 @@ gh secret set IG_ACCESS_TOKEN
 - `ANTHROPIC_API_KEY`: Schlüssel von <https://console.anthropic.com> (Kosten: wenige Cent pro Beitrag).
 - `IG_ACCESS_TOKEN`: das Token aus Schritt 2.
 
-### 3b. Titelfotos (optional)
-Mit einem kostenlosen Schlüssel von <https://www.pexels.com/api/> bekommt jede Titelseite ein lizenzfreies Symbolfoto.
-Claude wählt aus sechs Treffern das passendste und verwirft Bilder mit erkennbaren Gesichtern.
-Ohne Schlüssel bleibt die Titelseite reiner Text.
+### 3b. Titelbilder
+Jede Geschichte bekommt ein KI-erzeugtes Titelbild (Googles Bildmodell über die Gemini API).
+Dafür auf <https://aistudio.google.com/apikey> einen API-Schlüssel anlegen und hinterlegen:
 
 ```bash
-gh secret set PEXELS_API_KEY
+gh secret set GEMINI_API_KEY
 ```
+
+Ohne Schlüssel bleibt die Titelseite reiner Text. Unter jeder Bildunterschrift steht der Hinweis,
+dass die Geschichte erfunden und das Titelbild KI-generiert ist.
 
 ### 4. Token-Verlängerung (nur beim älteren Instagram-Login)
 Das Instagram-Token läuft nach 60 Tagen ab. Damit es sich selbst verlängert:

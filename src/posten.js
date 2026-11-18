@@ -16,7 +16,7 @@ function bildBasis() {
 
 function bildunterschrift(post) {
   const tags = post.hashtags.map((h) => `#${h}`).join(" ");
-  const quelle = post.titelfoto ? `\n\nTitelfoto: ${post.titelfoto.fotograf} / Pexels` : "";
+  const quelle = post.titelbild === "ki" ? "\n\nGeschichte frei erfunden, Titelbild KI-generiert." : "";
   return `${post.caption}\n\n✅ Folge @${konfig.handle} für mehr\n\n${tags}${quelle}`.slice(0, 2200);
 }
 
