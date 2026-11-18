@@ -1,72 +1,56 @@
-// Erzeugt einen neuen Beitrag: Text (Claude API) + Bilder, abgelegt unter posts/<id>/.
+// Erzeugt neue Beiträge: Recherche (falls nötig), Text, Lektorat, Bilder; abgelegt unter posts/<id>/.
 //
-//   node src/erstellen.js                 Typ nach Rhythmus aus config.json
-//   node src/erstellen.js --typ saetze    Typ festlegen (geschichte | saetze)
-//   node src/erstellen.js --anzahl 2      mehrere Beiträge in einem Lauf
-//   node src/erstellen.js --beispiel      Beispieltexte ohne API, Ausgabe nach vorschau/
+//   node src/erstellen.js                      Format nach Plan aus config.json
+//   node src/erstellen.js --typ gleichnis      Format festlegen (siehe FORMATE in texte.js)
+//   node src/erstellen.js --anzahl 3           mehrere Beiträge in einem Lauf
+//   node src/erstellen.js --beispiel           Beispieltexte ohne API, Ausgabe nach vorschau/
 import fs from "node:fs";
 import path from "node:path";
 import { konfig, ladePosts, speicherePost, POSTS_ORDNER, WURZEL } from "./konfig.js";
-import { erzeugeText, pruefe, BEISPIELE, TYPEN } from "./texte.js";
+import { erzeugeText, recherchiere, pruefe, BEISPIELE, FORMATE, TYPEN, BILDSTILE } from "./texte.js";
 import { rendere } from "./bilder.js";
 import { erzeugeTitelbild } from "./titelbild.js";
-import { pruefeInhalt, pruefeBild } from "./pruefung.js";
+import { pruefeInhalt, pruefeBild, KRITERIEN } from "./pruefung.js";
 
 const args = process.argv.slice(2);
-const beispiel = args.includes("--beispiel");
-const typWunsch = args.includes("--typ") ? args[args.indexOf("--typ") + 1] : "auto";
-
-function waehleTyp(zaehler) {
-  if (TYPEN.includes(typWunsch)) return typWunsch;
-  if (typWunsch && typWunsch !== "auto") throw new Error(`Unbekannter Typ: ${typWunsch}`);
-  return konfig.rhythmus[zaehler % konfig.rhythmus.length];
-}
+const wert = (name, ersatz) => (args.includes(name) ? args[args.indexOf(name) + 1] : ersatz);
+const typWunsch = wert("--typ", "auto");
 
 /** Zeitstempel im Namen: eindeutig auch über mehrere Freigabe-Zweige hinweg und zeitlich sortierbar. */
-function neueId(typ) {
+function neueId(format) {
   const jetzt = new Date().toISOString();
-  return `${jetzt.slice(0, 10)}-${jetzt.slice(11, 19).replace(/:/g, "")}-${typ}`;
+  return `${jetzt.slice(0, 10)}-${jetzt.slice(11, 19).replace(/:/g, "")}-${format}`;
 }
 
-async function main() {
-  if (beispiel) {
-    fs.rmSync(path.join(WURZEL, "vorschau"), { recursive: true, force: true });
-    for (const typ of TYPEN) {
-      const ordner = path.join(WURZEL, "vorschau", typ);
-      const bilder = await rendere({ typ, ...pruefe(typ, structuredClone(BEISPIELE[typ])) }, ordner);
-      console.log(`Beispiel ${typ}: ${bilder.length} Bild(er) in ${path.relative(WURZEL, ordner)}/`);
-    }
-    return;
+/**
+ * Legt für den n-ten Beitrag Format, Themenfeld und Bildstil fest. Die drei Listen werden mit
+ * unterschiedlichen Schrittweiten durchlaufen, damit aufeinanderfolgende Beiträge sich in allen
+ * drei Punkten unterscheiden und keine Kombination sich schnell wiederholt.
+ */
+function plane(zaehler) {
+  const formate = konfig.formate ?? TYPEN;
+  const felder = konfig.themenfelder;
+  const stile = Object.keys(BILDSTILE);
+  const format = TYPEN.includes(typWunsch) ? typWunsch : formate[zaehler % formate.length];
+  if (typWunsch !== "auto" && !TYPEN.includes(typWunsch)) throw new Error(`Unbekanntes Format: ${typWunsch}`);
+  const themenfeld = felder[(zaehler * 5 + 2) % felder.length];
+  let bildstil = stile[(zaehler * 3 + 1) % stile.length];
+  // Reale Personen werden nicht abgebildet; Gleichnisse wirken gezeichnet oder schwarz-weiß am stärksten.
+  if (format === "wahre_geschichte" && bildstil === "nahaufnahme") bildstil = "ort";
+  if (format === "gleichnis" && !["illustration", "schwarzweiss", "tier", "sinnbild"].includes(bildstil)) {
+    bildstil = zaehler % 2 ? "illustration" : "schwarzweiss";
   }
-
-  const wert = (name, ersatz) => (args.includes(name) ? args[args.indexOf(name) + 1] : ersatz);
-  const anzahl = Number(wert("--anzahl", 1));
-  const versatz = Number(wert("--versatz", 0));
-  // Themen aus noch nicht freigegebenen Beiträgen desselben Laufs, damit sich nichts wiederholt.
-  const themendatei = wert("--themendatei", "");
-  const posts = ladePosts();
-  const themen = posts.slice(-40).map((p) => p.thema);
-  if (themendatei && fs.existsSync(themendatei)) {
-    themen.push(...fs.readFileSync(themendatei, "utf8").split("\n").filter(Boolean));
-  }
-  const ids = [];
-  for (let n = 0; n < anzahl; n++) {
-    const post = await erstelleEinen(posts.length + versatz + n, themen);
-    themen.push(post.thema);
-    if (themendatei) fs.appendFileSync(themendatei, `${post.thema}\n`);
-    ids.push(post.id);
-  }
-  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `ids=${ids.join(" ")}\n`);
+  return { format, themenfeld, bildstil };
 }
 
 /** Schreibt Entwürfe, bis das Lektorat einen durchlässt (höchstens drei), und nimmt sonst den besten. */
-async function schreibeGeprueft(typ, themen, schwerpunkt) {
+async function schreibeGeprueft(vorgabe) {
   let bester = null;
   let kritik = null;
   for (let runde = 1; runde <= 3; runde++) {
-    const inhalt = await erzeugeText(typ, themen, schwerpunkt, kritik);
-    const urteil = await pruefeInhalt(typ, inhalt, schwerpunkt);
-    const noten = `Titelseite ${urteil.titelseite.note}, Kanal ${urteil.passt_zum_kanal.note}, Spannung ${urteil.spannungsbogen.note}, Thema ${urteil.thema_interessant.note}, Nutzwert ${urteil.nutzwert.note}, Sprache ${urteil.sprache.note}`;
+    const inhalt = await erzeugeText({ ...vorgabe, kritik });
+    const urteil = await pruefeInhalt(inhalt, vorgabe);
+    const noten = Object.entries(KRITERIEN).map(([k, [name]]) => `${name} ${urteil[k].note}`).join(", ");
     console.log(`Lektorat, Entwurf ${runde} („${inhalt.thema}“): ${noten} → ${urteil.bestanden ? "bestanden" : "abgelehnt"}`);
     if (!bester || urteil.schnitt > bester.urteil.schnitt) bester = { inhalt, urteil, runde };
     if (urteil.bestanden) break;
@@ -76,58 +60,90 @@ async function schreibeGeprueft(typ, themen, schwerpunkt) {
 }
 
 /** Erzeugt das Titelbild und lässt es prüfen; ein durchgefallenes Bild wird einmal neu erzeugt. */
-async function bildGeprueft(inhalt) {
-  let foto = await erzeugeTitelbild(inhalt.bildidee);
+async function bildGeprueft(inhalt, bildstil) {
+  let foto = await erzeugeTitelbild(inhalt.bildidee, bildstil);
   if (!foto) return { foto: null, bildpruefung: null };
-  let pruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee);
+  let pruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee, bildstil);
   console.log(`Bildprüfung: ${pruefung.passt ? "passt" : "passt nicht"} (${pruefung.grund})`);
   if (!pruefung.passt) {
-    foto = await erzeugeTitelbild(inhalt.bildidee);
-    pruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee);
+    foto = await erzeugeTitelbild(inhalt.bildidee, bildstil);
+    pruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee, bildstil);
     console.log(`Bildprüfung, zweites Bild: ${pruefung.passt ? "passt" : "passt nicht"} (${pruefung.grund})`);
   }
   return { foto, bildpruefung: pruefung };
 }
 
-/** Erzeugt Bilder für die Erzählseiten, wenn der Beitrag das vorsieht. Ein fehlendes Bild lässt die Seite ohne. */
-async function seitenbilder(inhalt) {
-  if (!inhalt.bilder_auf_jeder_seite || !inhalt.seiten) return [];
+/** Erzeugt Bilder für die Seiten, wenn der Beitrag das vorsieht. Ein fehlendes Bild lässt die Seite ohne. */
+async function seitenbilder(inhalt, bildstil) {
+  if (!inhalt.bilder_auf_jeder_seite) return [];
   const fotos = [];
   for (const seite of inhalt.seiten) {
     const idee = (seite.bildidee ?? "").trim();
-    fotos.push(idee ? await erzeugeTitelbild(idee).catch(() => null) : null);
+    fotos.push(idee ? await erzeugeTitelbild(idee, bildstil).catch(() => null) : null);
   }
   console.log(`Seitenbilder: ${fotos.filter(Boolean).length} von ${inhalt.seiten.length}`);
   return fotos;
 }
 
-async function erstelleEinen(zaehler, themen) {
-  const typ = waehleTyp(zaehler);
-  const felder = konfig.schwerpunkte ?? [];
-  // Der Schwerpunkt wechselt täglich und rückt mit jedem Beitrag weiter.
-  const tag = Math.floor(Date.now() / 86_400_000);
-  const schwerpunkt = felder.length ? felder[(tag + zaehler) % felder.length] : "";
-  console.log(`Erzeuge Beitrag vom Typ „${typ}“${schwerpunkt ? `, Schwerpunkt: ${schwerpunkt}` : ""} …`);
+async function erstelleEinen(zaehler, bisherige) {
+  const { format, themenfeld, bildstil } = plane(zaehler);
+  console.log(`Erzeuge „${FORMATE[format].name}“ | Themenfeld: ${themenfeld} | Bildstil: ${bildstil}`);
 
-  const { inhalt, urteil, runde } = await schreibeGeprueft(typ, themen, schwerpunkt);
-  const id = neueId(typ);
+  const notizen = FORMATE[format].recherche ? await recherchiere({ format, themenfeld, bisherige }) : "";
+  if (notizen) console.log(`Recherche: ${notizen.split("\n")[0].slice(0, 160)}`);
+
+  const vorgabe = { format, themenfeld, bildstil, bisherige, notizen };
+  const { inhalt, urteil, runde } = await schreibeGeprueft(vorgabe);
+  const id = neueId(format);
   const ordner = path.join(POSTS_ORDNER, id);
-  const { foto, bildpruefung } = await bildGeprueft(inhalt);
+  const { foto, bildpruefung } = await bildGeprueft(inhalt, bildstil);
+  const seitenfotos = foto ? await seitenbilder(inhalt, bildstil) : [];
   const post = {
-    typ,
+    typ: format,
     erstellt: new Date().toISOString(),
-    schwerpunkt,
+    themenfeld,
+    bildstil,
     ...inhalt,
+    recherche: notizen || undefined,
     lektorat: { entwurf: runde, ...urteil },
     bildpruefung,
     titelbild: foto ? "ki" : "ohne",
+    seitenbilder: seitenfotos.filter(Boolean).length,
   };
-  const seitenfotos = foto ? await seitenbilder(inhalt) : [];
-  post.seitenbilder = seitenfotos.filter(Boolean).length;
   post.bilder = await rendere(post, ordner, foto, seitenfotos);
   speicherePost(ordner, post);
-  console.log(`Fertig: posts/${id}/ (${post.bilder.length} Bild(er)), Thema: ${post.thema}`);
-  return { id, thema: post.thema };
+  console.log(`Fertig: posts/${id}/ (${post.bilder.length} Seiten, ${post.seitenbilder} Seitenbilder), Thema: ${post.thema}`);
+  return { id, kurz: `[${FORMATE[format].name}] ${post.thema}: ${post.titel}` };
+}
+
+async function main() {
+  if (args.includes("--beispiel")) {
+    fs.rmSync(path.join(WURZEL, "vorschau"), { recursive: true, force: true });
+    for (const [format, beispiel] of Object.entries(BEISPIELE)) {
+      const ordner = path.join(WURZEL, "vorschau", format);
+      const bilder = await rendere({ typ: format, ...pruefe(format, structuredClone(beispiel)) }, ordner);
+      console.log(`Beispiel ${format}: ${bilder.length} Bild(er) in ${path.relative(WURZEL, ordner)}/`);
+    }
+    return;
+  }
+
+  const anzahl = Number(wert("--anzahl", 1));
+  const versatz = Number(wert("--versatz", 0));
+  // Kurzfassungen der noch nicht freigegebenen Beiträge desselben Laufs, damit sich nichts wiederholt.
+  const themendatei = wert("--themendatei", "");
+  const posts = ladePosts();
+  const bisherige = posts.slice(-30).map((p) => `[${FORMATE[p.typ]?.name ?? p.typ}] ${p.thema}: ${p.titel}`);
+  if (themendatei && fs.existsSync(themendatei)) {
+    bisherige.push(...fs.readFileSync(themendatei, "utf8").split("\n").filter(Boolean));
+  }
+  const ids = [];
+  for (let n = 0; n < anzahl; n++) {
+    const post = await erstelleEinen(posts.length + versatz + n, bisherige);
+    bisherige.push(post.kurz);
+    if (themendatei) fs.appendFileSync(themendatei, `${post.kurz.replace(/\n/g, " ")}\n`);
+    ids.push(post.id);
+  }
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `ids=${ids.join(" ")}\n`);
 }
 
 main().catch((fehler) => {

@@ -10,10 +10,10 @@ on:
         type: string
         default: "auffuellen"
       typ:
-        description: "Art des Beitrags"
+        description: "Format"
         type: choice
         default: auto
-        options: [auto, geschichte, saetze]
+        options: [auto, wissen, geschichte, gleichnis, liste, wahre_geschichte, anleitung, saetze]
 
 permissions:
   contents: write

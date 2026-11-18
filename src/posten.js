@@ -16,7 +16,14 @@ function bildBasis() {
 
 function bildunterschrift(post) {
   const tags = post.hashtags.map((h) => `#${h}`).join(" ");
-  const quelle = post.titelbild === "ki" ? "\n\nGeschichte frei erfunden, Titelbild KI-generiert." : "";
+  const erfunden = ["geschichte", "gleichnis"].includes(post.typ);
+  const herkunft = (post.quellen ?? []).map((q) => new URL(q).hostname.replace(/^www\./, ""));
+  const hinweise = [
+    erfunden ? "Geschichte frei erfunden." : "",
+    herkunft.length ? `Quellen: ${[...new Set(herkunft)].slice(0, 3).join(", ")}.` : "",
+    post.titelbild === "ki" ? "Bilder KI-generiert." : "",
+  ].filter(Boolean);
+  const quelle = hinweise.length ? `\n\n${hinweise.join(" ")}` : "";
   return `${post.caption}\n\n✅ Folge @${konfig.handle} für mehr\n\n${tags}${quelle}`.slice(0, 2200);
 }
 

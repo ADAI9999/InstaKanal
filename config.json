@@ -2,23 +2,10 @@
   "handle": "erfolgsguru7",
   "instagramKontoId": "17841460011821939",
   "kanalname": "ERFOLGSGURU",
-  "nische": "Erfolg im Leben, erzählt über Menschen: wie man die schützt, die einem wichtig sind, wie man sich im Beruf behauptet, ohne sie zu verlieren, und wie man nach einem Rückschlag wieder aufsteht. Jeder Beitrag gibt etwas mit, das man noch am selben Tag anwenden kann.",
-  "schwerpunkte": [
-    "Eltern und Kinder: eine Abmachung, eine Frage oder ein Ritual, das ein Kind schützt oder stark macht",
-    "Anerkennung im Beruf: übergangen oder unterschätzt werden, und der Mensch zu Hause oder im Betrieb, der an einen glaubt",
-    "Die eigenen Eltern: was sie aufgegeben haben, Stolz und Scham, ein Satz des Vaters oder der Mutter",
-    "Partnerschaft und Freundschaft: wen man über der Arbeit fast verloren hätte, und was man dagegen tun kann",
-    "Neuanfang und Geld: Jobverlust oder Schulden, vor der Familie verschwiegen, und eine Hilfe, mit der niemand gerechnet hat",
-    "Güte gegenüber Fremden: eine kleine Geste ohne Publikum, und was Jahre später daraus wird"
-  ],
-  "zielgruppe": "deutschsprachige Erwachsene von etwa 28 bis 55, viele davon Eltern, die im Leben und im Beruf vorankommen wollen",
-  "tonfall": "ruhig, klar, ermutigend, per Du. Schlichte Sprache, kurze Sätze. Keine Floskeln, kein Pathos, keine Emojis im Bild.",
+  "nische": "Erfolg im Leben in allen Spielarten: wie Menschen denken, entscheiden, lieben, arbeiten, scheitern und wieder aufstehen. Jeder Beitrag überrascht und gibt etwas mit, das man vorher nicht wusste oder konnte: einen Befund, eine wahre Begebenheit, ein Gleichnis, eine Methode, einen Satz.",
+  "zielgruppe": "neugierige deutschsprachige Erwachsene von etwa 25 bis 55, die im Leben und im Beruf vorankommen wollen",
+  "tonfall": "klar, lebendig, respektvoll, per Du. Schlichte Sprache, kurze Sätze. Je nach Format erzählend, nüchtern erklärend oder pointiert. Keine Floskeln, kein Pathos.",
   "freigabe": true,
-  "rhythmus": [
-    "geschichte",
-    "saetze",
-    "geschichte"
-  ],
   "farben": {
     "hintergrund": "#0E1014",
     "flaeche": "#171A21",
@@ -26,6 +13,34 @@
     "gedaempft": "#9A9FAB",
     "akzent": "#E9B44C"
   },
-  "abspann": "Diese Seite siehst du vielleicht nie wieder. Folge uns, wenn du mehr solche Geschichten willst.",
-  "wasserzeichen": "Erfolgsguru"
+  "abspann": "Diese Seite siehst du vielleicht nie wieder. Folge uns, wenn du mehr davon willst.",
+  "wasserzeichen": "Erfolgsguru",
+  "formate": [
+    "wissen",
+    "geschichte",
+    "gleichnis",
+    "liste",
+    "wahre_geschichte",
+    "anleitung",
+    "saetze"
+  ],
+  "themenfelder": [
+    "Psychologie des Alltags: Denkfehler, Selbsttäuschung, warum wir tun, was wir tun",
+    "Eltern und Kinder: was Kinder stark macht, was sie schützt, was sie von uns abschauen",
+    "Geld und Besitz: Gewohnheiten, Verzicht, der Unterschied zwischen reich wirken und reich sein",
+    "Körper, Schlaf und Gehirn: was Forschung über Leistung, Erholung und Gedächtnis weiß",
+    "Verhandeln und Überzeugen: Gespräche, in denen etwas auf dem Spiel steht",
+    "Freundschaft: wie sie entsteht, woran sie leise stirbt, wie man sie hält",
+    "Mut und Neuanfang: mit vierzig, fünfzig oder nach einer Pleite noch einmal beginnen",
+    "Vergessene Menschen der Geschichte: Erfinderinnen, Entdecker, Außenseiter, die recht behielten",
+    "Disziplin und Gewohnheiten: wie Veränderung wirklich abläuft, jenseits von Motivation",
+    "Tiere und Natur als Spiegel: was Wölfe, Krähen, Bäume oder Ameisen über uns verraten",
+    "Partnerschaft: Nähe, Streit, was Paare zusammenhält, die lange zusammenbleiben",
+    "Arbeit und Anerkennung: gesehen werden, Nein sagen, Fehler, Führung",
+    "Weisheit anderer Kulturen und Zeiten: Japan, die Stoiker, alte Handwerksregeln, Seefahrer",
+    "Manipulation erkennen: Tricks von Verkäufern, Blendern und schwierigen Menschen, und wie man sie durchschaut",
+    "Die eigenen Eltern und das Älterwerden: Abschied, Versöhnung, was bleibt",
+    "Lernen und Können: wie Meister üben, warum Talent überschätzt wird",
+    "Güte und Zufall: kleine Gesten zwischen Fremden und was daraus wurde"
+  ]
 }

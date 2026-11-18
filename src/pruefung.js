@@ -1,10 +1,20 @@
-// Kritisches Lektorat: Ein zweiter Claude-Lauf prüft jeden Entwurf, bevor ein Bild erzeugt
+// Kritisches Lektorat: Ein zweiter Claude-Lauf prüft jeden Entwurf, bevor Bilder erzeugt
 // und der Beitrag vorgelegt wird. Ebenso wird das Titelbild gegen die Titelseite geprüft.
 import Anthropic from "@anthropic-ai/sdk";
 import { konfig } from "./konfig.js";
+import { FORMATE, BILDSTILE } from "./texte.js";
 
 const MODELL = "claude-opus-5-5";
 export const MINDESTNOTE = 7;
+
+export const KRITERIEN = {
+  titelseite: ["Titelseite", "Wirft die Titelseite sofort eine konkrete Frage auf, die man beantwortet haben will? Würde ein Fremder im Feed dafür anhalten?"],
+  ueberraschung: ["Überraschung", "Enthält der Beitrag etwas, das man nicht erwartet hat: eine Wendung, einen Befund, einen Blickwinkel? Oder ahnt man nach der zweiten Seite alles?"],
+  stimmigkeit: ["Stimmigkeit", "Ergibt jede Seite für sich und im Zusammenhang Sinn? Sind Handlungen nachvollziehbar, Zahlen und Zeitangaben widerspruchsfrei, ist die Folgerung durch das Erzählte gedeckt? Bei recherchierten Formaten: Steht jede Behauptung in den Notizen?"],
+  gehalt: ["Gehalt", "Weiß oder kann man nach dem Lesen etwas, das man vorher nicht wusste oder konnte? Ist es mehr als eine Binsenweisheit?"],
+  abwechslung: ["Abwechslung", "Unterscheidet sich der Beitrag in Stoff, Einstieg, Figuren und Pointe deutlich von den zuletzt erschienenen? 10 = völlig eigen, 4 = klingt wie einer von ihnen."],
+  sprache: ["Sprache", "Klingt es wie ein Mensch, der erzählt oder erklärt, oder wie ein Ratgeber? Kurze Zeilen, keine Floskeln, keine Predigt am Schluss?"],
+};
 
 const note = (beschreibung) => ({
   type: "object",
@@ -12,39 +22,25 @@ const note = (beschreibung) => ({
   required: ["note", "begruendung"],
   properties: {
     note: { type: "integer", description: `1 (unbrauchbar) bis 10 (herausragend). ${beschreibung}` },
-    begruendung: { type: "string", description: "Zwei bis drei Sätze mit Belegen aus dem Text" },
+    begruendung: { type: "string", description: "Ein bis zwei Sätze mit Belegen aus dem Text" },
   },
 });
 
 const TEXT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["titelseite", "passt_zum_kanal", "spannungsbogen", "thema_interessant", "nutzwert", "sprache", "schwaechste_stelle", "hinweise"],
+  required: [...Object.keys(KRITERIEN), "schwaechste_stelle", "hinweise"],
   properties: {
-    titelseite: note("Wirft der erste Satz in höchstens zwölf Wörtern eine konkrete Frage auf, die man beantwortet haben will? Würde man im Feed dafür anhalten?"),
-    passt_zum_kanal: note("Passt der Beitrag zu Namen, Versprechen und Zielgruppe des Kanals?"),
-    spannungsbogen: note("Zwingt die Titelseite zum Wischen, steigt die Spannung, gibt es eine Wendung und einen Schluss, der sitzt?"),
-    thema_interessant: note("Würde ein fremder Mensch im Feed dafür anhalten und es jemandem schicken?"),
-    nutzwert: note("Gibt es etwas, das man heute Abend nachmachen kann und deshalb speichert oder dem Partner schickt? Wird es am Ende klar erklärt?"),
-    sprache: note("Klingt es wie ein Mensch, der erzählt, oder wie ein Ratgeber?"),
-    schwaechste_stelle: { type: "string", description: "Die eine Stelle, an der am ehesten jemand aufhört zu wischen, und warum" },
+    ...Object.fromEntries(Object.entries(KRITERIEN).map(([k, [, frage]]) => [k, note(frage)])),
+    schwaechste_stelle: { type: "string", description: "Die eine Stelle, an der am ehesten jemand aufhört zu wischen oder den Kopf schüttelt, und warum" },
     hinweise: { type: "string", description: "Konkrete Anweisungen für eine bessere Fassung, drei bis fünf Sätze" },
   },
 };
 
-function alsText(typ, inhalt) {
-  if (typ === "geschichte") {
-    return [
-      `TITELSEITE: ${inhalt.titel}`,
-      `AUFHÄNGER: ${inhalt.aufhaenger}`,
-      ...inhalt.seiten.map((s, i) => `SEITE ${i + 2}: ${s.absaetze.join(" / ")}`),
-      `BILDUNTERSCHRIFT: ${inhalt.caption}`,
-    ].join("\n");
-  }
+export function alsText(inhalt) {
   return [
-    `TITELSEITE: ${inhalt.titel}`,
-    ...inhalt.saetze.map((s, i) => `SEITE ${i + 2}: ${s.satz}${s.erklaerung ? ` — ${s.erklaerung}` : ""}`),
-    `SCHLUSS: ${inhalt.abschluss}`,
+    `TITELSEITE: ${inhalt.titel}${inhalt.aufhaenger ? ` | ${inhalt.aufhaenger}` : ""}`,
+    ...inhalt.seiten.map((s, i) => `SEITE ${i + 2}: ${[s.ueberschrift, ...(s.absaetze ?? [])].filter(Boolean).join(" / ")}`),
     `BILDUNTERSCHRIFT: ${inhalt.caption}`,
   ].join("\n");
 }
@@ -64,26 +60,27 @@ async function frage(schema, inhalt, effort) {
 }
 
 /** Liefert das Urteil des Lektorats samt Entscheidung, ob der Entwurf besteht. */
-export async function pruefeInhalt(typ, inhalt, schwerpunkt) {
-  const auftrag = `Du bist Chefredakteurin eines großen deutschsprachigen Instagram-Kanals und entscheidest, ob ein Karussell-Entwurf erscheint. Du hast viele mittelmäßige Entwürfe gesehen und winkst nichts durch, nur weil es sauber geschrieben ist.
+export async function pruefeInhalt(inhalt, { format, themenfeld, bisherige, notizen }) {
+  const auftrag = `Du bist Chefredakteurin eines großen deutschsprachigen Instagram-Kanals und entscheidest, ob ein Karussell-Entwurf erscheint. Du hast viele mittelmäßige Entwürfe gesehen und winkst nichts durch, nur weil es sauber geschrieben ist. Dein Verleger hat sich zuletzt beschwert: zu ähnliche Beiträge, zu vorhersehbar, manches ergab beim zweiten Lesen keinen Sinn.
 
 Der Kanal: @${konfig.handle} („${konfig.wasserzeichen ?? konfig.kanalname}“)
 Versprechen: ${konfig.nische}
 Zielgruppe: ${konfig.zielgruppe}
-Schwerpunkt dieses Beitrags: ${schwerpunkt || "frei"}
+Format dieses Beitrags: ${FORMATE[format].name}
+Themenfeld: ${themenfeld}
 
-Der Maßstab sind die meistgeteilten Beiträge von Kanälen mit mehreren hunderttausend Followern in diesem Feld. Sie beginnen mit einer einzigen konkreten Tatsache, die eine Frage aufwirft; es geht um einen Menschen, den man beschützen oder nicht verlieren will; sie bringen ein Werkzeug mit, das man am selben Abend nachmachen kann und das am Ende erklärt wird; sie haben Figuren, die einander Dinge sagen, die sitzen; eine Wendung, die man nicht kommen sieht; mindestens eine Stelle, die wehtut; und am Ende etwas, das man selbst anwenden oder jemandem schicken will.
+Der Maßstab sind die meistgeteilten Beiträge von Kanälen mit mehreren hunderttausend Followern. Sie überraschen, sie halten einer Nachfrage stand, und man nimmt etwas mit.
 
-Typische Gründe für eine Ablehnung: Das Thema ist zu klein oder zu speziell, um Fremde zu interessieren. Der Ausgang steht nach der Titelseite fest. Die Mitte tritt auf der Stelle. Die Sprache klingt nach Büro oder Kalender. Der Beitrag könnte auf jedem beliebigen Kanal stehen und hat mit dem Versprechen dieses Kanals wenig zu tun.
+Lies den Entwurf zweimal: einmal wie ein Fremder, der durch den Feed wischt, und einmal wie jemand, der Fehler sucht. Prüfe beim zweiten Mal jede Seite: Würde ein Mensch das wirklich so tun oder sagen? Passen die Zahlen und Zeiten zusammen? Folgt die Schlussfolgerung aus dem, was erzählt wurde, oder wird sie nur behauptet? Versteht man jede Seite, ohne zu rätseln?
 
-Bewerte streng und nutze die ganze Skala: 7 heißt „kann so erscheinen“, 9 heißt „einer der besten des Monats“. Begründe jede Note mit Stellen aus dem Text.
+Bewerte streng und nutze die ganze Skala: 7 heißt „kann so erscheinen“, 9 heißt „einer der besten des Monats“.
 
-Der Entwurf:
+${bisherige.length ? `Zuletzt erschienen (für die Note „Abwechslung“):\n${bisherige.map((t) => `- ${t}`).join("\n")}\n\n` : ""}${notizen ? `Recherche-Notizen (nur was hier steht, darf als Tatsache behauptet werden):\n${notizen}\n\n` : ""}Der Entwurf:
 
-${alsText(typ, inhalt)}`;
+${alsText(inhalt)}`;
 
   const urteil = await frage(TEXT_SCHEMA, auftrag, "high");
-  const noten = [urteil.titelseite, urteil.passt_zum_kanal, urteil.spannungsbogen, urteil.thema_interessant, urteil.nutzwert, urteil.sprache].map((n) => n.note);
+  const noten = Object.keys(KRITERIEN).map((k) => urteil[k].note);
   return { ...urteil, schnitt: noten.reduce((a, b) => a + b, 0) / noten.length, bestanden: noten.every((n) => n >= MINDESTNOTE) };
 }
 
@@ -97,14 +94,14 @@ const BILD_SCHEMA = {
   },
 };
 
-/** Prüft, ob das erzeugte Titelbild zur Titelseite passt und handwerklich in Ordnung ist. */
-export async function pruefeBild(foto, titel, bildidee) {
+/** Prüft, ob das erzeugte Titelbild zur Titelseite passt, auffällt und handwerklich in Ordnung ist. */
+export async function pruefeBild(foto, titel, bildidee, bildstil) {
   return frage(
     BILD_SCHEMA,
     [
       {
         type: "text",
-        text: `Dieses Bild soll die Titelseite eines Instagram-Karussells tragen. Der Titeltext darunter lautet:\n\n„${titel}“\n\nBestellt war dieses Motiv: ${bildidee}\n\nDas Bild passt, wenn es die Hauptfigur und die Stimmung des Titels zeigt, wie ein echtes Foto wirkt und im Feed auffällt: ein klares Hauptmotiv, nah herangeholt, mit einem Ausdruck oder Detail, das auch in Daumennagelgröße lesbar ist und neugierig macht. Es fällt durch, wenn es beliebig oder unauffällig ist (kleine Figuren in einer weiten Szene, flaches Licht, nichtssagender Ausdruck), wenn es etwas anderes zeigt als bestellt, wenn Hände, Gesichter oder Gegenstände sichtbar verformt sind, wenn Schrift, Logos oder Wasserzeichen im Bild stehen, oder wenn es nach Werbefoto statt nach einem echten Moment aussieht.`,
+        text: `Dieses Bild soll die Titelseite eines Instagram-Karussells tragen. Der Titeltext darunter lautet:\n\n„${titel}“\n\nBestellt war dieses Motiv: ${bildidee}\nBestellter Bildstil: ${BILDSTILE[bildstil] ?? bildstil}\n\nDas Bild passt, wenn es zum Titel gehört, im bestellten Stil ist und im Feed auffällt: ein klares Hauptmotiv, das auch in Daumennagelgröße lesbar ist und neugierig macht. Es fällt durch, wenn es etwas anderes zeigt als bestellt, wenn es beliebig oder unauffällig ist (kleine Figuren in einer weiten Szene, flaches Licht), wenn Hände, Gesichter oder Gegenstände sichtbar verformt sind, oder wenn Schrift, Logos oder Wasserzeichen im Bild stehen.`,
       },
       { type: "image", source: { type: "base64", media_type: foto.typ, data: foto.daten } },
     ],

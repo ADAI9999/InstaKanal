@@ -3,153 +3,259 @@ import { konfig } from "./konfig.js";
 
 const MODELL = "claude-opus-5-5";
 
-export const TYPEN = ["geschichte", "saetze"];
-
-const text = { type: "string" };
-const gemeinsam = {
-  thema: { ...text, description: "Thema in 2 bis 5 Wörtern, dient der Vermeidung von Wiederholungen" },
-  caption: { ...text, description: "Bildunterschrift: 2 bis 3 kurze Absätze, zusammen 150 bis 400 Zeichen, ohne Hashtags und ohne Folge-Aufruf" },
-  hashtags: { type: "array", items: text, description: "3 bis 5 Hashtags ohne #" },
-  bildidee: { ...text, description: "Englische Beschreibung des Titelbilds in 2 bis 3 Sätzen. Das Bild muss im Feed in einer halben Sekunde auffallen und eine Frage aufwerfen: EIN klares Hauptmotiv, nah herangeholt (Gesicht und Oberkörper oder ein Gegenstand in einer Hand), ein starker, eindeutiger Gesichtsausdruck oder eine ungewöhnliche Situation, dazu das eine Detail aus der Geschichte, das neugierig macht. Nenne Alter, Aussehen, Kleidung, Ausdruck, Ort in Deutschland und eine dramatische Lichtquelle (Handylicht im Dunkeln, Straßenlaterne, Türspalt, Gegenlicht). Höchstens zwei Personen. Keine Namen, keine Schrift im Bild." },
-};
-
-const SCHEMATA = {
+/**
+ * Die Beitragsformate. Sie stammen aus der Auswertung der meistgeteilten Beiträge großer Kanäle
+ * und unterscheiden sich bewusst stark in Erzählform, Länge und Bildsprache.
+ */
+export const FORMATE = {
   geschichte: {
-    type: "object",
-    additionalProperties: false,
-    required: ["thema", "titel", "aufhaenger", "bilder_auf_jeder_seite", "seiten", "caption", "hashtags", "bildidee"],
-    properties: {
-      thema: gemeinsam.thema,
-      titel: { ...text, description: "Titelseite: Wer erzählt und in welcher Lage, 2 bis 3 kurze Sätze, höchstens 130 Zeichen. Verrät das Ende nicht." },
-      aufhaenger: { ...text, description: "Kurze Zeile unter dem Titel, die zum Wischen zwingt, höchstens 70 Zeichen" },
-      bilder_auf_jeder_seite: { type: "boolean", description: "Wahr nur bei Geschichten, die von Bildern leben; siehe Vorgaben" },
-      seiten: {
-        type: "array",
-        description: "8 bis 13 Seiten: erst die Geschichte, dann ein bis zwei Seiten, die die Leserin oder den Leser direkt ansprechen",
-        items: {
-          type: "object",
-          additionalProperties: false,
-          required: ["absaetze", "bildidee"],
-          properties: {
-            bildidee: { ...text, description: "Nur wenn bilder_auf_jeder_seite wahr ist: englische Beschreibung des Bildes dieser Seite in einem Satz, ohne wiederkehrende Gesichter. Sonst leer." },
-            absaetze: { type: "array", items: text, description: "2 bis 3 kurze Absätze, zusammen höchstens 260 Zeichen. **fett** und *kursiv* sind erlaubt." },
-          },
-        },
-      },
-      caption: gemeinsam.caption,
-      hashtags: gemeinsam.hashtags,
-      bildidee: gemeinsam.bildidee,
-    },
+    name: "Ich-Geschichte",
+    recherche: false,
+    erfunden: true,
+    bau: `Eine erfundene Erzählung in der Ich-Form, 7 bis 14 Seiten, so lang wie sie trägt und keine Seite länger.
+- Der erste Satz ist eine einzige konkrete, merkwürdige Tatsache (eine Abmachung, ein Gegenstand, eine Zahl, etwas, das jemand jeden Tag tut), keine Selbstvorstellung.
+- Menschen sagen einander Dinge, die sitzen. Genaue Angaben (Uhrzeit, Anzahl, was auf dem Tisch stand) machen es glaubhaft.
+- Es gibt eine Wendung, die man nicht kommen sieht, und danach noch eine zweite, kleinere.
+- Am Ende steht etwas, das man mitnimmt. Das kann ein Werkzeug zum Nachmachen sein, muss es aber nicht: Manche Geschichten wirken allein durch ihr letztes Bild.`,
+  },
+  gleichnis: {
+    name: "Gleichnis",
+    recherche: false,
+    erfunden: true,
+    bau: `Eine kurze Parabel in der dritten Person, 6 bis 9 Seiten: Tiere, ein Bauer, eine Handwerkerin, ein Fährmann, zwei Nachbarn. Keine Ich-Form, keine Gegenwart mit Handys und Büros.
+- Die Titelseite schildert einen seltsamen, bildstarken Vorgang, bei dem man wissen will, wie er ausgeht.
+- Die Handlung ist einfach und läuft auf eine unbequeme Einsicht zu, die man erst auf den letzten Seiten versteht.
+- Dann wird das Prinzip beim Namen genannt und in zwei, drei Sätzen auf das Leben der Leserin oder des Lesers übertragen (Arbeit, Geld, Familie, Freundschaft).
+- Dieses Format lebt von Bildern: bilder_auf_jeder_seite ist wahr, jede Seite hat eine eigene Bildidee. Seiten sind kurz, höchstens 170 Zeichen.`,
+  },
+  wissen: {
+    name: "Überraschendes Wissen",
+    recherche: true,
+    erfunden: false,
+    bau: `Ein Beitrag, der mit einem belegten, überraschenden Befund beginnt und zeigt, was er für den Alltag bedeutet, 6 bis 10 Seiten. Kein Ich, keine erfundene Rahmenhandlung.
+- Die Titelseite nennt das Verblüffende zuerst, als Vorgang oder als Zahl, nicht als Behauptung.
+- Dann Schritt für Schritt: was untersucht wurde, was herauskam, warum das so ist. Zahlen und Namen nur, wenn sie in den Recherche-Notizen stehen.
+- Die letzten zwei Seiten sagen, was man damit anfängt: eine konkrete Folgerung für heute.
+- Zwischenüberschriften in Großbuchstaben (zwei bis vier Wörter) gliedern die Seiten.`,
+  },
+  wahre_geschichte: {
+    name: "Wahre Begebenheit",
+    recherche: true,
+    erfunden: false,
+    bau: `Eine wahre, gut belegte Begebenheit aus Geschichte, Wissenschaft, Sport oder Wirtschaft, erzählt in der dritten Person, 7 bis 12 Seiten. Am liebsten eine, die kaum jemand kennt, oder ein unbekanntes Kapitel aus einem bekannten Leben.
+- Die Titelseite beginnt mit dem Moment, in dem alles verloren scheint oder etwas Unerhörtes geschieht.
+- Erzählt wird in Szenen, nicht als Lebenslauf. Alles, was behauptet wird, steht in den Recherche-Notizen. Nichts hinzuerfinden, auch keine Zitate.
+- Über lebende Personen nur, was unstrittig belegt und nicht ehrenrührig ist.
+- Der Schluss zieht eine Folgerung, die über die Person hinaus gilt.
+- Das Titelbild zeigt nicht das Gesicht der realen Person, sondern einen Ort, einen Gegenstand oder eine Szene aus der Geschichte.`,
+  },
+  liste: {
+    name: "Liste",
+    recherche: false,
+    erfunden: false,
+    bau: `Eine nummerierte Sammlung zum Mitnehmen, 6 bis 11 Seiten, ein Punkt pro Seite.
+- Die Titelseite verspricht eine Zahl, einen Menschen und einen Nutzen, und macht vorher die Lage spürbar.
+- Jede Seite hat als Überschrift den Punkt selbst (ein Satz, den man wörtlich sagen, oder ein Schritt, den man tun kann, mit Nummer) und darunter ein bis zwei Sätze: wann man ihn braucht, was er bewirkt.
+- Kein Punkt ist eine Binsenweisheit. Die Punkte steigern sich, der stärkste steht am Ende.`,
+  },
+  anleitung: {
+    name: "Anleitung",
+    recherche: false,
+    erfunden: false,
+    bau: `Eine einzige Methode, Schritt für Schritt erklärt, 6 bis 11 Seiten: ein Spiel, eine Fragetechnik, eine Übung, ein Ablauf für ein schwieriges Gespräch.
+- Die Titelseite fragt, ob man etwas herausfinden oder erreichen will, das sonst schwer zu bekommen ist, und kündigt die Methode an.
+- Erst kurz, warum der direkte Weg nicht funktioniert. Dann die Schritte so genau, dass man sie ohne Rückfrage nachmachen kann. Dann, woran man erkennt, dass es wirkt, und was man daraus liest.
+- Nüchtern und genau. Keine Rahmengeschichte, höchstens ein Beispielsatz in wörtlicher Rede.
+- Keine Heilversprechen und keine Diagnosen: Die Methode ersetzt keinen Arzt und keinen Therapeuten und behauptet das auch nicht.`,
   },
   saetze: {
-    type: "object",
-    additionalProperties: false,
-    required: ["thema", "titel", "saetze", "abschluss", "caption", "hashtags", "bildidee"],
-    properties: {
-      thema: gemeinsam.thema,
-      titel: { ...text, description: "Titelseite: Zahl, für wen und welcher Nutzen, 2 kurze Sätze, höchstens 130 Zeichen. Endet gern mit Doppelpunkt." },
-      saetze: {
-        type: "array",
-        description: "7 bis 10 Punkte, einer pro Seite",
-        items: {
-          type: "object",
-          additionalProperties: false,
-          required: ["satz", "hervorhebung", "erklaerung"],
-          properties: {
-            satz: { ...text, description: "höchstens 140 Zeichen" },
-            hervorhebung: { ...text, description: "1 bis 3 aufeinanderfolgende Wörter, wörtlich aus dem Satz, die farbig betont werden" },
-            erklaerung: { ...text, description: "Ein bis zwei kurze Sätze darunter: wann man das sagt oder tut und was es bewirkt, höchstens 150 Zeichen" },
-          },
+    name: "Sätze",
+    recherche: false,
+    erfunden: false,
+    bau: `Eine Sammlung eigener Sätze zu einem Thema, 6 bis 10 Seiten, ein Satz pro Seite, sonst nichts.
+- Die Titelseite macht neugierig auf die Sammlung, ohne einen der Sätze vorwegzunehmen.
+- Jeder Satz ist eine Beobachtung, die man kennt, aber selten ausgesprochen hört. Kein Satz klingt nach Kalender oder Motivationstrainer.
+- Die Sätze unterscheiden sich in Bau und Länge; einer darf nur drei Wörter haben.
+- Das wichtigste Wort oder die wichtigste Wendung eines Satzes steht in **Fettschrift**.`,
+  },
+};
+
+export const TYPEN = Object.keys(FORMATE);
+
+/** Bildsprachen, damit nicht jedes Titelbild eine Person in Nahaufnahme zeigt. */
+export const BILDSTILE = {
+  nahaufnahme: "ein Mensch, nah herangeholt, mit einem eindeutigen Gesichtsausdruck",
+  gegenstand: "ein einzelner Gegenstand aus dem Beitrag als Stillleben, groß im Bild, ohne Menschen",
+  schwarzweiss: "eine kontrastreiche Schwarz-Weiß-Szene wie aus einem Kinofilm",
+  illustration: "eine handgezeichnete Illustration in Tusche und Aquarell, wie aus einem Bilderbuch für Erwachsene",
+  tier: "ein Tier als Hauptmotiv",
+  ort: "ein Ort oder Raum ohne Menschen, dessen Stimmung alles sagt",
+  sinnbild: "ein ungewöhnliches, leicht surreales Sinnbild, das eine Frage aufwirft (etwas, das so nicht zusammengehört)",
+  haende: "Hände, die etwas halten oder tun, ohne Gesicht",
+};
+
+const text = { type: "string" };
+
+const SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["thema", "titel", "aufhaenger", "bildidee", "bilder_auf_jeder_seite", "seiten", "caption", "hashtags", "quellen"],
+  properties: {
+    thema: { ...text, description: "Thema in 2 bis 6 Wörtern, dient der Vermeidung von Wiederholungen" },
+    titel: { ...text, description: "Text der Titelseite, höchstens 140 Zeichen" },
+    aufhaenger: { ...text, description: "Kurze zweite Zeile, die zum Wischen zwingt, höchstens 70 Zeichen. Leer lassen, wenn der Titel schon mit einem Doppelpunkt oder einer offenen Frage endet." },
+    bildidee: { ...text, description: "Englische Beschreibung des Titelbilds in 2 bis 3 Sätzen, passend zum vorgegebenen Bildstil. Ein klares Hauptmotiv, eine dramatische Lichtquelle, ein Detail, das neugierig macht. Keine Schrift im Bild." },
+    bilder_auf_jeder_seite: { type: "boolean", description: "Ob jede Seite ein eigenes Bild bekommt" },
+    seiten: {
+      type: "array",
+      description: "Die Seiten nach der Titelseite",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["ueberschrift", "absaetze", "bildidee"],
+        properties: {
+          ueberschrift: { ...text, description: "Optionale Überschrift der Seite, höchstens 90 Zeichen. Leer, wenn die Seite keine braucht." },
+          absaetze: { type: "array", items: text, description: "0 bis 3 kurze Absätze, zusammen höchstens 260 Zeichen. **fett** und *kursiv* sind erlaubt." },
+          bildidee: { ...text, description: "Nur wenn bilder_auf_jeder_seite wahr ist: englische Beschreibung des Seitenbilds in einem Satz, im selben Bildstil wie das Titelbild, ohne wiederkehrende Gesichter. Sonst leer." },
         },
       },
-      abschluss: { ...text, description: "Schlusssatz der letzten Seite, höchstens 110 Zeichen" },
-      caption: gemeinsam.caption,
-      hashtags: gemeinsam.hashtags,
-      bildidee: gemeinsam.bildidee,
     },
+    caption: { ...text, description: "Bildunterschrift: 2 bis 3 kurze Absätze, zusammen 150 bis 400 Zeichen, ohne Hashtags und ohne Folge-Aufruf" },
+    hashtags: { type: "array", items: text, description: "3 bis 5 Hashtags ohne #" },
+    quellen: { type: "array", items: text, description: "Bei recherchierten Formaten die Adressen der verwendeten Quellen aus den Notizen, sonst leer" },
   },
 };
 
 function systemPrompt() {
-  return `Du schreibst die Beiträge für einen deutschsprachigen Instagram-Kanal. Jeder Beitrag ist ein Karussell: Die Leserin oder der Leser wischt Seite für Seite weiter.
+  return `Du schreibst Karussell-Beiträge für einen deutschsprachigen Instagram-Kanal. Die Leserin oder der Leser wischt Seite für Seite weiter.
 
-Kanal: @${konfig.handle}
-Themenfeld: ${konfig.nische}
+Kanal: @${konfig.handle} („${konfig.wasserzeichen ?? konfig.kanalname}“)
+Versprechen: ${konfig.nische}
 Zielgruppe: ${konfig.zielgruppe}
 Tonfall: ${konfig.tonfall}
 
-Die Beiträge erscheinen ohne weitere Redaktion. Ein Beitrag ist gelungen, wenn jemand bis zur letzten Seite wischt und ihn danach einem bestimmten Menschen schickt.
+Der Kanal veröffentlicht vier Beiträge am Tag. Wer ihm folgt, sieht sie hintereinander. Deshalb ist der größte Fehler nicht ein schwacher Beitrag, sondern einer, der klingt wie der davor. Jeder Beitrag bekommt ein Format, ein Themenfeld und einen Bildstil vorgegeben; halte dich daran, auch wenn dir eine andere Form leichter fiele.
 
-Es gibt zwei Arten von Beiträgen.
+Ein Beitrag ist gelungen, wenn er vier Dinge leistet:
+- Er überrascht. Die Titelseite zeigt etwas, das man so nicht erwartet hat, und das Ende ist nicht schon auf Seite zwei absehbar.
+- Er überzeugt. Jede Seite ergibt für sich und im Zusammenhang Sinn. Handlungen sind nachvollziehbar, Zahlen passen zueinander, niemand tut etwas, das kein Mensch tun würde, nur damit die Pointe aufgeht.
+- Er informiert oder gibt etwas mit: einen Befund, eine Einsicht, einen Satz, ein Werkzeug. Nach dem Lesen weiß oder kann man etwas, das man vorher nicht wusste oder konnte.
+- Er ist so lang, wie sein Stoff trägt. Sechs starke Seiten sind besser als vierzehn, von denen fünf Anlauf nehmen.
 
-Geschichte: eine kurze, erfundene Erzählung aus dem Alltag in der Ich-Form. So sind Geschichten gebaut, die auf Instagram bis zur letzten Seite gelesen und weitergeschickt werden:
-- Titelseite: Die Erzählerin oder der Erzähler stellt sich in einem Halbsatz vor (Alter, Rolle, Lage) und nennt die Situation, in der etwas wehtut, peinlich ist oder auf dem Spiel steht.
-- Aufhänger: eine kurze Zeile unter dem Titel, die eine Lücke öffnet. Sie kündigt einen Satz, eine Frage oder eine Wendung an, ohne sie zu verraten („Dann stellte sie mir eine einzige Frage:“).
-- Es steht etwas auf dem Spiel: ein Mensch, eine Stelle, das eigene Gesicht, eine Chance. Wer erzählt, ist nicht nur Beobachter, sondern hat selbst etwas falsch gemacht, versäumt oder zu entscheiden.
-- Jede Seite ist eine kleine Szene aus zwei bis drei kurzen Absätzen. Die Geschichte lebt von wörtlicher Rede: Menschen sagen einander Dinge, die sitzen.
-- Mindestens einmal fällt ein Satz, den man sich merkt. Er wird angekündigt, bevor er kommt („Dann sagte er etwas, das ich bis heute nicht vergessen habe:“).
-- Etwas zum Mitnehmen: Die Figur, die mehr weiß (eine Chefin, ein Vater, eine alte Kollegin, ein Trainer), gibt keinen Kalenderspruch, sondern eine Frage, eine Regel oder einen ersten Schritt, den man morgen selbst anwenden kann.
-- Auflösung mit Nachhall: Ein Zeitsprung („Drei Wochen später“) oder der Rückgriff auf ein Detail vom Anfang zeigt, was sich verändert hat.
-- Die letzten ein bis zwei Seiten verlassen die Geschichte und sprechen die Leserin oder den Leser direkt an: was daraus folgt, in klaren Sätzen. Der wichtigste Satz steht in **Fettschrift**.
-- Hervorhebungen: ein Schlüsselwort oder der Schlüsselsatz in **doppelten Sternchen** (fett), ein nachklingender Satz in *einfachen Sternchen* (kursiv). Sparsam, höchstens eine Hervorhebung pro Seite.
-- Konkrete Details machen die Geschichte glaubhaft: der Gruppenchat, der kalte Kaffee, die Jacke am Haken. Kein Triumph und keine Abrechnung am Ende.
+Handwerk:
+- Kurze Zeilen, gesprochene Sprache, selten mehr als zwölf Wörter pro Satz. Keine Bürowörter („Prozess“, „Feedback“, „Herausforderung“), keine Ratgeberfloskeln.
+- Hervorhebungen sparsam: ein Schlüsselwort oder Schlüsselsatz in **doppelten Sternchen** (fett), ein nachklingender Satz in *einfachen Sternchen* (kursiv), höchstens eine pro Seite.
+- Die Bildunterschrift wiederholt den Beitrag nicht, sondern setzt einen eigenen Gedanken dazu und endet mit einem kleinen Anstoß oder einer Frage.
+- Die letzte Seite jedes Beitrags ist ein fester Abspann mit dem Kanalnamen; sie wird nicht mitgeschrieben.
 
-Was die meistgeteilten Beiträge der großen Kanäle in diesem Feld gemeinsam haben (ausgewertet nach Likes und Weiterleitungen):
-- Der erste Satz der Titelseite ist eine einzige, konkrete Tatsache, die sofort eine Frage aufwirft, höchstens zwölf Wörter: eine ungewöhnliche Abmachung, ein Gegenstand, eine Zahl, ein Satz, den jemand gesagt hat. Erst danach kommt die Lage. Ein Einstieg wie „Ich bin 36 und arbeite als …“ ist dafür zu schwach, weil er nichts verspricht.
-- Es geht fast immer um Menschen, die man beschützen oder nicht verlieren will: das eigene Kind, die alten Eltern, den Partner, die beste Freundin, auch ein Tier. Beruf und Geld tragen nur, wenn ein solcher Mensch mit im Spiel ist.
-- Die Geschichte bringt etwas mit, das man noch am selben Abend nachmachen kann: eine Abmachung, eine Frage, ein kleines Ritual, einen Satz. Dieses Werkzeug wird in der Geschichte benutzt und auf einer der letzten Seiten Schritt für Schritt erklärt („Such dir … Sag deinem Kind … Stell keine Fragen.“). Daran entscheidet sich, ob jemand den Beitrag speichert und dem Partner schickt.
-- Genaue Angaben erzeugen Spannung und Glaubwürdigkeit: Uhrzeiten („Um 23:47 Uhr vibrierte mein Handy.“), Alter, Anzahl, was genau auf dem Tisch stand.
-- Nach der ersten Wendung kommt ein zweiter Schlag: Das Werkzeug hilft jemandem, an den keiner gedacht hat, oder die Person, vor der man Angst hatte, reagiert anders als erwartet.
-- Kurze Zeilen. Selten mehr als zwölf Wörter pro Satz, oft ein Satz pro Absatz.
-- Bilder: Jeder Beitrag hat ein Titelbild. Ein Bild auf jeder Seite (bilder_auf_jeder_seite) lohnt sich nur, wenn die Geschichte von wechselnden Schauplätzen, Tieren, Gegenständen oder einem Gleichnis lebt und die Seiten kurz sind (höchstens 150 Zeichen). Weil jedes Bild einzeln erzeugt wird, sähe dieselbe Person auf jeder Seite anders aus: Die Seitenbilder zeigen deshalb Orte, Gegenstände, Hände, Rückenansichten, Tiere oder Menschenmengen, nie das Gesicht der Hauptfigur. Bei Geschichten, die von Gesprächen leben, bleibt es beim Titelbild.
-- Eigene Einfälle: Die Abmachungen, Fragen und Rituale dieser Kanäle werden nicht nacherzählt. Jeder Beitrag braucht ein eigenes Werkzeug.
-
-Woran solche Geschichten scheitern, und was stattdessen trägt:
-- Zu kleine Fallhöhe. Ein Tippfehler in einem Angebot bewegt niemanden. Es muss um etwas gehen, das fast jeder kennt und das wehtut: übersehen werden, sich für die eigene Herkunft schämen, den Stolz der Eltern nie gehört haben, jemanden über der Arbeit verloren haben, mit vierzig von vorn anfangen.
-- Vorhersehbarkeit. Wenn die Titelseite schon verrät, dass am Ende alles gut wird, wischt niemand weiter. Die Geschichte braucht eine Wendung, die man nicht kommen sieht: ein Detail, das erst spät seinen Sinn zeigt, ein Brief Jahre später, ein Satz von jemandem, von dem man ihn nicht erwartet hätte.
-- Immer dieselbe Bauform. Die weise Vorgesetzte mit der klugen Regel ist nur eine von vielen. Andere: ein Fremder im Zug, ein Kind, das eine einfache Frage stellt, eine Putzkraft, die mehr mitbekommt als der Vorstand, ein Fund beim Ausräumen der elterlichen Wohnung, ein Satz, den man zufällig mithört, eine Geste, für die niemand Dank erwartet.
-- Bürosprache. Wörter wie „Vorlage“, „Abrechnung“, „Prozess“ oder „Feedback“ machen die Geschichte kalt. Erzählt wird, wie man es einer Freundin am Küchentisch erzählen würde: kurze, gesprochene Sätze, auch einmal ein halber.
-- Geschliffene Sprüche. Der Satz, der bleibt, klingt nicht nach Kalender, sondern nach einem Menschen, der ihn in diesem Moment wirklich sagt, gern unbeholfen, gern zu ehrlich („Ich bin 43. Ich weiß, dass alle ihr eigenes Leben haben.“ wäre so ein Ton).
-- Mindestens eine Stelle soll wehtun, bevor es gut wird.
-- Namen: Die meisten Figuren brauchen keinen („meine Chefin“, „der Neue“). Wo ein Vorname nötig ist, passt er zu Alter und Herkunft der Figur und wechselt von Beitrag zu Beitrag; „Jonas“ und „Katrin“ sind verbraucht.
-
-Liste: eine nummerierte Sammlung zum Mitnehmen, ein Punkt pro Seite. Die erfolgreichsten Beiträge dieser Art versprechen auf der Titelseite eine Zahl, einen Menschen und einen Nutzen („Deine Tochter wird Menschen begegnen, die ihr Nein nicht hören wollen. Bring ihr diese 7 Sätze bei:“).
-- Die Titelseite nennt, für wen die Liste ist und in welcher Lage sie hilft. Sie macht die Lage spürbar, bevor sie die Zahl nennt.
-- Jeder Punkt ist ein Satz, den man wörtlich sagen, oder ein Schritt, den man heute tun kann. Darunter steht in ein bis zwei kurzen Sätzen, wann man ihn braucht und was er bewirkt.
-- Die Punkte steigern sich: der stärkste steht am Ende, nicht am Anfang.
-- Kein Punkt ist eine Binsenweisheit. Wer die Liste liest, soll bei mindestens zwei Punkten denken: Das hätte ich früher wissen sollen.
-
-Die Bildunterschrift vertieft den Gedanken in zwei bis drei kurzen Absätzen und endet mit einem kleinen Anstoß für heute.
-
-Die Haltung des Kanals: Erfolg entsteht aus kleinen, unbequemen Schritten, die jemand doch tut, obwohl Stolz, Angst oder Bequemlichkeit dagegen sprechen. Die letzte Seite jedes Beitrags ist ein fester Abspann mit dem Kanalnamen; sie wird nicht mitgeschrieben.
+Verbrauchte Muster, die in diesem Kanal nicht mehr vorkommen:
+- Einstiege wie „Ich bin 41, Pflegerin …“ oder „Ich war 36 und …“ (Alter plus Beruf als erster Satz).
+- Die weise Chefin, der weise Vater oder das weise Kind, die mit einer Regel oder einem Zettel alles lösen.
+- Zettel im Glas, das Klopfen an eine Tür, das späte Geständnis am Küchentisch, „Dann sagte sie etwas, das ich bis heute nicht vergessen habe“.
+- Vornamen wie Jonas, Katrin, Ida, Clara, Julia. Die meisten Figuren brauchen keinen Namen.
+- Schlüsse, die predigen („Vielleicht stehst du gerade selbst …“). Wenn am Ende eine Anrede steht, dann als Handlung in einem Satz.
 
 Grenzen, weil der Kanal mit seinem Namen dafür einsteht:
-- Alles ist frei erfunden und selbst formuliert. Keine realen Personen, keine Prominenten, keine Marken- oder Firmennamen, keine Sprüche, die bereits als bekannte Zitate im Umlauf sind.
-- Die Geschichte wird nicht als wahre Begebenheit ausgegeben („wahre Geschichte“, „ist mir wirklich passiert“ kommen nicht vor).
-- Keine erfundenen Zahlen, Studien oder Statistiken. Keine Gesundheits-, Rechts- oder Anlageratschläge.
-- Niemanden abwerten: keine Bösewichte, keine Häme, keine Pauschalurteile über Gruppen oder Lebensentwürfe. Auch die Figur, die sich falsch verhält, bleibt ein Mensch.
+- Erfundenes wird nicht als wahre Begebenheit ausgegeben. Recherchierte Formate behaupten nur, was in den mitgelieferten Notizen steht; nichts wird ergänzt, auch keine wörtlichen Zitate.
+- Keine Einfälle anderer Kanäle nacherzählen und keine Sprüche verwenden, die als bekannte Zitate im Umlauf sind.
+- Keine Gesundheits-, Rechts- oder Anlageratschläge, keine Heilversprechen, keine Diagnosen.
+- Niemanden abwerten: keine Häme, keine Pauschalurteile über Gruppen oder Lebensentwürfe.
 - Deutsche Rechtschreibung mit echten Umlauten und ß, Anführungszeichen „so“.`;
 }
 
-function auftrag(typ, bisherigeThemen, schwerpunkt, kritik) {
-  const art = typ === "geschichte" ? "eine Geschichte" : "eine Liste";
-  const nachbessern = kritik
-    ? `\n\nEin strenges Lektorat hat den vorigen Entwurf zum Thema „${kritik.thema}“ abgelehnt. Schwächste Stelle: ${kritik.schwaechste_stelle}\nHinweise: ${kritik.hinweise}\nSchreibe einen neuen Entwurf, der diese Schwächen nicht hat. Ein anderes Thema ist erlaubt und oft die bessere Wahl.`
-    : "";
-  const feld = schwerpunkt ? `\n\nSchwerpunkt dieses Beitrags: ${schwerpunkt}.` : "";
-  const liste = bisherigeThemen.length
-    ? `\n\nDiese Themen gab es zuletzt schon. Wähle ein deutlich anderes Thema, andere Figuren und einen anderen Schauplatz:\n${bisherigeThemen.map((t) => `- ${t}`).join("\n")}`
-    : "";
-  return `Schreibe ${art}.${feld}${liste}${nachbessern}\n\nFülle alle Felder aus, auch Bildunterschrift, Hashtags und Bildidee: Sie werden ungeprüft übernommen.`;
+function auftrag({ format, themenfeld, bildstil, bisherige, notizen, kritik }) {
+  const f = FORMATE[format];
+  const teile = [
+    `Schreibe einen Beitrag im Format „${f.name}“.`,
+    `So ist dieses Format gebaut:\n${f.bau}`,
+    `Themenfeld: ${themenfeld}`,
+    `Bildstil für diesen Beitrag: ${bildstil} – ${BILDSTILE[bildstil]}. Die Bildidee muss in diesem Stil sein.`,
+  ];
+  if (format !== "gleichnis") {
+    teile.push(
+      "Ein Bild auf jeder Seite (bilder_auf_jeder_seite) lohnt sich nur, wenn die Seiten kurz sind und der Beitrag von wechselnden Motiven lebt. Weil jedes Bild einzeln erzeugt wird, zeigen Seitenbilder nie dasselbe Gesicht zweimal.",
+    );
+  }
+  if (notizen) {
+    teile.push(`Recherche-Notizen (einzige erlaubte Quelle für Tatsachen, Zahlen und Namen):\n${notizen}`);
+  }
+  if (bisherige.length) {
+    teile.push(
+      `Diese Beiträge gab es zuletzt. Dein Beitrag muss sich in Thema, Schauplatz, Figuren, Einstieg und Pointe deutlich von jedem unterscheiden:\n${bisherige.map((t) => `- ${t}`).join("\n")}`,
+    );
+  }
+  if (kritik) {
+    teile.push(
+      `Ein strenges Lektorat hat den vorigen Entwurf („${kritik.thema}“) abgelehnt.\nSchwächste Stelle: ${kritik.schwaechste_stelle}\nHinweise: ${kritik.hinweise}\nSchreibe einen neuen Entwurf ohne diese Schwächen. Ein anderer Stoff im selben Format und Themenfeld ist erlaubt und oft die bessere Wahl${notizen ? ", solange er sich aus den Notizen belegen lässt" : ""}.`,
+    );
+  }
+  teile.push("Fülle alle Felder aus, auch Bildunterschrift, Hashtags und Bildidee: Sie werden ungeprüft übernommen.");
+  return teile.join("\n\n");
 }
 
-/** Erzeugt den Text eines Beitrags über die Claude API. */
-export async function erzeugeText(typ, bisherigeThemen, schwerpunkt, kritik) {
-  // Das Schema erzwingt die Felder, aber nicht ihren Inhalt. Fällt die Prüfung durch, wird neu erzeugt.
+async function anfrage(parameter) {
+  const client = new Anthropic();
+  return client.beta.messages.create({
+    model: MODELL,
+    max_tokens: 16000,
+    betas: ["server-side-fallback-2026-07-01"],
+    fallbacks: "default",
+    ...parameter,
+  });
+}
+
+const nurText = (antwort) => antwort.content.filter((b) => b.type === "text").map((b) => b.text).join("");
+
+/**
+ * Sucht im Netz einen belegten Stoff für die recherchierten Formate und liefert Notizen mit Quellen.
+ * Die Websuche läuft auf Anthropics Servern; ein langer Lauf kann pausieren und wird dann fortgesetzt.
+ */
+export async function recherchiere({ format, themenfeld, bisherige }) {
+  const gesucht =
+    format === "wissen"
+      ? "einen überraschenden, gut belegten Befund aus Psychologie, Verhaltensforschung, Hirnforschung, Schlafforschung, Ökonomie oder einem Nachbarfach, der für den Alltag etwas bedeutet und den die meisten Menschen nicht kennen"
+      : "eine wahre, gut belegte Begebenheit mit einer unerwarteten Wendung aus Geschichte, Wissenschaft, Sport oder Wirtschaft, die kaum jemand kennt (oder ein unbekanntes Kapitel aus einem bekannten Leben), möglichst über eine verstorbene Person oder ein lange zurückliegendes Ereignis";
+  const frage = `Finde für einen Instagram-Beitrag ${gesucht}.
+
+Themenfeld: ${themenfeld}
+
+Meide abgegriffene Stoffe (Marshmallow-Test, 10.000-Stunden-Regel, Edison und die Glühbirne, Colonel Sanders, Steve Jobs, J. K. Rowling, die Titanic) und alles, was diesen früheren Beiträgen ähnelt:
+${bisherige.length ? bisherige.map((t) => `- ${t}`).join("\n") : "- (noch keine)"}
+
+Suche gezielt, prüfe den Stoff an mindestens zwei voneinander unabhängigen, seriösen Quellen (Fachartikel, Universitäten, Lexika, Qualitätspresse) und verwirf ihn, wenn er sich als Legende oder als umstritten herausstellt.
+
+Antworte mit Notizen in dieser Form:
+STOFF: ein Satz
+TATSACHEN: nummerierte Liste aller belegten Einzelheiten mit Namen, Jahr, Ort, Zahlen. Nur was in den Quellen steht.
+UNSICHER: was die Quellen offenlassen oder unterschiedlich darstellen
+QUELLEN: die vollständigen Adressen`;
+
+  const tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 6 }];
+  const messages = [{ role: "user", content: frage }];
+  let antwort = await anfrage({ tools, messages, output_config: { effort: "medium" } });
+  for (let fortsetzung = 0; antwort.stop_reason === "pause_turn" && fortsetzung < 4; fortsetzung++) {
+    messages.push({ role: "assistant", content: antwort.content });
+    antwort = await anfrage({ tools, messages, output_config: { effort: "medium" } });
+  }
+  if (antwort.stop_reason !== "end_turn") throw new Error(`Recherche abgebrochen (${antwort.stop_reason})`);
+  const notizen = nurText(antwort).trim();
+  if (!/QUELLEN/.test(notizen) || !/https?:\/\//.test(notizen)) throw new Error("Recherche ohne Quellen");
+  return notizen;
+}
+
+/** Erzeugt den Text eines Beitrags. Fällt die Prüfung der Felder durch, wird neu erzeugt. */
+export async function erzeugeText(vorgabe) {
   let letzter;
   for (let versuch = 1; versuch <= 3; versuch++) {
     try {
-      return await erzeugeEinmal(typ, bisherigeThemen, schwerpunkt, kritik);
+      const antwort = await anfrage({
+        output_config: { effort: "high", format: { type: "json_schema", schema: SCHEMA } },
+        system: systemPrompt(),
+        messages: [{ role: "user", content: auftrag(vorgabe) }],
+      });
+      if (antwort.stop_reason === "refusal") throw new Error("Die Anfrage wurde vom Modell abgelehnt.");
+      if (antwort.stop_reason === "max_tokens") throw new Error("Die Antwort wurde abgeschnitten.");
+      return pruefe(vorgabe.format, JSON.parse(nurText(antwort)));
     } catch (fehler) {
       letzter = fehler;
       console.log(`Text: Versuch ${versuch} verworfen (${fehler.message.split("\n").join(" ")})`);
@@ -158,114 +264,87 @@ export async function erzeugeText(typ, bisherigeThemen, schwerpunkt, kritik) {
   throw letzter;
 }
 
-async function erzeugeEinmal(typ, bisherigeThemen, schwerpunkt, kritik) {
-  const client = new Anthropic();
-  const antwort = await client.beta.messages.create({
-    model: MODELL,
-    max_tokens: 16000,
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    output_config: {
-      effort: "medium",
-      format: { type: "json_schema", schema: SCHEMATA[typ] },
-    },
-    system: systemPrompt(),
-    messages: [{ role: "user", content: auftrag(typ, bisherigeThemen, schwerpunkt, kritik) }],
-  });
-
-  if (antwort.stop_reason === "refusal") {
-    throw new Error("Die Anfrage wurde vom Modell abgelehnt. Bitte später erneut versuchen.");
-  }
-  if (antwort.stop_reason === "max_tokens") {
-    throw new Error("Die Antwort wurde abgeschnitten (max_tokens erreicht).");
-  }
-  const roh = antwort.content.filter((b) => b.type === "text").map((b) => b.text).join("");
-  return pruefe(typ, JSON.parse(roh));
-}
+const ohneSterne = (s) => s.replace(/\*/g, "");
 
 /** Prüft Längen und Mengen, die das Schema nicht erzwingen kann. */
-export function pruefe(typ, inhalt) {
+export function pruefe(format, inhalt) {
   const fehler = [];
   const max = (wert, grenze, name) => {
-    if (wert.length > grenze) fehler.push(`${name} ist zu lang (${wert.length} > ${grenze} Zeichen)`);
+    if ((wert ?? "").length > grenze) fehler.push(`${name} ist zu lang (${wert.length} > ${grenze} Zeichen)`);
   };
   const min = (wert, grenze, name) => {
     if ((wert ?? "").trim().length < grenze) fehler.push(`${name} fehlt oder ist zu kurz`);
   };
   min(inhalt.thema, 3, "Thema");
   min(inhalt.titel, 20, "Titel");
+  max(inhalt.titel, 180, "Titel");
+  max(inhalt.aufhaenger, 100, "Aufhänger");
   min(inhalt.caption, 80, "Bildunterschrift");
+  max(inhalt.caption, 1200, "Bildunterschrift");
   min(inhalt.bildidee, 60, "Bildidee");
   if ((inhalt.hashtags ?? []).filter((h) => h.trim()).length < 3) fehler.push("Hashtags fehlen");
   // Instagram erlaubt 20 Bilder pro Karussell; Titel- und Schlussseite kommen dazu.
-  const anzahl = (liste, name) => {
-    if (liste.length < 6 || liste.length > 18) fehler.push(`${name}: ${liste.length} Seiten (erlaubt: 6 bis 18)`);
-  };
-
-  if (typ === "geschichte") {
-    max(inhalt.titel, 170, "Titel");
-    max(inhalt.aufhaenger, 100, "Aufhänger");
-    anzahl(inhalt.seiten, "Geschichte");
-    inhalt.seiten.forEach((s, i) => max(s.absaetze.join(" ").replace(/\*/g, ""), 340, `Seite ${i + 2}`));
-  } else {
-    max(inhalt.titel, 170, "Titel");
-    anzahl(inhalt.saetze, "Liste");
-    inhalt.saetze.forEach((s, i) => {
-      max(s.satz, 180, `Punkt ${i + 1}`);
-      max(s.erklaerung ?? "", 200, `Erklärung ${i + 1}`);
-    });
-    max(inhalt.abschluss, 150, "Schlusssatz");
+  if (inhalt.seiten.length < 4 || inhalt.seiten.length > 18) {
+    fehler.push(`${inhalt.seiten.length} Seiten (erlaubt: 4 bis 18)`);
   }
-  max(inhalt.caption, 1200, "Bildunterschrift");
+  inhalt.seiten.forEach((s, i) => {
+    const laenge = ohneSterne([s.ueberschrift ?? "", ...(s.absaetze ?? [])].join(" ")).trim().length;
+    if (laenge < 3) fehler.push(`Seite ${i + 2} ist leer`);
+    if (laenge > 360) fehler.push(`Seite ${i + 2} ist zu lang (${laenge} > 360 Zeichen)`);
+  });
+  if (FORMATE[format].recherche && !(inhalt.quellen ?? []).some((q) => /^https?:\/\//.test(q))) {
+    fehler.push("Quellen fehlen");
+  }
   if (fehler.length) throw new Error(`Der erzeugte Text passt nicht:\n- ${fehler.join("\n- ")}`);
 
   inhalt.hashtags = inhalt.hashtags
     .map((h) => h.replace(/^#/, "").replace(/\s+/g, ""))
     .filter(Boolean)
     .slice(0, 6);
+  inhalt.quellen = (inhalt.quellen ?? []).filter((q) => /^https?:\/\//.test(q)).slice(0, 5);
   return inhalt;
 }
 
+const s = (ueberschrift, ...absaetze) => ({ ueberschrift, absaetze, bildidee: "" });
+
 /** Feste Beispieltexte, um das Design ohne API-Schlüssel zu prüfen. */
 export const BEISPIELE = {
-  geschichte: {
-    thema: "Fehler vor dem Chef zugeben",
-    titel: "Ich bin 29 und habe unseren größten Kunden fast verloren. Durch eine Mail, die ich nie hätte schicken dürfen.",
-    aufhaenger: "Mein Chef stellte mir danach nur eine Frage:",
+  gleichnis: {
+    thema: "Der Fährmann und die zwei Ruder",
+    titel: "Ein Fährmann hatte auf sein eines Ruder „Glauben“ geschrieben und auf das andere „Arbeit“.",
+    aufhaenger: "Ein Reisender lachte ihn dafür aus.",
+    bildidee: "A weathered wooden rowing boat on a misty river at dawn, two oars resting across it, one with a word carved into the blade. Black and white, cinematic, low sun through the fog.",
+    bilder_auf_jeder_seite: false,
     seiten: [
-      { absaetze: ["Es war ein Dienstag, kurz nach fünf.", "Ich hatte das falsche Angebot angehängt. Mit den Preisen eines anderen Kunden."] },
-      { absaetze: ["Zwanzig Minuten später rief der Einkäufer an.", "„Interessant, was Sie anderen berechnen“, sagte er. Dann legte er auf."] },
-      { absaetze: ["Ich saß vor dem Bildschirm und überlegte, wie ich es erklären könnte.", "Technischer Fehler. Falsche Vorlage. Irgendetwas, das nicht nach mir klang."] },
-      { absaetze: ["Stattdessen ging ich zu meinem Chef.", "Ich sagte: „Ich habe einen Fehler gemacht. Einen großen.“"] },
-      { absaetze: ["Er hörte zu, ohne mich zu unterbrechen.", "Dann stellte er die Frage, die ich seitdem jedem stelle, der zu mir kommt:"] },
-      { absaetze: ["„**Was ist der nächste Anruf?**“", "Nicht: Wie konnte das passieren. Nicht: Wer ist schuld."] },
-      { absaetze: ["Wir riefen den Einkäufer gemeinsam an.", "Ich sagte ihm, was passiert war. Ohne Ausrede, in drei Sätzen."] },
-      { absaetze: ["Es war lange still in der Leitung.", "„Das hat mir noch nie jemand so direkt gesagt“, meinte er schließlich."] },
-      { absaetze: ["Drei Monate später verlängerte er den Vertrag.", "*In der Mail stand: „Weil ich weiß, dass Sie anrufen, wenn etwas schiefgeht.“*"] },
-      { absaetze: ["Die meisten Fehler kosten weniger, als wir fürchten.", "Teuer wird die Zeit, in der wir überlegen, wie wir sie verstecken."] },
-      { absaetze: ["Wenn dir das nächste Mal etwas passiert, frag dich nicht, wie du dastehst.", "**Frag dich, was der nächste Anruf ist.**"] },
+      s("", "„Wozu der Aberglaube?“, fragte der Reisende.", "Der Fährmann sagte nichts. Er zog das Ruder „Arbeit“ ein und ruderte nur mit „Glauben“."),
+      s("", "Das Boot drehte sich im Kreis.", "Mitten auf dem Fluss, eine Runde nach der anderen."),
+      s("", "Dann wechselte er. Nur „Arbeit“.", "Wieder drehte sich das Boot. Diesmal andersherum."),
+      s("", "Erst als er beide Ruder eintauchte, fuhr es geradeaus.", "*Der Reisende lachte nicht mehr.*"),
+      s("DAS PRINZIP", "Wer nur hofft, dreht sich im Kreis.", "Wer nur schuftet und an nichts mehr glaubt, dreht sich auch. Nur in die andere Richtung."),
+      s("", "**Frag dich heute, welches Ruder du gerade nicht im Wasser hast.**"),
     ],
     caption:
-      "Ein Fehler wird selten durch den Fehler selbst groß, sondern durch die Stunden danach.\n\nWer zuerst anruft, behält das Heft in der Hand. Wer wartet, überlässt es dem Zufall.\n\nWelchen Anruf schiebst du gerade vor dir her?",
-    hashtags: ["erfolg", "karriere", "verantwortung", "fehlerkultur"],
-    bildidee: "A man in his late twenties in a light blue shirt sits alone at an office desk in the early evening, staring at his laptop with a worried, tense expression, one hand on his forehead. Warm desk lamp light, dark office in the background.",
+      "Die meisten von uns haben ein Lieblingsruder. Die einen planen und hoffen, die anderen arbeiten, bis sie nicht mehr wissen, wofür.\n\nWelches ist deins?",
+    hashtags: ["gleichnis", "erfolg", "ausdauer", "nachdenken"],
+    quellen: [],
   },
-  saetze: {
+  liste: {
     thema: "Sätze fürs Gehaltsgespräch",
-    titel: "Du leistest seit Jahren mehr, als in deinem Vertrag steht. Diese 7 Sätze helfen dir, es endlich auszusprechen:",
-    saetze: [
-      { satz: "Ich möchte über meine Entwicklung sprechen, nicht nur über dieses Jahr.", hervorhebung: "meine Entwicklung", erklaerung: "Der Einstieg. Er zeigt, dass du bleiben willst, und nimmt dem Gespräch die Schärfe." },
-      { satz: "Diese drei Dinge habe ich übernommen, die nicht in meiner Stelle stehen.", hervorhebung: "drei Dinge", erklaerung: "Zähl sie auf. Was niemand ausspricht, sieht auch niemand." },
-      { satz: "Ich hätte gern eine Zahl von Ihnen, bevor ich meine nenne.", hervorhebung: "eine Zahl", erklaerung: "Wer zuerst nennt, verhandelt nach unten. Frag ruhig und warte." },
-      { satz: "Das liegt unter dem, was ich mir vorgestellt habe.", hervorhebung: "unter dem", erklaerung: "Kein Vorwurf, keine Rechtfertigung. Danach still sein." },
-      { satz: "Was müsste passieren, damit wir in sechs Monaten dort sind?", hervorhebung: "in sechs Monaten", erklaerung: "Macht aus einem Nein einen Plan mit Datum." },
-      { satz: "Können wir das schriftlich festhalten?", hervorhebung: "schriftlich", erklaerung: "Freundlich gefragt, aber unverzichtbar. Zusagen ohne Papier verblassen." },
-      { satz: "Ich brauche darauf heute keine Antwort. Aber ich brauche eine.", hervorhebung: "Aber ich brauche eine", erklaerung: "Der Satz, den die wenigsten sagen. Er entscheidet, ob etwas passiert." },
+    titel: "Du leistest seit Jahren mehr, als in deinem Vertrag steht. Diese 6 Sätze helfen dir, es endlich auszusprechen:",
+    aufhaenger: "",
+    bildidee: "A single empty office chair facing a large desk, seen from behind, late evening light through blinds casting long stripes. No people.",
+    bilder_auf_jeder_seite: false,
+    seiten: [
+      s("1. „Ich möchte über meine Entwicklung sprechen, nicht nur über dieses Jahr.“", "Der Einstieg. Er zeigt, dass du bleiben willst, und nimmt dem Gespräch die Schärfe."),
+      s("2. „Diese drei Dinge habe ich übernommen, die nicht in meiner Stelle stehen.“", "Zähl sie auf. Was niemand ausspricht, sieht auch niemand."),
+      s("3. „Ich hätte gern eine Zahl von Ihnen, bevor ich meine nenne.“", "Wer zuerst nennt, verhandelt nach unten. Frag ruhig und warte."),
+      s("4. „Das liegt unter dem, was ich mir vorgestellt habe.“", "Kein Vorwurf, keine Rechtfertigung. Danach still sein."),
+      s("5. „Was müsste passieren, damit wir in sechs Monaten dort sind?“", "Macht aus einem Nein einen Plan mit Datum."),
+      s("6. „Ich brauche darauf heute keine Antwort. Aber ich brauche eine.“", "Der Satz, den die wenigsten sagen. **Er entscheidet, ob etwas passiert.**"),
     ],
-    abschluss: "Speicher dir die Liste für dein nächstes Gespräch. Und schick sie jemandem, der zu lange wartet.",
     caption:
       "Die meisten Gehaltsgespräche scheitern nicht an der Leistung, sondern an den Sätzen, die niemand geübt hat.\n\nSuch dir einen aus und sag ihn einmal laut, bevor du ihn brauchst.",
     hashtags: ["gehalt", "karriere", "erfolg", "selbstwert"],
-    bildidee: "A woman in her mid thirties stands in a hallway by a half-open front door, looking back over her shoulder with a calm, determined expression. Soft evening light from the doorway.",
+    quellen: [],
   },
 };
