@@ -8,7 +8,9 @@ import { KRITERIEN } from "./pruefung.js";
 
 const [id, zweig] = process.argv.slice(2);
 const post = JSON.parse(fs.readFileSync(path.join(POSTS_ORDNER, id, "post.json"), "utf8"));
-const basis = `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}/${zweig}/posts/${id}`;
+// REPO_ROH_BASIS z. B. https://gitlab.example.com/gruppe/projekt/-/raw (GitLab); ohne Angabe GitHub.
+const rohBasis = process.env.REPO_ROH_BASIS || `https://raw.githubusercontent.com/${process.env.GITHUB_REPOSITORY}`;
+const basis = `${rohBasis.replace(/\/$/, "")}/${zweig}/posts/${id}`;
 const l = post.lektorat;
 const zelle = (t) => String(t).replace(/\s+/g, " ").replace(/\|/g, "/");
 

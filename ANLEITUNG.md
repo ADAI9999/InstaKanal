@@ -18,22 +18,21 @@ sonst gibt es nur das Titelbild.
    - Das **Titelbild** wird geprüft und bei Mängeln einmal neu erzeugt.
 2. **Freigabe** – Für jeden Beitrag bekommst du eine Anfrage „Freigabe: …“ mit Noten, schwächster Stelle,
    allen Seiten und der Bildunterschrift. **Merge** = freigeben, **Close** = verwerfen.
-3. **07:15, 12:15, 17:15 und 20:15 Uhr** – Jeweils der älteste freigegebene Beitrag wird veröffentlicht.
+3. **Posten** – Der Taktgeber prüft alle 15 Minuten, ob ein Termin aus `postzeiten` (deutsche Zeit) fällig ist,
+   und veröffentlicht dann den ältesten freigegebenen Beitrag, höchstens `maxProTag` pro Tag.
+   Verpasste Termine holt er nach. (GitHubs eigene Zeitpläne lösen für dieses Repository nicht zuverlässig aus.)
 
-Die Zeiten gelten für die Winterzeit; in der Sommerzeit verschiebt sich alles um eine Stunde nach hinten.
-GitHub startet geplante Abläufe oft einige Minuten verspätet.
-
-**Stoppen:** Erzeugen und Posten lassen sich getrennt anhalten und wieder starten:
+**Stoppen:** Erzeugen und Posten lassen sich getrennt anhalten:
 
 ```bash
 gh workflow disable erstellen.yml
 ```
 
 ```bash
-gh workflow disable posten.yml
+gh workflow disable taktgeber.yml
 ```
 
-Wieder einschalten mit `enable` statt `disable`. Vorrat außer der Reihe auffüllen:
+Wieder einschalten mit `enable` statt `disable`; den Taktgeber danach einmal mit `gh workflow run taktgeber.yml` anstoßen. Vorrat außer der Reihe auffüllen:
 
 ```bash
 gh workflow run erstellen.yml
