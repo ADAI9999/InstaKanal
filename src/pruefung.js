@@ -87,7 +87,10 @@ ${alsText(inhalt)}`;
 
   const urteil = await frage(TEXT_SCHEMA, auftrag, "high");
   const noten = Object.keys(KRITERIEN).map((k) => urteil[k].note);
-  return { ...urteil, schnitt: noten.reduce((a, b) => a + b, 0) / noten.length, bestanden: noten.every((n) => n >= MINDESTNOTE) };
+  const schnitt = noten.reduce((a, b) => a + b, 0) / noten.length;
+  // Fakten und Logik sind Pflicht; sonst zählt der Gesamteindruck, ohne echten Ausreißer nach unten.
+  const bestanden = urteil.stimmigkeit.note >= MINDESTNOTE && schnitt >= MINDESTNOTE && noten.every((n) => n >= MINDESTNOTE - 1);
+  return { ...urteil, schnitt, bestanden };
 }
 
 const BILD_SCHEMA = {

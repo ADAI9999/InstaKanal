@@ -58,7 +58,7 @@ async function schreibeGeprueft(vorgabe) {
     const urteil = await pruefeInhalt(inhalt, vorgabe);
     const noten = Object.entries(KRITERIEN).map(([k, [name]]) => `${name} ${urteil[k].note}`).join(", ");
     console.log(`Lektorat, Entwurf ${runde} („${inhalt.thema}“): ${noten} → ${urteil.bestanden ? "bestanden" : "abgelehnt"}`);
-    if (!bester || urteil.schnitt > bester.urteil.schnitt) bester = { inhalt, urteil, runde };
+    if (!bester || (urteil.bestanden && !bester.urteil.bestanden) || (urteil.bestanden === bester.urteil.bestanden && urteil.schnitt > bester.urteil.schnitt)) bester = { inhalt, urteil, runde };
     if (urteil.bestanden) break;
     kritik = { thema: inhalt.thema, schwaechste_stelle: urteil.schwaechste_stelle, hinweise: urteil.hinweise };
   }
