@@ -1,11 +1,6 @@
 name: Post veröffentlichen
 
 on:
-  schedule:
-    # Alle 20 Minuten von 05:05 bis 20:45 UTC (deutsche Winterzeit 06:05 bis 21:45). Ob ein Beitrag fällig ist, entscheidet src/posten.js
-    # anhand von "postzeiten" in config.json (deutsche Zeit). So holt der nächste Lauf einen
-    # Termin nach, den GitHub ausgelassen hat.
-    - cron: "5,25,45 5-20 * * *"
   workflow_dispatch:
     inputs:
       probe:
@@ -27,7 +22,7 @@ concurrency:
 jobs:
   posten:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

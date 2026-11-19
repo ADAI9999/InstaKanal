@@ -4,7 +4,7 @@
 //   node src/posten.js --probe    nur prüfen, nichts veröffentlichen
 //   node src/posten.js --id <teil> einen bestimmten Beitrag veröffentlichen
 import { konfig, ladePosts, speicherePost } from "./konfig.js";
-import { veroeffentliche, pruefeZugang } from "./instagram.js";
+import { veroeffentliche, pruefeZugang, letzteBeitraege } from "./instagram.js";
 
 const probe = process.argv.includes("--probe");
 
@@ -46,8 +46,9 @@ async function main() {
     console.log(`${uhrzeit} Uhr: ${heute} von ${faellig} fälligen Beiträgen veröffentlicht (Termine ${termine.join(", ")}). Nichts zu tun.`);
     return;
   }
-  // Zurückgestellte Beiträge bleiben im Archiv, werden aber nicht automatisch gepostet.
-  const offen = ladePosts().filter((p) => !p.veroeffentlicht && (!p.zurueckgestellt || wunsch));
+  // Zurückgestellte Beiträge kommen erst nach allen anderen an die Reihe.
+  const alle = ladePosts().filter((p) => !p.veroeffentlicht);
+  const offen = [...alle.filter((p) => !p.zurueckgestellt), ...alle.filter((p) => p.zurueckgestellt)];
   const post = wunsch ? offen.find((p) => p.id === wunsch || p.id.includes(wunsch)) : offen[0];
   if (wunsch && !post) throw new Error(`Kein freigegebener, ungeposteter Beitrag passt zu „${wunsch}“.`);
   if (!post) {
@@ -68,7 +69,10 @@ async function main() {
     return;
   }
 
-  const mediaId = await veroeffentliche({ bildUrls, caption });
+  // Schutz vor Doppelposts: Ist der Beitrag nach einem abgebrochenen Lauf doch erschienen, nur vermerken.
+  const schonDa = (await letzteBeitraege()).find((m) => (m.caption ?? "").startsWith(post.caption.slice(0, 80)));
+  const mediaId = schonDa ? schonDa.id : await veroeffentliche({ bildUrls, caption });
+  if (schonDa) console.log("War bereits auf Instagram, wird nur als veröffentlicht vermerkt.");
   post.veroeffentlicht = { mediaId, zeit: new Date().toISOString() };
   speicherePost(post.ordner, post);
   console.log(`Veröffentlicht. Media-ID: ${mediaId}`);

@@ -47,7 +47,7 @@ async function warteAufContainer(id) {
     if (status_code === "ERROR" || status_code === "EXPIRED") {
       throw new Error(`Instagram konnte das Bild nicht verarbeiten (Status ${status_code}).`);
     }
-    await new Promise((r) => setTimeout(r, 10_000));
+    await new Promise((r) => setTimeout(r, versuch === 0 ? 3_000 : 10_000));
   }
   throw new Error("Instagram hat das Bild nach 5 Minuten noch nicht verarbeitet.");
 }
@@ -74,8 +74,29 @@ export async function veroeffentliche({ bildUrls, caption }) {
   }
 
   await warteAufContainer(container.id);
-  const ergebnis = await anfrage("POST", `/${konto}/media_publish`, { creation_id: container.id });
-  return ergebnis.id;
+  return veroeffentlicheContainer(konto, container.id);
+}
+
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Meta drosselt Apps zeitweise („Application request limit reached“, Code 4/17/32/613).
+// Dann später erneut versuchen, vorher aber prüfen, ob der Beitrag nicht doch erschienen ist.
+async function veroeffentlicheContainer(konto, id) {
+  for (let versuch = 1; ; versuch++) {
+    try {
+      const ergebnis = await anfrage("POST", `/${konto}/media_publish`, { creation_id: id });
+      return ergebnis.id;
+    } catch (fehler) {
+      if (!/\(Code (4|17|32|613)\)/.test(fehler.message) || versuch >= 6) throw fehler;
+      console.log(`Instagram drosselt (${fehler.message}). Neuer Versuch in ${versuch * 2} Minuten.`);
+      await pause(versuch * 120_000);
+      const { status_code } = await anfrage("GET", `/${id}`, { fields: "status_code" }).catch(() => ({}));
+      if (status_code === "PUBLISHED") {
+        const { data } = await anfrage("GET", `/${konto}/media`, { fields: "id", limit: "1" });
+        return data[0].id;
+      }
+    }
+  }
 }
 
 /** Liest Namen und ID des Kontos, ohne etwas zu verändern. */
@@ -94,4 +115,11 @@ export async function erneuereToken() {
     throw new Error(`Token konnte nicht verlängert werden: ${json.error?.message ?? antwort.status}`);
   }
   return json.access_token;
+}
+
+/** Liefert ID und Bildunterschrift der neuesten Beiträge, um doppeltes Posten zu verhindern. */
+export async function letzteBeitraege(anzahl = 3) {
+  const konto = await kontoId();
+  const { data } = await anfrage("GET", `/${konto}/media`, { fields: "id,caption,timestamp", limit: String(anzahl) });
+  return data ?? [];
 }

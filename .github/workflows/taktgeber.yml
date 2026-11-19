@@ -1,0 +1,56 @@
+name: Taktgeber
+
+# GitHub lässt geplante Läufe (cron) für dieses Repository aus. Deshalb läuft hier ein
+# Dauerlauf: Er prüft alle 15 Minuten, ob laut config.json ("postzeiten", "maxProTag") ein
+# Beitrag fällig ist, und startet sich nach gut fünf Stunden selbst neu.
+# Einmalig von Hand starten: gh workflow run taktgeber.yml
+# Stoppen: gh workflow disable taktgeber.yml
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *" # Ersatzstart, falls die Kette einmal abreißt
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: taktgeber
+  cancel-in-progress: false
+
+jobs:
+  takt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Alle 15 Minuten prüfen und fällige Beiträge posten
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ende=$(( $(date +%s) + 5*3600 + 30*60 ))
+          while [ "$(date +%s)" -lt "$ende" ]; do
+            git pull -q --rebase origin main || echo "Pull fehlgeschlagen, nächster Versuch in 15 Minuten"
+            node src/posten.js || echo "Posten fehlgeschlagen, nächster Versuch in 15 Minuten"
+            git add posts
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Veröffentlicht"
+              git pull -q --rebase origin main && git push -q origin HEAD:main
+            fi
+            sleep 900
+          done
+
+      - name: Nächsten Taktgeber starten
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run taktgeber.yml --ref main
