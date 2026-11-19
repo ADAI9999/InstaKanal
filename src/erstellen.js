@@ -123,6 +123,10 @@ async function erstelleEinen(zaehler, bisherige) {
     seitenbilder: seitenfotos.filter(Boolean).length,
   };
   post.bilder = await rendere(post, ordner, foto, seitenfotos);
+  // Rohbilder aufheben, damit Textkorrekturen mit src/neusetzen.js ohne neue Bilder möglich sind.
+  fs.mkdirSync(path.join(ordner, "roh"), { recursive: true });
+  if (foto) fs.writeFileSync(path.join(ordner, "roh", "titel.jpg"), Buffer.from(foto.daten, "base64"));
+  seitenfotos.forEach((f, i) => f && fs.writeFileSync(path.join(ordner, "roh", `seite-${i + 2}.jpg`), Buffer.from(f.daten, "base64")));
   speicherePost(ordner, post);
   console.log(`Fertig: posts/${id}/ (${post.bilder.length} Seiten, ${post.seitenbilder} Seitenbilder), Thema: ${post.thema}`);
   return { id, kurz: `[${FORMATE[format].name}] ${post.thema}: ${post.titel}` };
