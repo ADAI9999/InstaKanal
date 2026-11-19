@@ -45,5 +45,11 @@
     "Lernen und Können: wie Meister üben, warum Talent überschätzt wird",
     "Güte und Zufall: kleine Gesten zwischen Fremden und was daraus wurde"
   ],
-  "maxProTag": 3
+  "maxProTag": 3,
+  "postzeiten": [
+    "07:15",
+    "12:15",
+    "17:15",
+    "20:15"
+  ]
 }

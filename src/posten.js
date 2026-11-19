@@ -37,8 +37,13 @@ async function main() {
   // Tageshöchstzahl (deutsche Zeit); gilt für geplante Läufe, nicht für gezieltes Posten.
   const tag = (d) => new Date(d).toLocaleDateString("de-DE", { timeZone: "Europe/Berlin" });
   const heute = ladePosts().filter((p) => p.veroeffentlicht && tag(p.veroeffentlicht.zeit) === tag(Date.now())).length;
-  if (!wunsch && !probe && heute >= (konfig.maxProTag ?? 4)) {
-    console.log(`Heute schon ${heute} Beiträge veröffentlicht (Höchstzahl ${konfig.maxProTag}). Nichts zu tun.`);
+  // Der Workflow läuft alle 20 Minuten, weil GitHub geplante Läufe manchmal auslässt.
+  // Gepostet wird nur, wenn ein Termin fällig ist, der heute noch nicht bedient wurde.
+  const uhrzeit = new Date().toLocaleTimeString("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit" });
+  const termine = (konfig.postzeiten ?? ["07:15", "12:15", "17:15", "20:15"]).slice(0, konfig.maxProTag ?? 4);
+  const faellig = termine.filter((t) => t <= uhrzeit).length;
+  if (!wunsch && !probe && heute >= faellig) {
+    console.log(`${uhrzeit} Uhr: ${heute} von ${faellig} fälligen Beiträgen veröffentlicht (Termine ${termine.join(", ")}). Nichts zu tun.`);
     return;
   }
   // Zurückgestellte Beiträge bleiben im Archiv, werden aber nicht automatisch gepostet.

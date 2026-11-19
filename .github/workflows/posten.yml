@@ -2,11 +2,10 @@ name: Post veröffentlichen
 
 on:
   schedule:
-    # Vier Beiträge pro Tag. Zeiten in UTC; deutsche Zeit = +1 Stunde (Winter) bzw. +2 Stunden (Sommer).
-    - cron: "15 6 * * *" # 07:15
-    - cron: "15 11 * * *" # 12:15
-    - cron: "15 16 * * *" # 17:15
-    - cron: "15 19 * * *" # 20:15
+    # Alle 20 Minuten von 05:05 bis 20:45 UTC (deutsche Winterzeit 06:05 bis 21:45). Ob ein Beitrag fällig ist, entscheidet src/posten.js
+    # anhand von "postzeiten" in config.json (deutsche Zeit). So holt der nächste Lauf einen
+    # Termin nach, den GitHub ausgelassen hat.
+    - cron: "5,25,45 5-20 * * *"
   workflow_dispatch:
     inputs:
       probe:
