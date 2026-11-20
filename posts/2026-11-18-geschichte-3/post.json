@@ -133,5 +133,9 @@
     "13.jpg",
     "14.jpg"
   ],
-  "zurueckgestellt": true
+  "zurueckgestellt": true,
+  "veroeffentlicht": {
+    "mediaId": "18150264286604473",
+    "zeit": "2026-11-20T06:39:49.815Z"
+  }
 }
