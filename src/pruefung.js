@@ -6,6 +6,7 @@ import { FORMATE, BILDSTILE, vorbilder } from "./texte.js";
 
 const MODELL = "claude-opus-5-5";
 export const MINDESTNOTE = 7;
+export const MINDESTSCHNITT = 6.5;
 
 export const KRITERIEN = {
   titelseite: ["Titelseite", "Wirft die Titelseite sofort eine konkrete Frage auf, die man beantwortet haben will? Würde ein Fremder im Feed dafür anhalten?"],
@@ -86,10 +87,12 @@ ${bisherige.length ? `Zuletzt erschienen (für die Note „Abwechslung“):\n${b
 ${alsText(inhalt)}`;
 
   const urteil = await frage(TEXT_SCHEMA, auftrag, "high");
-  const noten = Object.keys(KRITERIEN).map((k) => urteil[k].note);
+  // „Abwechslung“ wird angezeigt und dem Schreiber zurückgemeldet, entscheidet aber nicht übers Bestehen:
+  // Sie misst nur die Nähe zu den letzten Beiträgen, nicht die Qualität.
+  const noten = Object.keys(KRITERIEN).filter((k) => k !== "abwechslung").map((k) => urteil[k].note);
   const schnitt = noten.reduce((a, b) => a + b, 0) / noten.length;
-  // Fakten und Logik sind Pflicht; sonst zählt der Gesamteindruck, ohne echten Ausreißer nach unten.
-  const bestanden = urteil.stimmigkeit.note >= MINDESTNOTE && schnitt >= MINDESTNOTE && noten.every((n) => n >= MINDESTNOTE - 1);
+  // Fakten und Logik sind Pflicht (mindestens 7); sonst zählt der Gesamteindruck (Schnitt 6,5), ohne Ausreißer unter 6.
+  const bestanden = urteil.stimmigkeit.note >= MINDESTNOTE && schnitt >= MINDESTSCHNITT && noten.every((n) => n >= MINDESTNOTE - 1);
   return { ...urteil, schnitt, bestanden };
 }
 

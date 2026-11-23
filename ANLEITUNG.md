@@ -14,7 +14,8 @@ sonst gibt es nur das Titelbild.
 
 1. **Automatisch** – Sinkt der Vorrat (offene Freigaben plus freigegebene, noch nicht gepostete Beiträge) unter 9, startet der Taktgeber „Beiträge erstellen“ und füllt auf 21 auf (3 pro Tag, 7 Tage).
    - Jeder Entwurf geht durch ein **Lektorat** mit sechs Noten von 1 bis 10: Titelseite, passt zum Kanal,
-     Spannungsbogen, Thema, Nutzwert, Sprache. Unter Note 7 wird neu geschrieben, bis zu dreimal.
+     Spannungsbogen, Thema, Nutzwert, Sprache. Bestanden: Stimmigkeit mindestens 7, Schnitt mindestens 6,5,
+     keine Note unter 6; „Abwechslung“ zählt dabei nicht mit. Sonst wird neu geschrieben, bis zu dreimal.
    - Das **Titelbild** wird geprüft und bei Mängeln einmal neu erzeugt.
 2. **Freigabe** – Für jeden Beitrag bekommst du eine Anfrage „Freigabe: …“ mit Noten, schwächster Stelle,
    allen Seiten und der Bildunterschrift. **Merge** = freigeben, **Close** = verwerfen.
