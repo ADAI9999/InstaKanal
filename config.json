@@ -5,7 +5,7 @@
   "nische": "Erfolg im Leben in allen Spielarten: wie Menschen denken, entscheiden, lieben, arbeiten, scheitern und wieder aufstehen. Jeder Beitrag überrascht und gibt etwas mit, das man vorher nicht wusste oder konnte: einen Befund, eine wahre Begebenheit, ein Gleichnis, eine Methode, einen Satz.",
   "zielgruppe": "neugierige deutschsprachige Erwachsene von etwa 25 bis 55, die im Leben und im Beruf vorankommen wollen",
   "tonfall": "klar, lebendig, respektvoll, per Du. Schlichte Sprache, kurze Sätze. Je nach Format erzählend, nüchtern erklärend oder pointiert. Keine Floskeln, kein Pathos.",
-  "freigabe": true,
+  "freigabe": false,
   "farben": {
     "hintergrund": "#0E1014",
     "flaeche": "#171A21",
