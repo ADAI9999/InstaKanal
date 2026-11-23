@@ -34,7 +34,7 @@ Vor allem, was öffentlich sichtbar wird (Post, Repository, Push), fragen. Secre
 
 | Aufgabe | Befehl |
 |---|---|
-| Vorrat auffüllen (sonst mittwochs automatisch) | `gh workflow run erstellen.yml` |
+| Vorrat auffüllen (sonst automatisch, sobald unter 9) | `gh workflow run erstellen.yml` |
 | Einzelne Beiträge eines Formats testen | `gh workflow run erstellen.yml -f anzahl=1 -f typ=wahre_geschichte` |
 | Handgeschriebenen Entwurf zum Beitrag machen | `gh workflow run manuell.yml -f datei=entwuerfe/<name>.json` |
 | Text eines vorgelegten Beitrags korrigieren | Entwurf in `entwuerfe/` anpassen, dann `node src/neusetzen.js entwuerfe/<name>.json <id>` |

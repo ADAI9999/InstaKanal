@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       anzahl:
-        description: "Wie viele Beiträge (Zahl) oder 'auffuellen' = Vorrat auf 28 auffüllen"
+        description: "Wie viele Beiträge (Zahl) oder 'auffuellen' = Vorrat auf 21 auffüllen"
         type: string
         default: "auffuellen"
       typ:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  VORRAT: 28 # 4 Beiträge pro Tag, 7 Tage
+  VORRAT: 21 # 3 Beiträge pro Tag, 7 Tage
 
 jobs:
   erstellen:

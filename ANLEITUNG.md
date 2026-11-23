@@ -12,7 +12,7 @@ sonst gibt es nur das Titelbild.
 
 ## So läuft es ab
 
-1. **Mittwochs 20:00 Uhr** – GitHub füllt den Vorrat auf 28 Beiträge auf (4 pro Tag, 7 Tage).
+1. **Automatisch** – Sinkt der Vorrat (offene Freigaben plus freigegebene, noch nicht gepostete Beiträge) unter 9, startet der Taktgeber „Beiträge erstellen“ und füllt auf 21 auf (3 pro Tag, 7 Tage).
    - Jeder Entwurf geht durch ein **Lektorat** mit sechs Noten von 1 bis 10: Titelseite, passt zum Kanal,
      Spannungsbogen, Thema, Nutzwert, Sprache. Unter Note 7 wird neu geschrieben, bis zu dreimal.
    - Das **Titelbild** wird geprüft und bei Mängeln einmal neu erzeugt.
