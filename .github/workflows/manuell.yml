@@ -41,6 +41,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "$(node -p "require('./config.json').freigabe")" != "true" ]; then
+            git add "posts/$ID"
+            git commit -q -m "Neuer Beitrag: $ID"
+            git pull -q --rebase origin main
+            git push -q origin HEAD:main
+            exit 0
+          fi
           ZWEIG="post/$ID"
           git checkout -q -b "$ZWEIG"
           git add "posts/$ID"

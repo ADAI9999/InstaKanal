@@ -26,21 +26,30 @@ async function main() {
     return;
   }
 
-  const urteil = await pruefeInhalt(inhalt, {
-    format: entwurf.typ,
-    themenfeld: entwurf.thema,
-    bisherige: [],
-    notizen: entwurf.fakten ?? "",
-  });
-  console.log(`Lektorat: ${Object.entries(KRITERIEN).map(([k, [n]]) => `${n} ${urteil[k].note}`).join(", ")} → ${urteil.bestanden ? "bestanden" : "nicht bestanden"}`);
-  console.log(`Schwächste Stelle: ${urteil.schwaechste_stelle}`);
+  // Ist die Claude API nicht erreichbar (z. B. kein Guthaben), geht der handgeschriebene Entwurf ohne Lektorat weiter.
+  let urteil;
+  try {
+    urteil = await pruefeInhalt(inhalt, {
+      format: entwurf.typ,
+      themenfeld: entwurf.thema,
+      bisherige: [],
+      notizen: entwurf.fakten ?? "",
+    });
+    console.log(`Lektorat: ${Object.entries(KRITERIEN).map(([k, [n]]) => `${n} ${urteil[k].note}`).join(", ")} → ${urteil.bestanden ? "bestanden" : "nicht bestanden"}`);
+    console.log(`Schwächste Stelle: ${urteil.schwaechste_stelle}`);
+  } catch (fehler) {
+    console.log(`Lektorat übersprungen: ${fehler.message.slice(0, 200)}`);
+    urteil = { uebersprungen: true, schnitt: 0, bestanden: true };
+  }
+  const bildPruefen = (f) =>
+    pruefeBild(f, inhalt.titel, inhalt.bildidee, entwurf.bildstil).catch((fehler) => ({ passt: true, grund: `nicht geprüft: ${fehler.message.slice(0, 120)}` }));
 
   let foto = await erzeugeTitelbild(inhalt.bildidee, entwurf.bildstil);
-  let bildpruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee, entwurf.bildstil);
+  let bildpruefung = await bildPruefen(foto);
   console.log(`Bildprüfung: ${bildpruefung.passt ? "passt" : "passt nicht"} (${bildpruefung.grund})`);
   for (let versuch = 2; !bildpruefung.passt && versuch <= 3; versuch++) {
     foto = await erzeugeTitelbild(inhalt.bildidee, entwurf.bildstil);
-    bildpruefung = await pruefeBild(foto, inhalt.titel, inhalt.bildidee, entwurf.bildstil);
+    bildpruefung = await bildPruefen(foto);
     console.log(`Bildprüfung, Versuch ${versuch}: ${bildpruefung.passt ? "passt" : "passt nicht"} (${bildpruefung.grund})`);
   }
 
