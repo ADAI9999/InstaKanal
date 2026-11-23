@@ -1,0 +1,127 @@
+{
+  "typ": "liste",
+  "erstellt": "2026-11-20T18:20:27.745Z",
+  "themenfeld": "Tiere und Natur als Spiegel: was Wölfe, Krähen, Bäume oder Ameisen über uns verraten",
+  "bildstil": "ort",
+  "design": "vollbild",
+  "thema": "Bienenschwarm lehrt Gruppenentscheidungen",
+  "titel": "Zwei Stunden Besprechung, und am Ende gewinnt, wer am längsten geredet hat. Bienen entscheiden klüger, ganz ohne Chef.",
+  "aufhaenger": "7 Regeln aus dem Schwarm für deine nächste Runde",
+  "bildidee": "An empty meeting room in late afternoon, a long wooden table with chairs pushed back at odd angles and half-empty coffee cups left behind. Low golden sunlight falls through a tall window. Right outside the glass, a dense cluster of honeybees hangs from a tree branch like a dark, living fruit.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "1. Wer das Sagen hat, redet zuletzt.",
+      "absaetze": [
+        "Sucht ein Bienenschwarm ein neues Zuhause, hängt die Königin mitten in der Bienentraube am Ast. Entscheiden wird sie nichts.",
+        "Wenn du eine Runde leitest und zuerst deine Meinung sagst, suchen die anderen nicht weiter. **Sie raten, was du hören willst.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "2. Erst sucht jeder allein. Dann wird geredet.",
+      "absaetze": [
+        "Ein paar Hundert Kundschafterinnen fliegen aus, jede in ihre eigene Richtung.",
+        "Bitte alle, ihre Ideen vor dem Treffen aufzuschreiben. Sonst hängt die ganze Runde am ersten Vorschlag, der laut wird."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "3. Sag nicht nur, wofür du bist. Sag, wie sehr.",
+      "absaetze": [
+        "Je besser die gefundene Höhle, desto länger tanzt die Biene für sie.",
+        "„Ich bin dafür, aber nur halb überzeugt“ hilft der Runde mehr als ein glattes Ja. Dann weiß jeder, wo noch Zweifel stecken."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "4. „Ich schaue es mir selbst an, bevor ich zustimme.“",
+      "absaetze": [
+        "Eine Biene, die einen Tanz sieht, fliegt erst selbst zur Höhle. Gefällt sie ihr nicht, tanzt sie nicht dafür.",
+        "*So gewinnt keine Idee, nur weil jemand sie gut verkauft.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "5. Wenn du dagegen bist: Sag es kurz, direkt und in der Runde.",
+      "absaetze": [
+        "Kundschafterinnen stoßen Tänzerinnen, die für eine andere Höhle werben, kurz mit dem Kopf an. Dazu ein leises Piepen.",
+        "Ein klares Nein im Raum erspart drei Gespräche auf dem Flur."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "6. Legt vorher fest, ab wann es entschieden ist.",
+      "absaetze": [
+        "Die Bienen warten nicht, bis alle einig sind. Treffen sich genug Kundschafterinnen gleichzeitig an einer Höhle, bereiten sie den Abflug vor.",
+        "**Wer auf Einstimmigkeit wartet, gibt dem Hartnäckigsten ein Veto.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "7. Werde für deine eigene Idee jedes Mal leiser.",
+      "absaetze": [
+        "Jede Kundschafterin tanzt bei jeder Rückkehr kürzer für ihre Höhle, bis sie ganz aufhört.",
+        "Eine Idee, die nur ihr Erfinder trägt, verstummt so von selbst. *Eine gute haben dann längst andere übernommen.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Der Biologe Thomas Seeley stellte Bienenschwärmen auf einer Insel fünf Nistkästen hin. Nur einer war richtig gut. Meist wählten sie genau diesen.\n\nDabei kennt keine einzelne Biene alle Möglichkeiten. Die Klugheit steckt in den Regeln, nicht in den Köpfen.\n\nWelche der sieben Regeln probierst du in deiner nächsten Besprechung als erste aus?",
+  "hashtags": [
+    "Entscheidungen",
+    "Teamarbeit",
+    "Bienen",
+    "Führung",
+    "Natur"
+  ],
+  "quellen": [],
+  "lektorat": {
+    "entwurf": 1,
+    "titelseite": {
+      "note": 6,
+      "begruendung": "„Zwei Stunden Besprechung, und am Ende gewinnt, wer am längsten geredet hat“ trifft einen echten Alltagsschmerz, und „Bienen entscheiden klüger, ganz ohne Chef“ weckt Neugier. Der Zusatz „7 Regeln aus dem Schwarm“ klingt aber nach Ratgeber-Liste. Die Behauptung „klüger“ wird auf keiner Seite belegt, der Beweis steckt nur in der Bildunterschrift."
+    },
+    "ueberraschung": {
+      "note": 7,
+      "begruendung": "Für Laien neu und einprägsam: der Kopfstoß mit Piepen gegen fremde Tänzerinnen, das Quorum an der Höhle und das bei jedem Flug kürzere Tanzen. Die Grundidee „Schwarmintelligenz statt Chef“ kennt man dagegen, und das stärkste Staunen, Seeleys Versuch mit den fünf Nistkästen, ist in die Bildunterschrift verbannt."
+    },
+    "stimmigkeit": {
+      "note": 7,
+      "begruendung": "Die Biologie hält einer Nachfrage stand: Kundschafterinnen, Tanzdauer nach Qualität, eigene Prüfung, Stoppsignal, Quorum, abnehmender Tanz, Appledore-Versuch. Zwei Brücken wackeln. In Regel 1 redet die Königin gar nicht, statt „zuletzt“ zu reden. Regel 7 lässt sich auf eine einzelne Besprechung kaum übertragen, denn wann ist dort „jedes Mal“?"
+    },
+    "gehalt": {
+      "note": 7,
+      "begruendung": "Man nimmt konkret Brauchbares mit: Ideen vorher allein aufschreiben, Zustimmung abstufen, ein Quorum festlegen, Widerspruch offen in der Runde äußern. Dazu eine echte Forschungsgrundlage. Einiges davon steht allerdings in jedem Moderationshandbuch, Neues bringt vor allem die Bienen-Seite."
+    },
+    "abwechslung": {
+      "note": 8,
+      "begruendung": "Das Listenformat, das Naturthema und der Besprechungsalltag heben sich klar von den letzten Ich-Geschichten, Gleichnissen und Berühmtheiten-Porträts ab. Der Beitrag hat keine Figur und keine Rührungspointe, das tut der Reihe gut."
+    },
+    "sprache": {
+      "note": 7,
+      "begruendung": "Die Zeilen sind kurz und klar, gut zugespitzt ist etwa „Wer auf Einstimmigkeit wartet, gibt dem Hartnäckigsten ein Veto“. Die Menschenhälften kippen aber stellenweise in Seminarton („Bitte alle, ihre Ideen vor dem Treffen aufzuschreiben“). Die Schlussfrage in der Bildunterschrift ist ein Standard-Engagement-Köder."
+    },
+    "schwaechste_stelle": "Seite 8, „Werde für deine eigene Idee jedes Mal leiser“. Bei Bienen ist das ein eleganter Mechanismus. Als Rat an Menschen klingt es nach Selbstverleugnung, und es bleibt offen, was „jedes Mal“ in einer Besprechung heißt. Hier schüttelt der Leser den Kopf, genau auf der letzten Seite, die hängen bleiben soll.",
+    "hinweise": "Hol Seeleys Nistkasten-Versuch aus der Bildunterschrift auf Seite 2: fünf Kästen, nur einer gut, meist gewählt. So ist „klüger“ belegt, bevor die Regeln kommen. Formuliere Regel 1 passend zum Bild um, etwa „Wer das Sagen hat, hält sich raus, bis alle Optionen auf dem Tisch liegen“. Übersetze Regel 7 konkret in den Alltag, zum Beispiel: Bring deinen Vorschlag nicht in jeder Sitzung mit gleicher Wucht neu ein; greift ihn niemand auf, lass ihn los. Gib mindestens zwei Bienen-Seiten eine handfeste Zahl, etwa die Quorumgröße von rund zwei bis drei Dutzend Bienen an der Höhle, und streiche die generische Schlussfrage zugunsten eines prägnanten letzten Satzes.",
+    "schnitt": 7,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "Das Bild zeigt wie bestellt einen menschenleeren Besprechungsraum mit langem Holztisch, verlassenen Kaffeetassen und warmem Gegenlicht, und die dunkle Bienentraube am Ast hebt sich klar gegen den hellen Abendhimmel ab, sodass das Motiv auch klein lesbar und neugierig machend ist, ohne Schrift oder sichtbare Verformungen."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ]
+}
