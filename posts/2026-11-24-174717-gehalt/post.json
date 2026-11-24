@@ -1,0 +1,103 @@
+{
+  "typ": "anleitung",
+  "design": "archiv",
+  "bildstil": "haende",
+  "thema": "Das Gehaltsgespräch richtig vorbereiten",
+  "titel": "Die meisten Gehaltsgespräche werden nicht im Gespräch entschieden. Sondern in den zwei Wochen davor.",
+  "aufhaenger": "So bereitest du dich vor.",
+  "bildidee": "Two hands laying out a few handwritten index cards in a neat row on a dark wooden desk, a pen beside them and a cup of coffee, warm desk-lamp light. No faces.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "Woche 1: Sammeln",
+      "absaetze": [
+        "Schreib auf, was du in den letzten zwölf Monaten erreicht hast. Konkret, mit Ergebnis.",
+        "Nicht „Ich habe viel gemacht“, sondern: **„Ich habe das Projekt übernommen, als es feststeckte, und es abgeschlossen.“**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Woche 1: Den Wert kennen",
+      "absaetze": [
+        "Finde heraus, was deine Rolle anderswo bringt. Frag Bekannte in ähnlichen Jobs, schau in Stellenanzeigen mit Gehaltsangabe.",
+        "*Ohne Vergleich verhandelst du gegen dein Bauchgefühl.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Woche 2: Eine Zahl festlegen",
+      "absaetze": [
+        "Leg vorher fest, welche Zahl du nennst. Und welche dein Minimum ist.",
+        "Nenn im Gespräch die höhere. Es ist leichter, herunterzukommen, als nachträglich hinaufzugehen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Woche 2: Den Termin richtig setzen",
+      "absaetze": [
+        "Bitte um ein eigenes Gespräch. Nicht zwischen Tür und Angel, nicht am Ende eines anderen Termins.",
+        "Wer das Thema ernst nimmt, wird eher ernst genommen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Im Gespräch: Zahl, dann Pause",
+      "absaetze": [
+        "Sag deine Zahl. Dann schweig.",
+        "**Die Stille danach fühlt sich lang an. Halte sie aus.** Wer sie füllt, nimmt oft schon etwas zurück."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Wenn die Antwort Nein ist",
+      "absaetze": [
+        "Frag: „Was müsste passieren, damit es in sechs Monaten Ja heißt?“",
+        "Lass dir die Antwort schriftlich bestätigen. Dann hast du ein Ziel statt einer Absage."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Zum Mitnehmen",
+      "absaetze": [
+        "Ein Gehaltsgespräch ist kein Bitten um einen Gefallen.",
+        "*Es ist ein Gespräch über den Preis einer Leistung, die schon erbracht ist.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Viele gehen ins Gehaltsgespräch mit einem Gefühl statt mit einer Liste. Das Gespräch selbst dauert zwanzig Minuten, die Vorbereitung entscheidet.\n\nWann hast du zuletzt über dein Gehalt verhandelt?",
+  "hashtags": [
+    "Gehalt",
+    "Verhandeln",
+    "Karriere",
+    "Arbeit",
+    "Selbstwert"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-30T06:00:00Z",
+  "erstellt": "2026-11-24T17:47:17.828Z",
+  "themenfeld": "von Hand geschrieben",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ]
+}
