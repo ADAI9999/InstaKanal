@@ -1,0 +1,105 @@
+{
+  "typ": "geschichte",
+  "design": "nacht",
+  "bildstil": "nahaufnahme",
+  "thema": "Mit über vierzig neu anfangen heißt, wieder Anfänger zu sein",
+  "titel": "Mit 47 habe ich meine Bäckerei verkauft und eine Ausbildung zum Krankenpfleger angefangen. In meiner Klasse war ich doppelt so alt wie alle anderen.",
+  "aufhaenger": "Das Schwerste war nicht das Lernen.",
+  "bildidee": "Close-up of a middle-aged man in a hospital corridor at night, wearing a plain trainee nurse uniform, looking down at a clipboard with a mix of concentration and quiet nervousness. Soft corridor light.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Fünfundzwanzig Jahre lang bin ich um drei Uhr aufgestanden. Ich konnte Brot backen, das die Leute aus dem Nachbarort holten.",
+        "Ich war gut in dem, was ich tat."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Dann wurde meine Mutter krank. Ich saß oft nachts mit ihr im Krankenhaus.",
+        "Ich sah den Pflegern zu. Und merkte, dass ich das auch wollte."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Am ersten Schultag saß ich zwischen Neunzehnjährigen.",
+        "Eine fragte mich in der Pause, ob ich der neue Lehrer sei.",
+        "**Ich habe gelacht. Innerlich wäre ich am liebsten gegangen.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Das Schwerste war nicht der Stoff.",
+        "Das Schwerste war, wieder schlecht zu sein. Fragen zu stellen, die die Jungen nicht stellen mussten. Bei der ersten Blutabnahme zu zittern."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "In der Bäckerei hatte ich vergessen, wie sich Anfängersein anfühlt.",
+        "*Ich dachte, ich hätte Angst vor dem Neuen. In Wahrheit hatte ich Angst, wieder unten anzufangen.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Im zweiten Jahr kam eine ältere Patientin nachts nicht zur Ruhe.",
+        "Ich setzte mich zu ihr. Wir sprachen über Hefeteig. Sie schlief ein.",
+        "Fünfundzwanzig Jahre waren doch nicht verloren."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Was ich heute weiß",
+      "absaetze": [
+        "Wer neu anfängt, verliert nicht alles, was er kann.",
+        "**Er verliert nur das Gefühl, es zu können.** Und das kommt zurück, wenn man lange genug bleibt."
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Geschichte ist frei erfunden. Aber viele kennen den Gedanken: Für einen Neuanfang ist es zu spät.\n\nOft ist es nicht zu spät. Es ist nur unbequem, wieder Anfänger zu sein.\n\nWas würdest du anfangen, wenn das Anfängersein nicht wehtun würde?",
+  "hashtags": [
+    "Neuanfang",
+    "Mut",
+    "Beruf",
+    "Veränderung",
+    "Persönlichkeitsentwicklung"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-28T06:00:00Z",
+  "erstellt": "2026-11-24T17:40:42.776Z",
+  "themenfeld": "von Hand geschrieben",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ]
+}
