@@ -1,0 +1,115 @@
+{
+  "typ": "geschichte",
+  "design": "papier",
+  "bildstil": "haende",
+  "thema": "Kinder lernen mehr, wenn wir sie Fehler machen lassen",
+  "titel": "Mein Vater konnte alles reparieren. Als ich zehn war, sah er zu, wie ich mein Fahrrad falsch zusammenbaute. Und sagte kein Wort.",
+  "aufhaenger": "Ich habe ihm das jahrelang übel genommen.",
+  "bildidee": "Small child's hands holding a bicycle chain covered in black grease, next to a wrench and a few loose screws on a garage floor, warm afternoon light falling through an open garage door. No faces.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Mein Vater war der Mann, zu dem die Nachbarn mit kaputten Dingen kamen. Toaster, Rasenmäher, Kinderwagen.",
+        "Er schraubte, und nach einer halben Stunde lief es wieder."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Mit zehn wollte ich mein Fahrrad selbst auseinandernehmen. Die Kette klemmte.",
+        "Er gab mir den Werkzeugkasten. Dann setzte er sich auf die Treppe und las Zeitung."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Ich schraubte zwei Stunden. Am Ende waren drei Schrauben übrig.",
+        "Er sah das. Ich weiß, dass er das sah. **Er sagte nichts.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Ich fuhr los. Nach zweihundert Metern sprang die Kette ab, und ich lag auf dem Asphalt.",
+        "Knie offen, Hose zerrissen. Ich schob das Rad nach Hause und heulte vor Wut."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "„Warum hast du nichts gesagt?“, schrie ich.",
+        "Er legte die Zeitung weg. „Weil du es mir sonst nicht geglaubt hättest.“",
+        "Dann half er mir. Diesmal zeigte er mir jede Schraube."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Ich habe ihm das lange übel genommen.",
+        "Bis ich merkte: Das ist die einzige Reparatur aus meiner Kindheit, an die ich mich erinnere.",
+        "*Alle, die er für mich gemacht hat, habe ich vergessen.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "",
+      "absaetze": [
+        "Heute bin ich selbst Mutter. Neulich baute meine Tochter einen Turm, der sichtbar schief war.",
+        "Die Hand war schon unterwegs. Ich habe sie zurückgezogen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Was ich daraus mitnehme",
+      "absaetze": [
+        "Wer Kindern jeden Fehler erspart, erspart ihnen auch das Lernen.",
+        "Nicht bei allem. Nicht da, wo es gefährlich wird.",
+        "**Aber bei drei übrigen Schrauben darf man schweigen.**"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Geschichte ist frei erfunden. Der Moment ist es nicht: die Hand, die schon unterwegs ist, um zu helfen, und die Frage, ob man sie zurückhalten sollte.\n\nWas hast du als Kind gelernt, weil dich jemand hat machen lassen?",
+  "hashtags": [
+    "Eltern",
+    "Kinder",
+    "Erziehung",
+    "Lernen",
+    "Familie"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-26T06:00:00Z",
+  "erstellt": "2026-11-24T17:34:32.576Z",
+  "themenfeld": "von Hand geschrieben",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg"
+  ]
+}
