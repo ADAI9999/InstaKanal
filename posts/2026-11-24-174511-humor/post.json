@@ -1,0 +1,115 @@
+{
+  "typ": "wissen",
+  "design": "nacht",
+  "bildstil": "sinnbild",
+  "thema": "Humor-Bewertungen hängen mit Psychopathie-Werten zusammen",
+  "titel": "Forscher ließen 200 Menschen Witzbilder bewerten. Ein Computer erkannte daraus recht gut, wer hohe Psychopathie-Werte hatte.",
+  "aufhaenger": "Aber nicht so, wie du vielleicht denkst.",
+  "bildidee": "A dark theater stage with a single spotlight on a laughing comedy mask lying on the floor, its shadow on the back wall cast as a sharp, cold, unsmiling shape. Dramatic, surreal contrast, deep shadows.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "DER VERSUCH",
+      "absaetze": [
+        "Ein Team der HSE-Universität in St. Petersburg zeigte 200 Erwachsenen 71 humorvolle Bilder.",
+        "Bewertet wurde zweierlei: Wie lustig? Und wie freundlich oder grausam?"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER FRAGEBOGEN",
+      "absaetze": [
+        "Dazu füllten alle einen Fragebogen zu vier dunklen Persönlichkeitszügen aus.",
+        "Psychopathie, Narzissmus, Machiavellismus und Alltagssadismus."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DAS MUSTER",
+      "absaetze": [
+        "Wer Witze zugleich sehr lustig und eher grausam fand, hatte im Schnitt höhere Werte bei Psychopathie und Sadismus.",
+        "**Es kam auf die Kombination an.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER COMPUTER",
+      "absaetze": [
+        "Sechs Lernprogramme wurden mit den Bewertungen trainiert.",
+        "Bei Psychopathie trennte das beste recht gut zwischen hohen und übrigen Werten. *Bei Machiavellismus war es nicht besser als Raten.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE ZAHL",
+      "absaetze": [
+        "Die Trefferquote wird als Wert zwischen 0,5 und 1 angegeben. 0,5 heißt Raten, 1 heißt perfekt.",
+        "**Bei Psychopathie lag sie bei 0,82.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "VORSICHT",
+      "absaetze": [
+        "200 Menschen, eine Kultur, die meisten mit Hochschulabschluss. Die Werte beruhen auf Selbstauskunft.",
+        "*Für die Beurteilung einzelner Menschen taugt das Verfahren laut Bericht nicht.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WAS DAS HEISST",
+      "absaetze": [
+        "Wer über schwarzen Humor lacht, ist kein Psychopath.",
+        "Aber worüber wir lachen, verrät offenbar mehr über uns, als wir denken."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "ZUM NACHDENKEN",
+      "absaetze": [
+        "Beim nächsten Witz auf Kosten eines anderen:",
+        "**Lachst du über die Pointe? Oder über den, der getroffen wird?**"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Studie erschien im Journal of Individual Differences, das Wissensmagazin scinexx berichtete am 24. November 2026 darüber.\n\nPro Persönlichkeitszug verglichen die Forscher die oberen 30 Prozent mit allen anderen. Narzissmus ließ sich nur mäßig vorhersagen.\n\nÜber welche Art Witz kannst du gar nicht lachen?",
+  "hashtags": [
+    "Humor",
+    "Psychologie",
+    "Persönlichkeit",
+    "Wissenschaft",
+    "Forschung"
+  ],
+  "quellen": [
+    "https://www.scinexx.de/news/psychologie/ki-kann-aus-reaktionen-auf-lustige-bilder-erhoehte-psychopathie-und-sadismuswerte-erkennen/"
+  ],
+  "nicht_vor": "2026-11-30T06:00:00Z",
+  "erstellt": "2026-11-24T17:45:11.233Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "HSE-Universität St. Petersburg; Journal of Individual Differences, DOI 10.1027/1614-0001/a000465; scinexx 24.11.2026. 200 russischsprachige Erwachsene (18–72), 71 humorvolle Bilder, bewertet nach Witz und Freundlichkeit/Grausamkeit; Dark-Tetrad-Fragebogen. Obere 30 % vs übrige 70 %. Sechs Lernverfahren. Bester AUC Psychopathie 0,819; Machiavellismus nicht besser als Zufall; Narzissmus mäßig. 172 von 200 mit Hochschulabschluss. Nicht zur Beurteilung Einzelner geeignet.",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg"
+  ]
+}
