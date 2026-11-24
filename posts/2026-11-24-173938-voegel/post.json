@@ -1,0 +1,115 @@
+{
+  "typ": "wissen",
+  "design": "archiv",
+  "bildstil": "tier",
+  "thema": "Stadtvögel fliehen früher vor Frauen als vor Männern",
+  "titel": "Forscher gingen in Stadtparks in fünf Ländern auf Vögel zu. Vor Frauen flogen sie früher auf als vor Männern. Warum, weiß niemand.",
+  "aufhaenger": "Bei allen 37 Arten. Etwa einen Meter früher.",
+  "bildidee": "A blackbird on a park path in soft morning light, caught in the instant of taking off, wings spread, with two pairs of feet in identical plain sneakers approaching on the gravel in the blurred background.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "DER VERSUCH",
+      "absaetze": [
+        "Forscher aus mehreren Ländern gingen in Stadtparks langsam direkt auf Vögel zu.",
+        "Gemessen wurde, ab welcher Entfernung die Vögel aufflogen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WO",
+      "absaetze": [
+        "Tschechien, Frankreich, Deutschland, Polen und Spanien.",
+        "37 Arten, darunter Amsel, Kohlmeise, Haussperling, Elster und Taube. **2.701 Beobachtungen.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE VORKEHRUNG",
+      "absaetze": [
+        "Die Männer und Frauen waren gleich groß und gleich gekleidet.",
+        "So sollte möglichst nur ein Unterschied übrig bleiben: wer da kommt."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DAS ERGEBNIS",
+      "absaetze": [
+        "Vor Frauen flogen die Vögel im Schnitt etwa einen Meter früher auf.",
+        "*In allen Ländern. Bei allen Arten.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE ERKLÄRUNG",
+      "absaetze": [
+        "Es gibt keine.",
+        "Geruch, Körperform, Gangart? Das sind Vermutungen. **Getestet hat sie noch niemand.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "VORSICHT",
+      "absaetze": [
+        "Die Forscher nennen ihre Ergebnisse selbst vorläufig. Der Versuch muss wiederholt werden.",
+        "*Daraus folgt auch nicht, dass Frauen bedrohlicher wirken.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WAS BLEIBT",
+      "absaetze": [
+        "Tiere nehmen Unterschiede wahr, die uns an uns selbst nicht auffallen.",
+        "**Die Amsel im Park sieht etwas, das du an dir nicht siehst.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "FÜR DEINEN NÄCHSTEN SPAZIERGANG",
+      "absaetze": [
+        "Achte zu zweit einmal darauf: Wem lassen die Vögel mehr Platz?",
+        "*Das beweist nichts. Aber es macht neugierig.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Studie mit Daniel Blumstein (UCLA), Yanina Benedetti (Prag) und Federico Morelli (Turin) erschien in der Fachzeitschrift People and Nature.\n\nEin Meter klingt nach wenig. Für einen Vogel ist es die Entscheidung, wann es gefährlich wird.\n\nWas glaubst du: Woran könnten die Vögel den Unterschied merken?",
+  "hashtags": [
+    "Vögel",
+    "Tiere",
+    "Natur",
+    "Wissenschaft",
+    "Forschung"
+  ],
+  "quellen": [
+    "https://www.sciencedaily.com/releases/2026/10/261021231250.htm"
+  ],
+  "nicht_vor": "2026-11-28T06:00:00Z",
+  "erstellt": "2026-11-24T17:39:38.109Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "Blumstein (UCLA), Benedetti (Tschechische Agraruniversität Prag), Morelli (Turin) u. a.; People and Nature, DOI 10.1002/pan3.70226; ScienceDaily 22.10.2026. 5 Länder (CZ, FR, DE, PL, ES), 37 Arten, 2.701 Beobachtungen, gleiche Größe und Kleidung. Vögel ließen Männer im Schnitt etwa 1 Meter näher heran als Frauen, in allen Ländern und Arten. Keine Erklärung; Geruch, Körperform, Gang nur Vermutungen. Autoren: vorläufig, Wiederholung nötig.",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg"
+  ]
+}
