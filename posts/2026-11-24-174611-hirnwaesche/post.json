@@ -1,0 +1,117 @@
+{
+  "typ": "wissen",
+  "design": "vollbild",
+  "bildstil": "sinnbild",
+  "thema": "Leise Töne verstärken die Reinigungswellen des Gehirns im Schlaf",
+  "titel": "Während du tief schläfst, spült Hirnwasser in Wellen durch deinen Kopf. Forscher am MIT haben diese Wellen jetzt mit leisen Tönen verstärkt.",
+  "aufhaenger": "50 Millisekunden lang. Zu leise, um aufzuwachen.",
+  "bildidee": "A person sleeping peacefully in a dark bedroom, seen from above; from their head, soft translucent blue waves ripple outward across the pillow like gentle tide on a moonlit shore. Dreamlike, calm, deep blue and silver tones.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "DIE NÄCHTLICHE WÄSCHE",
+      "absaetze": [
+        "Im Tiefschlaf strömt Hirnwasser in Wellen durch das Gehirn.",
+        "Es hilft, Abfallstoffe abzutransportieren, die sich tagsüber ansammeln."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER VERSUCH",
+      "absaetze": [
+        "Ein Team am MIT ließ 14 gesunde Freiwillige im Hirnscanner schlafen.",
+        "Gemessen wurden gleichzeitig die Hirnströme und der Fluss des Hirnwassers."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER TRICK",
+      "absaetze": [
+        "Ein Computer sagte voraus, wann die nächste langsame Hirnwelle ihren Gipfel erreicht.",
+        "Genau dann spielte er ein kurzes Rauschen ab. **50 Millisekunden, zu leise, um jemanden zu wecken.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DAS ERGEBNIS",
+      "absaetze": [
+        "Die langsamen Hirnwellen wurden größer. Und mit ihnen die Wellen des Hirnwassers.",
+        "Die Blutgefäße ziehen sich dabei im Takt zusammen und weiten sich wieder. *Wie eine Pumpe.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE ZWEITE STUDIE",
+      "absaetze": [
+        "Dasselbe Labor verglich Jüngere (18 bis 39) mit Älteren (60 bis 84).",
+        "Bei den Älteren waren die Wellen im Schlaf im Schnitt deutlich schwächer. Das lag nicht nur daran, dass sie weniger schliefen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "ABER",
+      "absaetze": [
+        "Einzelne Ältere hatten Werte im Bereich gesunder Jüngerer.",
+        "**Das Alter allein legt also nicht fest, wie gut das Gehirn nachts aufräumt.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "VORSICHT",
+      "absaetze": [
+        "Ob durch die Töne wirklich mehr Abfall abtransportiert wird, zeigt die Studie nicht. Getestet wurde im Labor, mit genau getakteten Impulsen.",
+        "*Ein Rauschen aus dem Handy ist damit nicht gemeint.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WAS BLEIBT",
+      "absaetze": [
+        "Tiefschlaf ist nicht nur Erholung. Er ist auch Aufräumzeit.",
+        "**Wer am Schlaf spart, spart womöglich auch am Aufräumen.**"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Ton-Studie erschien in Science Translational Medicine, die Studie zum Alter in Nature Aging, beide aus dem Labor von Laura Lewis am MIT. Einer der Forscher hat eine Firma gegründet, die ein Stirnband für zu Hause entwickeln will. Auch das gehört zur Einordnung.\n\nBei Älteren wurden die Töne noch nicht getestet.\n\nWie gut schläfst du gerade?",
+  "hashtags": [
+    "Schlaf",
+    "Gehirn",
+    "Tiefschlaf",
+    "Wissenschaft",
+    "Gesundheit"
+  ],
+  "quellen": [
+    "https://news.mit.edu/2026/pink-noise-burst-may-mean-more-restorative-sleep-0909",
+    "https://news.mit.edu/2026/waste-clearing-waves-in-brain-during-sleep-are-impaired-in-older-adults-1113",
+    "https://www.sciencedaily.com/releases/2026/11/261115085533.htm"
+  ],
+  "nicht_vor": "2026-11-30T06:00:00Z",
+  "erstellt": "2026-11-24T17:46:11.765Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "MIT, Labor Laura Lewis. Ton-Studie: Science Translational Medicine, MIT News 09.09.2026, 14 gesunde Teilnehmende schliefen im MRT, EEG+fMRT, Algorithmus sagt Wellengipfel voraus, 50 ms rosa Rauschen, zu leise zum Wecken; langsame Wellen und Liquorwellen größer; Gefäße als Pumpe. Kein Nachweis von mehr Abfalltransport. Erstautor Levitt gründete Firma für Stirnband. Alters-Studie: Nature Aging, MIT News 13.11.2026, 18–39 vs 60–84 Jahre, ca. 2 Stunden Messung, Ältere im Schnitt deutlich kleinere Liquorwellen, nicht nur wegen weniger Schlaf; einzelne Ältere im Bereich gesunder Jüngerer.",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg"
+  ]
+}
