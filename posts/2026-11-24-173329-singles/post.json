@@ -1,0 +1,116 @@
+{
+  "typ": "wissen",
+  "design": "papier",
+  "bildstil": "ort",
+  "thema": "Singles: Abwertung von außen hängt mit weniger Zufriedenheit zusammen",
+  "titel": "Forscher befragten 5.017 Singles in fünf Ländern. Wie zufrieden sie waren, hing nicht nur am Single-Sein. Sondern auch daran, wie andere darauf schauten.",
+  "aufhaenger": "Und am eigenen Blick darauf.",
+  "bildidee": "A single chair at the head of a long, festively set family dinner table in warm evening light, the other chairs crowded with coats and napkins, one empty wine glass in front of the single chair. No people.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "DIE STUDIE",
+      "absaetze": [
+        "Ein Forscher der Hebräischen Universität Jerusalem befragte 5.017 Singles ab 30 Jahren.",
+        "In den USA, Großbritannien, Japan, Mexiko und Spanien."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE FRAGEN",
+      "absaetze": [
+        "Wie frei fühlst du dich als Single?",
+        "Und: Wie oft fühlst du dich deswegen abgewertet oder unter Druck gesetzt?",
+        "*Für das Zweite gibt es ein Fachwort: „Singlism“.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "ERGEBNIS 1",
+      "absaetze": [
+        "Wer sich häufiger abgewertet fühlte, war mit dem Single-Leben weniger zufrieden.",
+        "**In allen fünf Ländern.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "ERGEBNIS 2",
+      "absaetze": [
+        "Der Zusammenhang blieb, auch wenn man herausrechnete, wie zufrieden jemand ganz allgemein mit seinem Leben war.",
+        "Es lag also nicht einfach daran, dass unzufriedene Menschen alles schwarz sehen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "ERGEBNIS 3",
+      "absaetze": [
+        "Wer das Single-Sein als Freiheit erlebte, war insgesamt zufriedener mit seinem Leben.",
+        "Derselbe Beziehungsstatus. *Ein ganz anderes Gefühl.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WAS DAS HEISST",
+      "absaetze": [
+        "Ob jemand Single ist, sagt wenig darüber, wie es ihm damit geht.",
+        "**Es zählt offenbar auch, wie das Umfeld darauf schaut.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "VORSICHT",
+      "absaetze": [
+        "Die Studie zeigt Zusammenhänge, keine Ursachen.",
+        "Ob Sprüche unzufrieden machen oder ob Unzufriedene Sprüche stärker wahrnehmen, bleibt offen."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "FÜR DIE NÄCHSTE FAMILIENFEIER",
+      "absaetze": [
+        "Wenn dir „Und, immer noch allein?“ auf der Zunge liegt:",
+        "*Frag lieber: Was gefällt dir gerade an deinem Leben?*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Studie von Elyakim Kislev erschien 2026 in der Fachzeitschrift Cross-Cultural Research. Befragt wurden Menschen ab 30, die keinen festen Partner hatten.\n\nViele Singles kennen die Fragen bei Familienfeiern. Die Studie legt nahe, dass sie mehr ausmachen, als man denkt.\n\nWelche Frage zum Single-Sein kannst du nicht mehr hören?",
+  "hashtags": [
+    "Singles",
+    "Beziehungen",
+    "Zufriedenheit",
+    "Psychologie",
+    "Forschung"
+  ],
+  "quellen": [
+    "https://phys.org/news/2026-11-people-happy.html"
+  ],
+  "nicht_vor": "2026-11-26T06:00:00Z",
+  "erstellt": "2026-11-24T17:33:29.188Z",
+  "themenfeld": "von Hand geschrieben",
+  "recherche": "Elyakim Kislev, Hebrew University of Jerusalem; Cross-Cultural Research 2026, DOI 10.1177/10693971261481556; phys.org 23.11.2026. 5.017 Singles ab 30 in USA, UK, Japan, Mexiko, Spanien. Wahrgenommene Abwertung (Singlism) -> geringere Zufriedenheit mit dem Single-Sein, in allen fünf Ländern, auch nach Kontrolle der allgemeinen Lebenszufriedenheit. Freiheit erleben -> höhere Lebenszufriedenheit. Korrelativ, Selbstauskunft.",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg",
+    "10.jpg"
+  ]
+}
