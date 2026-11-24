@@ -1,0 +1,103 @@
+{
+  "typ": "liste",
+  "design": "nacht",
+  "bildstil": "ort",
+  "thema": "Kleine Gewohnheiten, die Paare verbinden",
+  "titel": "Paare reden über Urlaube, Umzüge und große Pläne. Zusammengehalten werden sie oft von viel Kleinerem. Sechs Gewohnheiten.",
+  "aufhaenger": "Keine davon dauert länger als fünf Minuten.",
+  "bildidee": "A softly lit hallway of an apartment at night: two pairs of shoes side by side by the door, two keys on one small hook, a warm lamp glowing from the kitchen beyond. No people.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "1. Richtig begrüßen",
+      "absaetze": [
+        "Wenn einer nach Hause kommt: kurz aufstehen, hinsehen, nicht vom Handy aus „Hi“ rufen.",
+        "**Zehn Sekunden, die sagen: Schön, dass du da bist.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "2. Nach dem Kleinen fragen",
+      "absaetze": [
+        "Nicht nur „Wie war dein Tag?“, sondern: „Wie ist das Gespräch mit deiner Chefin gelaufen?“",
+        "Wer sich das Kleine merkt, zeigt, dass er zuhört."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "3. Danke für das Selbstverständliche",
+      "absaetze": [
+        "Für den Müll, den Kaffee, den Einkauf.",
+        "Was selbstverständlich wird, wird unsichtbar. *Ein Danke macht es wieder sichtbar.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "4. Streit nicht im Flur beginnen",
+      "absaetze": [
+        "Schwierige Themen nicht zwischen Tür und Angel, nicht kurz vor dem Schlafen.",
+        "„Können wir heute Abend darüber reden?“ ist kein Ausweichen. Es ist Respekt."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "5. Einander wählen lassen",
+      "absaetze": [
+        "Mal entscheidet einer das Restaurant, den Film, den Sonntag. Ganz, ohne Kommentar.",
+        "**Gönnen ist auch eine Form von Nähe.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "6. Ein Ritual nur für euch",
+      "absaetze": [
+        "Der Spaziergang am Sonntag. Der Kaffee vor allen anderen. Das Lied im Auto.",
+        "Etwas, das nur euch gehört und nicht ausfällt, wenn die Woche voll ist."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Das Muster",
+      "absaetze": [
+        "Keine dieser Gewohnheiten ist groß.",
+        "*Aber zusammen sagen sie jeden Tag dasselbe: Ich sehe dich noch.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Große Gesten sind schön, aber selten. Das Kleine passiert jeden Tag, und genau deshalb zählt es so viel.\n\nWelche kleine Gewohnheit habt ihr, die nur euch gehört?",
+  "hashtags": [
+    "Partnerschaft",
+    "Beziehung",
+    "Liebe",
+    "Gewohnheiten",
+    "Alltag"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-28T06:00:00Z",
+  "erstellt": "2026-11-24T17:41:46.018Z",
+  "themenfeld": "von Hand geschrieben",
+  "lektorat": {
+    "entwurf": 1,
+    "uebersprungen": true,
+    "schnitt": 0,
+    "bestanden": true
+  },
+  "bildpruefung": {
+    "passt": true,
+    "grund": "nicht geprüft: 400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"You have reached your specified API usage limits."
+  },
+  "titelbild": "ki",
+  "seitenbilder": 0,
+  "bilder": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ]
+}
