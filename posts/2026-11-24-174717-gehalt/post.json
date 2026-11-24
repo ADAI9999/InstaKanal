@@ -3,7 +3,7 @@
   "design": "archiv",
   "bildstil": "haende",
   "thema": "Das Gehaltsgespräch richtig vorbereiten",
-  "titel": "Die meisten Gehaltsgespräche werden nicht im Gespräch entschieden. Sondern in den zwei Wochen davor.",
+  "titel": "Viele Gehaltsgespräche werden nicht im Gespräch entschieden. Sondern in den zwei Wochen davor.",
   "aufhaenger": "So bereitest du dich vor.",
   "bildidee": "Two hands laying out a few handwritten index cards in a neat row on a dark wooden desk, a pen beside them and a cup of coffee, warm desk-lamp light. No faces.",
   "bilder_auf_jeder_seite": false,
@@ -33,9 +33,9 @@
       "bildidee": ""
     },
     {
-      "ueberschrift": "Woche 2: Den Termin richtig setzen",
+      "ueberschrift": "Woche 1: Den Termin richtig setzen",
       "absaetze": [
-        "Bitte um ein eigenes Gespräch. Nicht zwischen Tür und Angel, nicht am Ende eines anderen Termins.",
+        "Bitte um ein eigenes Gespräch. Nicht nebenbei im Flur, nicht am Ende eines anderen Termins.",
         "Wer das Thema ernst nimmt, wird eher ernst genommen."
       ],
       "bildidee": ""
@@ -59,8 +59,8 @@
     {
       "ueberschrift": "Zum Mitnehmen",
       "absaetze": [
-        "Ein Gehaltsgespräch ist kein Bitten um einen Gefallen.",
-        "*Es ist ein Gespräch über den Preis einer Leistung, die schon erbracht ist.*"
+        "Bei einem Gehaltsgespräch bittest du nicht um einen Gefallen.",
+        "*Es ist ein Gespräch über den Wert deiner Arbeit, belegt mit dem, was du schon geleistet hast.*"
       ],
       "bildidee": ""
     }

@@ -3,7 +3,7 @@
   "design": "vollbild",
   "bildstil": "nahaufnahme",
   "thema": "Erzwungenes Lächeln kann die Stimmung verschlechtern",
-  "titel": "„Lächel doch mal, dann geht's dir besser.“ Forscher haben das mit über 1.000 Menschen getestet. Zu oft und unter Druck ging es nach hinten los.",
+  "titel": "„Lächel doch mal, dann geht's dir besser.“ Forscher haben das mit über 1.000 Menschen getestet. Zu oft oder unter Druck ging es nach hinten los.",
   "aufhaenger": "Ein einzelnes Lächeln half. Zehn erzwungene nicht.",
   "bildidee": "Close-up of a young cashier's face behind a supermarket counter, holding a stiff polite smile while her eyes look tired and distant. Cool fluorescent light, shallow depth of field.",
   "bilder_auf_jeder_seite": false,
@@ -51,8 +51,8 @@
     {
       "ueberschrift": "WAS DAS HEISST",
       "absaetze": [
-        "Ein Lächeln kann helfen, wenn du es dir selbst schenkst.",
-        "**Ein Lächeln auf Befehl kann Kraft kosten, statt welche zu geben.**"
+        "Ein einzelnes bewusstes Lächeln kann helfen.",
+        "**Wiederholtes Lächeln unter Druck kann die Stimmung drücken, statt sie zu heben.**"
       ],
       "bildidee": ""
     },
@@ -66,7 +66,7 @@
     {
       "ueberschrift": "FÜR DEINEN ALLTAG",
       "absaetze": [
-        "Wenn du Menschen führst: Verlang kein Dauerlächeln. Nicht im Laden, nicht am Telefon, nicht im Team.",
+        "Wenn du Menschen führst: Ein Dauerlächeln zu verlangen, hilft womöglich niemandem. Im echten Job getestet ist das noch nicht.",
         "*Und wenn dir selbst nicht nach Lächeln ist, musst du nicht.*"
       ],
       "bildidee": ""

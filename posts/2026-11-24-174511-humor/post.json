@@ -43,7 +43,7 @@
     {
       "ueberschrift": "DIE ZAHL",
       "absaetze": [
-        "Die Trefferquote wird als Wert zwischen 0,5 und 1 angegeben. 0,5 heißt Raten, 1 heißt perfekt.",
+        "Die Güte der Vorhersage wird als Zahl angegeben: 0,5 heißt Raten, 1 heißt fehlerfrei.",
         "**Bei Psychopathie lag sie bei 0,82.**"
       ],
       "bildidee": ""
@@ -59,7 +59,7 @@
     {
       "ueberschrift": "WAS DAS HEISST",
       "absaetze": [
-        "Wer über schwarzen Humor lacht, ist kein Psychopath.",
+        "Wer über schwarzen Humor lacht, ist deshalb noch kein Psychopath.",
         "Aber worüber wir lachen, verrät offenbar mehr über uns, als wir denken."
       ],
       "bildidee": ""
@@ -87,7 +87,7 @@
   "nicht_vor": "2026-11-30T06:00:00Z",
   "erstellt": "2026-11-24T17:45:11.233Z",
   "themenfeld": "von Hand geschrieben",
-  "recherche": "HSE-Universität St. Petersburg; Journal of Individual Differences, DOI 10.1027/1614-0001/a000465; scinexx 24.11.2026. 200 russischsprachige Erwachsene (18–72), 71 humorvolle Bilder, bewertet nach Witz und Freundlichkeit/Grausamkeit; Dark-Tetrad-Fragebogen. Obere 30 % vs übrige 70 %. Sechs Lernverfahren. Bester AUC Psychopathie 0,819; Machiavellismus nicht besser als Zufall; Narzissmus mäßig. 172 von 200 mit Hochschulabschluss. Nicht zur Beurteilung Einzelner geeignet.",
+  "recherche": "HSE-Universität St. Petersburg; Journal of Individual Differences, DOI 10.1027/1614-0001/a000465; scinexx 24.11.2026. 200 russischsprachige Erwachsene (18–72), 71 humorvolle Bilder, bewertet nach Witz und Freundlichkeit/Grausamkeit; Dark-Tetrad-Fragebogen. Obere 30 % vs übrige 70 %. Sechs Lernverfahren. Bester AUC Psychopathie 0,819; Machiavellismus nicht besser als Zufall; Narzissmus mäßig. 172 von 200 mit Hochschulabschluss. Nicht zur Beurteilung Einzelner geeignet. Laut Bericht: Wer Witze zugleich als sehr lustig und als eher grausam bewertete, hatte im Schnitt höhere Psychopathie- und Sadismus-Werte.",
   "lektorat": {
     "entwurf": 1,
     "uebersprungen": true,

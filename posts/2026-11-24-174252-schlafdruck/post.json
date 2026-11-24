@@ -4,7 +4,7 @@
   "bildstil": "tier",
   "thema": "Nervenzellen im Hirnstamm erzeugen Schlafdruck",
   "titel": "Forscher bremsten bei Mäusen zwei Gruppen von Nervenzellen. Die Tiere schliefen rund 70 Prozent weniger. Die meisten zeigten trotzdem keine schweren Störungen.",
-  "aufhaenger": "Was das über deine Müdigkeit verrät.",
+  "aufhaenger": "Was das über Müdigkeit verraten könnte.",
   "bildidee": "A small brown mouse sitting wide awake on a wooden windowsill at night, eyes bright, illuminated by cool moonlight, while behind it a cozy nest of straw lies empty. Calm, slightly surreal mood, deep blue tones.",
   "bilder_auf_jeder_seite": false,
   "seiten": [
@@ -36,7 +36,7 @@
       "ueberschrift": "DIE PROBE",
       "absaetze": [
         "Aktivierten die Forscher diese Zellen, schliefen die Mäuse länger und tiefer, wie nach einer durchwachten Nacht.",
-        "Hemmten sie die Zellen, blieben die Tiere wach."
+        "Hemmten sie die Zellen, schliefen die Tiere weniger."
       ],
       "bildidee": ""
     },
@@ -52,7 +52,7 @@
       "ueberschrift": "WAS DAS HEISST",
       "absaetze": [
         "Müdigkeit ist offenbar kein bloßes Leerlaufen.",
-        "**Sie wird aktiv erzeugt, von Zellen, die Buch führen, wie lange du wach bist.**"
+        "**Bei Mäusen wird sie aktiv erzeugt, von Zellen, die Buch führen, wie lange das Tier wach ist.**"
       ],
       "bildidee": ""
     },
@@ -68,12 +68,12 @@
       "ueberschrift": "FÜR DEINEN ALLTAG",
       "absaetze": [
         "Wenn du abends müde wirst, ist das kein Zeichen von Schwäche.",
-        "Dein Gehirn hat mitgezählt. **Die Müdigkeit ist seine Rechnung für den Tag.**"
+        "**Wahrscheinlich zählt auch dein Gehirn mit. Bei Mäusen tut es das.**"
       ],
       "bildidee": ""
     }
   ],
-  "caption": "Die Studie erschien in der Fachzeitschrift Nature, durchgeführt am Biozentrum der Universität Basel mit Partnern in den USA. Die beiden Zellgruppen sitzen im Hirnstamm, einem sehr alten Teil des Gehirns.\n\nWie viele Tiere genau untersucht wurden und wie die Zellen gebremst wurden, nennen die Mitteilungen der Universität nicht.\n\nWie merkst du, dass du müde bist: am Körper oder an der Laune?",
+  "caption": "Die Studie erschien in der Fachzeitschrift Nature, durchgeführt am Biozentrum der Universität Basel mit Partnern in den USA. Die beiden Zellgruppen sitzen im Hirnstamm.\n\nWie viele Tiere genau untersucht wurden und wie die Zellen gebremst wurden, nennen die Mitteilungen der Universität nicht.\n\nWie merkst du, dass du müde bist: am Körper oder an der Laune?",
   "hashtags": [
     "Schlaf",
     "Gehirn",

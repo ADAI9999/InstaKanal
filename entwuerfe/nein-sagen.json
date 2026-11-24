@@ -5,7 +5,7 @@
   "nicht_vor": "2026-11-25T06:00:00Z",
   "thema": "Nein sagen ohne Ausrede",
   "titel": "Du sagst Ja, obwohl du Nein meinst. Dann suchst du eine Ausrede, um wieder rauszukommen. Es geht einfacher.",
-  "aufhaenger": "Vier Schritte für ein Nein, das keiner übel nimmt.",
+  "aufhaenger": "Vier Schritte für ein Nein, das selten jemand übel nimmt.",
   "bildidee": "Two hands resting calmly on a closed paper calendar on a wooden desk, one hand gently placed flat on top as if keeping it shut. Soft morning window light from the side, a cup of tea in the background, warm muted tones.",
   "bilder_auf_jeder_seite": false,
   "seiten": [
@@ -21,8 +21,8 @@
       "ueberschrift": "Schritt 1: Zeit kaufen",
       "absaetze": [
         "Sag nie sofort zu. Ein Satz reicht:",
-        "**„Ich schau in meinen Kalender und sag dir bis heute Abend Bescheid.“**",
-        "Das ist keine Ausrede. Du weißt die Antwort nur noch nicht."
+        "**„Ich schau in meinen Kalender und sag dir morgen Bescheid.“**",
+        "Das ist keine Ausrede. Du verschaffst dir nur Zeit für eine ehrliche Antwort."
       ],
       "bildidee": ""
     },
@@ -38,7 +38,7 @@
       "ueberschrift": "Schritt 3: Kurz absagen",
       "absaetze": [
         "Ist die Antwort Nein, dann ohne lange Erklärung:",
-        "„Das schaffe ich nicht. Ich muss absagen.“",
+        "„Danke, dass du an mich denkst. Ich sage Nein.“",
         "Jede weitere Begründung lädt zum Verhandeln ein. **Eine Ausrede kann man widerlegen. Ein Nein nicht.**"
       ],
       "bildidee": ""

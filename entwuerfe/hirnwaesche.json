@@ -4,7 +4,7 @@
   "bildstil": "sinnbild",
   "thema": "Leise Töne verstärken die Reinigungswellen des Gehirns im Schlaf",
   "titel": "Während du tief schläfst, spült Hirnwasser in Wellen durch deinen Kopf. Forscher am MIT haben diese Wellen jetzt mit leisen Tönen verstärkt.",
-  "aufhaenger": "50 Millisekunden lang. Zu leise, um aufzuwachen.",
+  "aufhaenger": "50 Millisekunden lang. Zu leise, um davon aufzuwachen.",
   "bildidee": "A person sleeping peacefully in a dark bedroom, seen from above; from their head, soft translucent blue waves ripple outward across the pillow like gentle tide on a moonlit shore. Dreamlike, calm, deep blue and silver tones.",
   "bilder_auf_jeder_seite": false,
   "seiten": [
@@ -12,7 +12,7 @@
       "ueberschrift": "DIE NÄCHTLICHE WÄSCHE",
       "absaetze": [
         "Im Tiefschlaf strömt Hirnwasser in Wellen durch das Gehirn.",
-        "Es hilft, Abfallstoffe abzutransportieren, die sich tagsüber ansammeln."
+        "Es soll helfen, Abfallstoffe abzutransportieren. Beim Menschen ist das noch nicht sicher belegt."
       ],
       "bildidee": ""
     },
@@ -44,7 +44,7 @@
       "ueberschrift": "DIE ZWEITE STUDIE",
       "absaetze": [
         "Dasselbe Labor verglich Jüngere (18 bis 39) mit Älteren (60 bis 84).",
-        "Bei den Älteren waren die Wellen im Schlaf im Schnitt deutlich schwächer. Das lag nicht nur daran, dass sie weniger schliefen."
+        "Bei den Älteren waren die Wellen des Hirnwassers im Schlaf im Schnitt deutlich schwächer. Das lag nicht nur daran, dass sie weniger schliefen."
       ],
       "bildidee": ""
     },
@@ -52,7 +52,7 @@
       "ueberschrift": "ABER",
       "absaetze": [
         "Einzelne Ältere hatten Werte im Bereich gesunder Jüngerer.",
-        "**Das Alter allein legt also nicht fest, wie gut das Gehirn nachts aufräumt.**"
+        "**Das Alter allein legt also nicht fest, wie stark das Hirnwasser nachts strömt.**"
       ],
       "bildidee": ""
     },
@@ -68,12 +68,12 @@
       "ueberschrift": "WAS BLEIBT",
       "absaetze": [
         "Tiefschlaf ist nicht nur Erholung. Er ist auch Aufräumzeit.",
-        "**Wer am Schlaf spart, spart womöglich auch am Aufräumen.**"
+        "**Wer am Schlaf spart, spart womöglich auch an dieser Nachtschicht.**"
       ],
       "bildidee": ""
     }
   ],
-  "caption": "Die Ton-Studie erschien in Science Translational Medicine, die Studie zum Alter in Nature Aging, beide aus dem Labor von Laura Lewis am MIT. Einer der Forscher hat eine Firma gegründet, die ein Stirnband für zu Hause entwickeln will. Auch das gehört zur Einordnung.\n\nBei Älteren wurden die Töne noch nicht getestet.\n\nWie gut schläfst du gerade?",
+  "caption": "Die Ton-Studie erschien in Science Translational Medicine, die Studie zum Alter in Nature Aging, beide aus dem Labor von Laura Lewis am MIT. Einer der Forscher hat eine Firma gegründet, die ein Stirnband für zu Hause entwickeln will. Auch das gehört zur Einordnung.\n\nOb die Töne auch bei Älteren wirken, ist offen.\n\nWie gut schläfst du gerade?",
   "hashtags": [
     "Schlaf",
     "Gehirn",
