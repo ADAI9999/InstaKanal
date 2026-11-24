@@ -1,0 +1,65 @@
+{
+  "typ": "saetze",
+  "design": "papier",
+  "bildstil": "haende",
+  "thema": "Sätze für Gespräche mit alt werdenden Eltern",
+  "titel": "Irgendwann fängt es an: Du machst dir Sorgen um deine Eltern, und jedes Gespräch darüber endet im Streit. Sechs Sätze, die helfen.",
+  "aufhaenger": "Für die Gespräche, die man gern aufschiebt.",
+  "bildidee": "An older person's wrinkled hand and a younger hand resting side by side on a kitchen table next to two cups of tea, morning light through a window, a calendar on the wall softly out of focus. No faces.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "„Ich will nicht über dich entscheiden. Ich will mit dir überlegen.“",
+      "absaetze": [
+        "Viele Eltern hören in jeder Sorge den Versuch, ihnen etwas wegzunehmen. Dieser Satz nimmt die Angst raus."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Was ist dir wichtig, wenn es schwieriger wird?“",
+      "absaetze": [
+        "Frag nach Wünschen, bevor es um Lösungen geht. *Wer gefragt wird, muss sich nicht verteidigen.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Erzähl mir, wie dein Tag wirklich war.“",
+      "absaetze": [
+        "Nicht „Alles gut?“. Darauf gibt es nur eine Antwort. **Konkrete Fragen bekommen ehrliche Antworten.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Darf ich dir dabei helfen, oder willst du es allein machen?“",
+      "absaetze": [
+        "Selbstständigkeit ist oft das Letzte, was man sich nicht nehmen lassen will. Die Wahl zu lassen, ist ein Geschenk."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Ich hab Angst, dass dir etwas passiert.“",
+      "absaetze": [
+        "Sag die Sorge statt der Vorschrift. „Du darfst nicht mehr Auto fahren“ macht trotzig. Die Angst eines Kindes macht nachdenklich."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Erzähl mir von früher, das will ich nicht vergessen.“",
+      "absaetze": [
+        "Nicht jedes Gespräch muss ein Problem lösen.",
+        "*Manche Fragen stellt man nur einmal rechtzeitig.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Mit alt werdenden Eltern zu sprechen, ist oft schwerer als jedes Gespräch im Job. Es geht um Würde, Angst und alte Rollen gleichzeitig.\n\nWelchen Satz hättest du gern früher gesagt?",
+  "hashtags": [
+    "Eltern",
+    "Älterwerden",
+    "Familie",
+    "Gespräche",
+    "Fürsorge"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-29T06:00:00Z"
+}

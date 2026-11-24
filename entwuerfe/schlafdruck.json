@@ -1,0 +1,90 @@
+{
+  "typ": "wissen",
+  "design": "nacht",
+  "bildstil": "tier",
+  "thema": "Nervenzellen im Hirnstamm erzeugen Schlafdruck",
+  "titel": "Forscher bremsten bei Mäusen zwei Gruppen von Nervenzellen. Die Tiere schliefen rund 70 Prozent weniger. Die meisten zeigten trotzdem keine schweren Störungen.",
+  "aufhaenger": "Was das über deine Müdigkeit verrät.",
+  "bildidee": "A small brown mouse sitting wide awake on a wooden windowsill at night, eyes bright, illuminated by cool moonlight, while behind it a cozy nest of straw lies empty. Calm, slightly surreal mood, deep blue tones.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "DIE FRAGE",
+      "absaetze": [
+        "Warum werden wir müde, je länger wir wach sind?",
+        "Jeder kennt das Gefühl. Wo genau es im Gehirn entsteht, war lange unklar."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER VERSUCH",
+      "absaetze": [
+        "Ein Team am Biozentrum der Universität Basel hat bei Mäusen nach den Zellen gesucht, die mitzählen, wie lange das Tier wach ist.",
+        "Verglichen wurden normaler Rhythmus, langer Schlafentzug und Erholungsschlaf."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DER FUND",
+      "absaetze": [
+        "Im Hirnstamm fanden sie zwei Gruppen von Nervenzellen.",
+        "**Je länger die Maus wach ist, desto aktiver werden sie.** Nach dem Einschlafen beruhigen sie sich wieder."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE PROBE",
+      "absaetze": [
+        "Aktivierten die Forscher diese Zellen, schliefen die Mäuse länger und tiefer, wie nach einer durchwachten Nacht.",
+        "Hemmten sie die Zellen, blieben die Tiere wach."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "DIE ÜBERRASCHUNG",
+      "absaetze": [
+        "Bei längerer Hemmung schliefen die Mäuse rund 70 Prozent weniger als normal.",
+        "*Die meisten zeigten trotzdem keine der schweren Verhaltensstörungen, die Schlafmangel sonst auslöst.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "WAS DAS HEISST",
+      "absaetze": [
+        "Müdigkeit ist offenbar kein bloßes Leerlaufen.",
+        "**Sie wird aktiv erzeugt, von Zellen, die Buch führen, wie lange du wach bist.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "VORSICHT",
+      "absaetze": [
+        "Das ist eine Studie an Mäusen. Ob es beim Menschen genauso funktioniert, ist offen.",
+        "Und es heißt nicht, dass wir mit weniger Schlaf auskommen. *Verstanden ist jetzt nur das Signal besser, nicht der Bedarf kleiner.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "FÜR DEINEN ALLTAG",
+      "absaetze": [
+        "Wenn du abends müde wirst, ist das kein Zeichen von Schwäche.",
+        "Dein Gehirn hat mitgezählt. **Die Müdigkeit ist seine Rechnung für den Tag.**"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Die Studie erschien in der Fachzeitschrift Nature, durchgeführt am Biozentrum der Universität Basel mit Partnern in den USA. Die beiden Zellgruppen sitzen im Hirnstamm, einem sehr alten Teil des Gehirns.\n\nWie viele Tiere genau untersucht wurden und wie die Zellen gebremst wurden, nennen die Mitteilungen der Universität nicht.\n\nWie merkst du, dass du müde bist: am Körper oder an der Laune?",
+  "hashtags": [
+    "Schlaf",
+    "Gehirn",
+    "Wissenschaft",
+    "Müdigkeit",
+    "Forschung"
+  ],
+  "quellen": [
+    "https://idw-online.de/de/news876022",
+    "https://www.sciencedaily.com/releases/2026/11/261122060336.htm"
+  ],
+  "fakten": "Universität Basel, Biozentrum (Leitung Alexander F. Schier, Erstautor William Joo), mit Beth Israel Deaconess Medical Center und Auburn University. Nature, 'Wake-activated neuronal populations that regulate sleep drive'. Pressemitteilung 19.08.2026. Zwei Zelltypen im Hirnstamm (GABAerg, serotonerg), Aktivität steigt mit Wachdauer, fällt nach Einschlafen. Aktivierung: länger und tiefer schlafen wie Erholungsschlaf. Hemmung: weniger Schlaf. Längere Hemmung beider: rund 70 % weniger Schlaf. Die meisten Tiere ohne schwere Verhaltensstörungen. Tierstudie; Übertragbarkeit offen.",
+  "nicht_vor": "2026-11-29T06:00:00Z"
+}

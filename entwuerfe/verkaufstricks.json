@@ -1,0 +1,70 @@
+{
+  "typ": "liste",
+  "design": "vollbild",
+  "bildstil": "gegenstand",
+  "thema": "Verkaufstricks erkennen",
+  "titel": "Du entscheidest selbst, was du kaufst. Meistens. Fünf Tricks, die das leiser ändern, als du denkst.",
+  "aufhaenger": "Wer sie kennt, sieht sie überall.",
+  "bildidee": "A shop window display at dusk with three price tags on identical-looking coffee machines, the middle one highlighted with a bright red 'Bestseller' sticker. Reflections of a city street in the glass. No people.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "1. Der teure Nachbar",
+      "absaetze": [
+        "Neben dem Produkt, das verkauft werden soll, steht ein deutlich teureres.",
+        "Danach wirkt das eigentliche Angebot günstig. **Der teure Nachbar soll gar nicht verkauft werden.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "2. Das mittlere Paket",
+      "absaetze": [
+        "Drei Pakete: klein, mittel, groß. Das kleine ist knapp zu schlecht, das große zu teuer.",
+        "*Die Mitte fühlt sich nach einer vernünftigen Wahl an.* Genau dafür wurde sie gebaut."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "3. „Nur noch heute“",
+      "absaetze": [
+        "Ein Countdown, eine Frist, „nur noch 2 auf Lager“.",
+        "Zeitdruck schaltet das Vergleichen ab. Frag dich: Wäre es morgen ein schlechter Kauf?"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "4. Das kleine Ja zuerst",
+      "absaetze": [
+        "Erst eine Gratisprobe, ein Newsletter, ein Klick auf „interessiert mich“.",
+        "Wer einmal Ja gesagt hat, sagt leichter ein zweites Mal Ja."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "5. Der Preis in Raten",
+      "absaetze": [
+        "„Nur 1,50 € am Tag“ klingt nach Kaffee. Im Jahr sind es über 500 €.",
+        "**Rechne jeden Monatspreis aufs Jahr hoch, bevor du zustimmst.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Die Gegenfrage für alles",
+      "absaetze": [
+        "Würde ich das kaufen, wenn es allein dastünde? Ohne Vergleich, ohne Frist, ohne Rate?",
+        "*Wenn ja: gut. Wenn du zögerst, hat der Trick gewirkt.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Keiner dieser Tricks ist verboten, und keiner macht dich dumm. Sie wirken auf alle, gerade deshalb lohnt es sich, sie zu kennen.\n\nWelchen hast du zuletzt bemerkt, nachdem es schon zu spät war?",
+  "hashtags": [
+    "Konsum",
+    "Verkaufstricks",
+    "Geld",
+    "Manipulation",
+    "Alltag"
+  ],
+  "quellen": [],
+  "nicht_vor": "2026-11-29T06:00:00Z"
+}
