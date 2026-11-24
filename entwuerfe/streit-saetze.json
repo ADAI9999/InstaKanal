@@ -1,0 +1,82 @@
+{
+  "typ": "saetze",
+  "design": "nacht",
+  "bildstil": "gegenstand",
+  "nicht_vor": "2026-11-25T06:00:00Z",
+  "thema": "Sätze, die Streit beenden statt gewinnen",
+  "titel": "Manche Streits gewinnt man. Die guten beendet man. Sieben Sätze dafür.",
+  "aufhaenger": "Merk sie dir, bevor du sie brauchst.",
+  "bildidee": "Two coffee mugs on a small kitchen table at night, one mug slightly pushed across the table towards the other. A single warm pendant lamp lights the table, the rest of the kitchen in soft darkness. No people.",
+  "bilder_auf_jeder_seite": false,
+  "seiten": [
+    {
+      "ueberschrift": "„Ich will dich verstehen, nicht besiegen.“",
+      "absaetze": [
+        "Sag ihn, wenn ihr nur noch Punkte sammelt. Er dreht die Richtung des Gesprächs."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Was genau hat dich daran verletzt?“",
+      "absaetze": [
+        "Er fragt nach dem Kern statt nach dem Vorwurf. Oft geht es um etwas anderes als das, worüber ihr gerade streitet."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Da hast du recht.“",
+      "absaetze": [
+        "Auch wenn es nur in einem Punkt stimmt: Sag es laut.",
+        "**Wer etwas zugibt, macht es dem anderen leichter, auch etwas zuzugeben.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Ich brauche zehn Minuten. Dann reden wir weiter.“",
+      "absaetze": [
+        "Eine Pause ist kein Weglaufen, wenn du sagst, wann du wiederkommst. *Und dann wirklich wiederkommst.*"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Mir ist das wichtig, weil …“",
+      "absaetze": [
+        "Sag nicht, was der andere falsch macht. Sag, was für dich daran hängt.",
+        "Gegen ein Bedürfnis kann man schlecht argumentieren."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Was würde dir jetzt helfen?“",
+      "absaetze": [
+        "Manchmal will der andere keine Lösung, sondern gehört werden. Die Frage klärt das in einem Satz."
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "„Es tut mir leid, dass ich laut geworden bin.“",
+      "absaetze": [
+        "Entschuldige dich für deinen Teil. Ohne „aber“.",
+        "**Ein „aber“ streicht alles, was davor kam.**"
+      ],
+      "bildidee": ""
+    },
+    {
+      "ueberschrift": "Ein Satz fehlt mit Absicht",
+      "absaetze": [
+        "„Beruhig dich.“",
+        "*Er hat noch keinen Streit beruhigt.*"
+      ],
+      "bildidee": ""
+    }
+  ],
+  "caption": "Im Streit fallen einem die richtigen Sätze selten ein. Deshalb hilft es, ein paar davon schon vorher zu kennen.\n\nKeiner davon ist ein Trick. Jeder sagt nur ehrlich, worum es dir geht.\n\nWelcher Satz fällt dir im Streit am schwersten?",
+  "hashtags": [
+    "Streit",
+    "Beziehungen",
+    "Kommunikation",
+    "Partnerschaft",
+    "Persönlichkeitsentwicklung"
+  ],
+  "quellen": []
+}

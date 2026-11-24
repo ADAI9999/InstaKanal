@@ -47,7 +47,8 @@ async function main() {
     return;
   }
   // Zurückgestellte Beiträge kommen erst nach allen anderen an die Reihe.
-  const alle = ladePosts().filter((p) => !p.veroeffentlicht);
+  // "nicht_vor" (ISO-Zeit) hält einen Beitrag bis zu diesem Zeitpunkt zurück, z. B. vorgeschriebene Beiträge für morgen.
+  const alle = ladePosts().filter((p) => !p.veroeffentlicht && (wunsch || !p.nicht_vor || new Date(p.nicht_vor) <= new Date()));
   const offen = [...alle.filter((p) => !p.zurueckgestellt), ...alle.filter((p) => p.zurueckgestellt)];
   const post = wunsch ? offen.find((p) => p.id === wunsch || p.id.includes(wunsch)) : offen[0];
   if (wunsch && !post) throw new Error(`Kein freigegebener, ungeposteter Beitrag passt zu „${wunsch}“.`);
